@@ -1,0 +1,26 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+export interface Ingredient {
+  id: number;
+  name: string;
+  sanskritName: string;
+  emoji: string;
+  tag: string;
+  description: string;
+  originPlace: string;
+  displayOrder: number;
+  benefits: string[];
+}
+
+@Injectable({ providedIn: 'root' })
+export class IngredientService {
+  private readonly apiUrl = '/api/ingredients';
+
+  constructor(private http: HttpClient) {}
+
+  getAll(): Observable<Ingredient[]> {
+    return this.http.get<Ingredient[]>(this.apiUrl);
+  }
+}
