@@ -13,7 +13,7 @@ export interface SiteConfig {
 
 @Injectable({ providedIn: 'root' })
 export class SiteConfigService {
-  private readonly apiUrl = '/api/config/public';
+  private readonly apiUrl = 'https://vedrithm-backend-1.onrender.com/api/config/public';
   private config$ = new BehaviorSubject<SiteConfig>(this.defaults());
 
   constructor(private http: HttpClient) {}
@@ -41,7 +41,7 @@ export class SiteConfigService {
 
   private defaults(): SiteConfig {
     return {
-      whatsappNumber: '919999999999',
+      whatsappNumber: '919867368847',
       brandTagline: 'Ancient Ayurvedic wisdom for modern hair care',
       heroTitle: 'Rooted in Nature. Nourished by Vedas.',
       heroSubtitle: 'A sacred blend of 8 time-honoured Ayurvedic herbs, cold-pressed to restore your hair\'s natural vitality.',

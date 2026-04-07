@@ -19,7 +19,7 @@ export interface QuizResponse {
 
 @Injectable({ providedIn: 'root' })
 export class QuizService {
-  private apiUrl = '/api/quiz';
+  private apiUrl = 'https://vedrithm-backend-1.onrender.com/api/quiz';
 
   constructor(private http: HttpClient) {}
 

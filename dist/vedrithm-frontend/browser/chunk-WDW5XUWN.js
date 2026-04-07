@@ -1,0 +1,1 @@
+import{Db as n,O as r,T as e}from"./chunk-TIJLWZSK.js";var s=(()=>{class t{constructor(i){this.http=i,this.apiUrl="https://vedrithm-backend-1.onrender.com/api/ingredients"}getAll(){return this.http.get(this.apiUrl)}static{this.\u0275fac=function(o){return new(o||t)(e(n))}}static{this.\u0275prov=r({token:t,factory:t.\u0275fac,providedIn:"root"})}}return t})();export{s as a};
