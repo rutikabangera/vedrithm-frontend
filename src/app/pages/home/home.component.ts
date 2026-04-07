@@ -58,8 +58,8 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
           </div>
           <div class="product-badge">
             <span class="badge-inner">
-              <span class="badge-top">100 ml</span>
-              <span class="badge-bot">Pure Oil</span>
+              <span class="badge-top">Nature's</span>
+              <span class="badge-bot">Secret</span>
             </span>
           </div>
         </div>
@@ -114,7 +114,7 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
             </div>
             <div class="story-ornament">
               <div class="ornament-circle">
-                <span class="ornament-text">Since<br/>Ancient<br/>Times</span>
+                <span class="ornament-text">Nature's<br/>Secret</span>
               </div>
             </div>
           </div>

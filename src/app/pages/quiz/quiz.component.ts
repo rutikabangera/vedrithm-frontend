@@ -141,7 +141,7 @@ interface QuizResult {
                 <p>{{ result.recommendation }}</p>
               </div>
 
-              <div class="result-ingredients">
+              <div class="result-ingredients" *ngIf="result.keyIngredients?.length">
                 <h3>Key Ingredients For You</h3>
                 <div class="result-ingr-list">
                   <div class="result-ingr" *ngFor="let ing of result.keyIngredients">
@@ -284,7 +284,8 @@ export class QuizComponent implements OnInit {
         { label: 'Oily Scalp', value: 'oily', emoji: '💧' },
         { label: 'Dry & Itchy', value: 'dry', emoji: '🌵' },
         { label: 'Balanced / Normal', value: 'normal', emoji: '✅' },
-        { label: 'Dandruff-prone', value: 'dandruff', emoji: '❄️' }
+        { label: 'Dandruff-prone', value: 'dandruff', emoji: '❄️' },
+        
       ]
     },
     {
@@ -297,7 +298,8 @@ export class QuizComponent implements OnInit {
         { label: 'Frizz & Dryness', value: 'frizz', emoji: '⚡' },
         { label: 'Premature Greying', value: 'greying', emoji: '⬜' },
         { label: 'Dandruff', value: 'dandruff', emoji: '❄️' },
-        { label: 'Dull & Lifeless Hair', value: 'dull', emoji: '🌫️' }
+        { label: 'Dull & Lifeless Hair', value: 'dull', emoji: '🌫️' },
+        { label: 'No Concern', value: 'healthy_hair', emoji: '😌' }
       ]
     },
     {
