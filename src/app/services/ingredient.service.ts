@@ -6,7 +6,10 @@ export interface Ingredient {
   id: number;
   name: string;
   sanskritName: string;
+  /** @deprecated Use imageSlug instead — kept for legacy compatibility */
   emoji: string;
+  /** Slug that maps to an inline SVG illustration, e.g. "coconut-oil" */
+  imageSlug: string;
   tag: string;
   description: string;
   originPlace: string;
