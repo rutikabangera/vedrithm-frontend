@@ -404,7 +404,8 @@ function getIllustration(name: string): string {
               <span class="card-num">{{ (i+1).toString().padStart(2,'0') }}</span>
 
               <!-- illustration -->
-              <div class="card-illus" [innerHTML]="getIllus(ing.name)"></div>
+             <!-- <div class="card-illus" [innerHTML]="getIllus(ing.name)"></div> -->
+             <div class="card-illus" [innerHTML]="getIllus(ing.imageSlug)"></div>
 
               <!-- metadata -->
               <div class="card-meta">
@@ -906,19 +907,22 @@ export class IngredientsComponent implements OnInit {
     this.load();
   }
 
-  load() {
-    this.loading = true;
-    this.error = false;
-    this.ingredientService.getAll().subscribe({
-      next: data => {
-        this.ingredients = data;
-        this.allTags = [...new Set(data.map(i => i.tag))].filter(Boolean);
-        this.loading = false;
-      },
-      error: () => { this.error = true; this.loading = false; }
-    });
-  }
+ load() {
+  this.loading = true;
+  this.error = false;
 
+  this.ingredientService.getAll().subscribe({
+    next: data => {
+      this.ingredients = data.map(({ emoji, ...rest }) => rest);
+      this.allTags = [...new Set(this.ingredients.map(i => i.tag))].filter(Boolean);
+      this.loading = false;
+    },
+    error: () => {
+      this.error = true;
+      this.loading = false;
+    }
+  });
+}
   get filteredIngredients(): Ingredient[] {
     if (!this.activeFilter) return this.ingredients;
     return this.ingredients.filter(i => i.tag === this.activeFilter);
@@ -928,7 +932,7 @@ export class IngredientsComponent implements OnInit {
     this.activeCard = this.activeCard === i ? null : i;
   }
 
-  getIllus(name: string): string {
-    return getIllustration(name);
-  }
+ getIllus(slug: string): string {
+  return INGREDIENT_ILLUSTRATIONS[slug] || GENERIC_BOTANICAL;
+}
 }
