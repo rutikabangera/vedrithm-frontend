@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { IngredientService, Ingredient } from '../../services/ingredient.service';
 import { SiteConfigService } from '../../services/site-config.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 // ─── Inline SVG illustrations per ingredient slug ──────────────────────────
 const INGREDIENT_ILLUSTRATIONS: Record<string, string> = {
@@ -897,9 +898,10 @@ export class IngredientsComponent implements OnInit {
   allTags: string[] = [];
 
   constructor(
-    private ingredientService: IngredientService,
-    private configService: SiteConfigService
-  ) {}
+  private ingredientService: IngredientService,
+  private configService: SiteConfigService,
+  private sanitizer: DomSanitizer
+) {}
 
   ngOnInit() {
     const num = this.configService.snapshot.whatsappNumber;
@@ -932,7 +934,8 @@ export class IngredientsComponent implements OnInit {
     this.activeCard = this.activeCard === i ? null : i;
   }
 
- getIllus(slug: string): string {
-  return INGREDIENT_ILLUSTRATIONS[slug] || GENERIC_BOTANICAL;
+getIllus(slug: string): SafeHtml {
+  const svg = INGREDIENT_ILLUSTRATIONS[slug] || GENERIC_BOTANICAL;
+  return this.sanitizer.bypassSecurityTrustHtml(svg);
 }
 }
