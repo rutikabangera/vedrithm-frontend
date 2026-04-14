@@ -935,9 +935,13 @@ export class IngredientsComponent implements OnInit {
   }
 
 getIllus(slug: string): SafeHtml {
+      console.log(`illustration found for slug: "${slug}"`); // ← add this
+
   if (!INGREDIENT_ILLUSTRATIONS[slug]) {
     console.log(`No illustration found for slug: "${slug}"`); // ← add this
   }
+        console.log(`illustration found for slug: "${slug}"`); // ← add this
+
   const svg = INGREDIENT_ILLUSTRATIONS[slug] || GENERIC_BOTANICAL;
   return this.sanitizer.bypassSecurityTrustHtml(svg);
 }
