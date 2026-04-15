@@ -69,6 +69,10 @@ interface QuizResult {
                            (keyup.enter)="tryNext()" />
                   </div>
                   <span class="field-hint" *ngIf="mobileError">{{ mobileError }}</span>
+                   <!-- ✅ New note -->
+  <span class="field-note">
+    We’ll only use your number to assist with your order and concerns — no spam, ever.
+  </span>
                 </div>
               </div>
              <button class="btn-primary" (click)="tryNext()"
@@ -175,6 +179,13 @@ interface QuizResult {
     </section>
   `,
   styles: [`
+    .field-note {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.7rem;
+  color: rgba(250, 244, 230, 0.45); /* subtle */
+  line-height: 1.4;
+}
     .quiz-hero { min-height: 38vh; display: flex; align-items: center; padding: 8rem 0 4rem; position: relative; text-align: center; overflow: hidden; }
     .quiz-hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(26,74,46,0.25) 0%, transparent 70%); }
     .quiz-hero .container { position: relative; z-index: 1; }

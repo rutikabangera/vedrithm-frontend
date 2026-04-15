@@ -71,13 +71,13 @@ function getIngredientImage(slug: string): string {
         </div>
       </div>
 
-      <!-- Hero decorative image -->
+      <!-- Hero decorative image 
       <div class="deco-plant dp1">
         <img src="assets/ingredients/promotes-growth.png" alt="" aria-hidden="true" />
       </div>
       <div class="deco-plant dp2">
         <img src="assets/ingredients/strengthens-roots.png" alt="" aria-hidden="true" />
-      </div>
+      </div>-->
     </section>
 
     <!-- ░░ FILTER STRIP ░░ -->

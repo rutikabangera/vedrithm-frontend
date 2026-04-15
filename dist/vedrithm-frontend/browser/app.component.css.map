@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;8df0bb16dbe7ce4d461472b21f20a407ae51c357bcacbf407ab207571fe524de;D:/web3/vedrithm/frontend/src/app/app.component.ts"],
+  "sourcesContent": ["main { min-height: 100vh; }"],
+  "mappings": ";AAAA;AAAO,cAAY;AAAO;",
+  "names": []
+}

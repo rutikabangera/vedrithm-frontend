@@ -14,10 +14,10 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
     <section class="hero">
       <div class="hero-bg">
         <div class="hero-deco-images">
-          <img src="assets/ingredients/promotes-growth.png"    class="deco-img di1" aria-hidden="true" alt="" />
+         <!-- <img src="assets/ingredients/promotes-growth.png"    class="deco-img di1" aria-hidden="true" alt="" />
           <img src="assets/ingredients/strengthens-roots.png"  class="deco-img di2" aria-hidden="true" alt="" />
           <img src="assets/ingredients/locks-moisture.png"     class="deco-img di3" aria-hidden="true" alt="" />
-        </div>
+        --></div>
         <div class="hero-glow"></div>
       </div>
       <div class="hero-content container">
@@ -54,12 +54,12 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
           <div class="product-frame">
             <img src="assets/images/product.jpg" alt="Vedrithm Herbal Hair Oil" class="product-img" />
           </div>
-          <div class="product-badge">
+         <!-- <div class="product-badge">
             <span class="badge-inner">
               <span class="badge-top">Nature's</span>
               <span class="badge-bot">Secret</span>
             </span>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="scroll-hint">
@@ -138,11 +138,11 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
             <div class="story-img-frame">
               <img src="assets/images/logo.jpg" alt="Vedrithm Brand" class="story-logo-img" />
             </div>
-            <div class="story-ornament">
+           <!-- <div class="story-ornament">
               <div class="ornament-circle">
                 <span class="ornament-text">Nature's<br/>Secret</span>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="story-text-side">
             <span class="section-tag">Our Story</span>
@@ -257,12 +257,64 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
     .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--gold)); }
     .scroll-hint span { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
 
-    /* ── MARQUEE ── */
-    .marquee-strip { background: var(--forest-accent); border-top: 1px solid var(--border-gold); border-bottom: 1px solid var(--border-gold); padding: 0.85rem 0; overflow: hidden; }
-    .marquee-track { display: flex; white-space: nowrap; animation: marqueeScroll 25s linear infinite; }
-    .marquee-track span { font-family: var(--font-body); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); padding: 0 0.5rem; }
-    @keyframes marqueeScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+   /* ── MARQUEE ── */
+.marquee-strip {
+  position: relative;
+  background: var(--forest-accent);
+  border-top: 1px solid var(--border-gold);
+  border-bottom: 1px solid var(--border-gold);
+  padding: 0.85rem 0;
+  overflow: hidden;
 
+  /* ✨ Premium fade edges */
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 2rem;
+
+  /* 🚀 ultra smooth animation */
+  animation: marqueeScroll 28s linear infinite;
+
+  /* ⚡ performance boost */
+  will-change: transform;
+}
+
+.marquee-track span {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+
+  /* ✨ subtle glow */
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+/* Hover polish */
+.marquee-track span:hover {
+  opacity: 1;
+}
+
+/* 🎯 PERFECT LOOP */
+@keyframes marqueeScroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* 🧠 Pause on hover (premium UX) */
+.marquee-strip:hover .marquee-track {
+  animation-play-state: paused;
+}
     /* ── BENEFITS ── */
     .benefits { padding: 8rem 0; }
     .section-header { margin-bottom: 4rem; }
@@ -360,11 +412,13 @@ export class HomeComponent implements OnInit {
 
   marqueeItems = ['Coconut Oil','Hibiscus','Fenugreek','Amla','Bhringraj','Curry Leaves','Neem','Sesame','Pure Ayurveda','No Chemicals','Cold Pressed'];
 
+
+  marqueeLoop = [...this.marqueeItems, ...this.marqueeItems];
   // ✅ Pillars now use real uploaded images
   pillars = [
     {
       imgSrc: 'assets/ingredients/Infused.png',
-      title: 'Slowly Infused',
+      title: 'Slow Infused',
       desc: 'Preserving full potency of every herb'
     },
     {
