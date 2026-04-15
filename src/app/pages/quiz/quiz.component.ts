@@ -377,8 +377,8 @@ export class QuizComponent implements OnInit {
       lifestyle: this.answers['lifestyle']
     };
 
-    //this.http.post<QuizResult>('https://vedrithm-backend-1.onrender.com/api/quiz/recommend', payload).subscribe({
-    this.http.post<QuizResult>('http://localhost:8080/api/quiz/recommend', payload).subscribe({
+    this.http.post<QuizResult>('https://vedrithm-backend-1.onrender.com/api/quiz/recommend', payload).subscribe({
+    //this.http.post<QuizResult>('http://localhost:8080/api/quiz/recommend', payload).subscribe({
 
       next: res => { this.result = res; this.submitted = false; },
       error: () => {

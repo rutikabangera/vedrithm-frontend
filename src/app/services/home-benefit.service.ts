@@ -15,8 +15,8 @@ export class HomeBenefitService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<HomeBenefit[]> {
-    //return this.http.get<HomeBenefit[]>('https://vedrithm-backend-1.onrender.com/api/benefits');
-    return this.http.get<HomeBenefit[]>('http://localhost:8080/api/benefits');
+    return this.http.get<HomeBenefit[]>('https://vedrithm-backend-1.onrender.com/api/benefits');
+    //return this.http.get<HomeBenefit[]>('http://localhost:8080/api/benefits');
 
     
   }
