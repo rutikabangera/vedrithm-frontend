@@ -49,7 +49,7 @@ import { RouterLink } from '@angular/router';
       </div>
 
       <div class="footer-bottom">
-        <p>© 2024 Vedrithm. All rights reserved. | Made with 🌿 in India</p>
+        <p>© 2024 Vedrithm. All rights reserved. Rooted in Ayurveda, crafted in India.</p>
       </div>
     </footer>
   `,

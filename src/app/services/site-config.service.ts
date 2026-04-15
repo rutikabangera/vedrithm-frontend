@@ -13,7 +13,10 @@ export interface SiteConfig {
 
 @Injectable({ providedIn: 'root' })
 export class SiteConfigService {
-  private readonly apiUrl = 'https://vedrithm-backend-1.onrender.com/api/config/public';
+  //private readonly apiUrl = 'https://vedrithm-backend-1.onrender.com/api/config/public';
+
+    private readonly apiUrl = 'http://localhost:8080/api/config/public';
+
   private config$ = new BehaviorSubject<SiteConfig>(this.defaults());
 
   constructor(private http: HttpClient) {}

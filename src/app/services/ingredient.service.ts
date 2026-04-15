@@ -17,7 +17,9 @@ export interface Ingredient {
 
 @Injectable({ providedIn: 'root' })
 export class IngredientService {
-  private readonly apiUrl = 'https://vedrithm-backend-1.onrender.com/api/ingredients';
+  //private readonly apiUrl = 'https://vedrithm-backend-1.onrender.com/api/ingredients';
+
+  private readonly apiUrl = 'http://localhost:8080/api/ingredients';
 
   constructor(private http: HttpClient) {}
 
