@@ -18,12 +18,12 @@ import { CommonModule } from '@angular/common';
           <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="menuOpen=false">Home</a></li>
           <li><a routerLink="/ingredients" routerLinkActive="active" (click)="menuOpen=false">Ingredients</a></li>
           <li><a routerLink="/quiz" routerLinkActive="active" (click)="menuOpen=false">Find Your Oil</a></li>
-          <li>
-            <a href="https://wa.me/919999999999?text=Hi%2C%20I%20want%20to%20know%20more%20about%20Vedrithm%20Herbal%20Hair%20Oil"
+         <!-- <li>
+            <a href="https://wa.me/919867368847?text=Hi%2C%20I%20want%20to%20know%20more%20about%20Vedrithm%20Herbal%20Hair%20Oil"
                target="_blank" class="btn-nav-cta" (click)="menuOpen=false">
               Buy Now
             </a>
-          </li>
+          </li> -->
         </ul>
 
         <button class="hamburger" (click)="menuOpen=!menuOpen" [class.open]="menuOpen" aria-label="Menu">
