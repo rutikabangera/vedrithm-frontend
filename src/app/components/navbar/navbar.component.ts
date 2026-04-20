@@ -7,169 +7,59 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [RouterLink, RouterLinkActive, CommonModule],
   template: `
-    <nav [class.scrolled]="isScrolled" [class.menu-open]="menuOpen">
-      <div class="nav-inner">
-        <a routerLink="/" class="brand">
-          <img src="assets/images/logo.jpg" alt="Vedrithm Logo" class="brand-logo" />
-          <span class="brand-name">VEDRITHM</span>
+    <nav class="navbar" [class.scrolled]="scrolled" [class.menu-open]="menuOpen">
+      <div class="nav-container">
+        <a routerLink="/" class="nav-logo">
+          <img src="assets/images/logo.jpg" alt="Vedrithm" class="logo-img" />
+          <span class="logo-text">Vedrithm</span>
         </a>
 
-        <ul class="nav-links" [class.open]="menuOpen">
-          <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="menuOpen=false">Home</a></li>
-          <li><a routerLink="/ingredients" routerLinkActive="active" (click)="menuOpen=false">Ingredients</a></li>
-          <li><a routerLink="/quiz" routerLinkActive="active" (click)="menuOpen=false">Find Your Oil</a></li>
-         <!-- <li>
-            <a href="https://wa.me/919867368847?text=Hi%2C%20I%20want%20to%20know%20more%20about%20Vedrithm%20Herbal%20Hair%20Oil"
-               target="_blank" class="btn-nav-cta" (click)="menuOpen=false">
-              Buy Now
-            </a>
-          </li> -->
-        </ul>
+        <div class="nav-links" [class.open]="menuOpen">
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="closeMenu()">Home</a>
+          <a routerLink="/ingredients" routerLinkActive="active" (click)="closeMenu()">Ingredients</a>
+          <a routerLink="/quiz" routerLinkActive="active" (click)="closeMenu()">Hair Quiz</a>
+          <a routerLink="/reviews" routerLinkActive="active" (click)="closeMenu()">Reviews</a>
+          <a [href]="whatsappUrl" target="_blank" class="nav-whatsapp" (click)="closeMenu()">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order
+          </a>
+        </div>
 
-        <button class="hamburger" (click)="menuOpen=!menuOpen" [class.open]="menuOpen" aria-label="Menu">
+        <button class="hamburger" (click)="menuOpen = !menuOpen" [attr.aria-label]="menuOpen ? 'Close menu' : 'Open menu'">
           <span></span><span></span><span></span>
         </button>
       </div>
     </nav>
   `,
   styles: [`
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      padding: 1.5rem 2rem;
-      transition: all 0.4s ease;
-      background: transparent;
-    }
-    nav.scrolled {
-      background: rgba(5, 22, 16, 0.97);
-      backdrop-filter: blur(20px);
-      padding: 1rem 2rem;
-      border-bottom: 1px solid var(--border-gold);
-      box-shadow: 0 4px 30px rgba(0,0,0,0.4);
-    }
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      text-decoration: none;
-    }
-    .brand-logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
-      object-fit: cover;
-      border: 1px solid var(--border-gold);
-    }
-    .brand-name {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      font-weight: 600;
-      letter-spacing: 0.25em;
-      color: var(--gold);
-      background: linear-gradient(135deg, var(--gold-pale), var(--gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2.5rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-family: var(--font-body);
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(250, 244, 230, 0.75);
-      text-decoration: none;
-      transition: color 0.3s ease;
-      position: relative;
-      padding-bottom: 4px;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 1px;
-      background: var(--gold);
-      transition: width 0.3s ease;
-    }
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--gold);
-    }
-    .nav-links a:hover::after,
-    .nav-links a.active::after {
-      width: 100%;
-    }
-    .btn-nav-cta {
-      padding: 0.6rem 1.4rem !important;
-      background: linear-gradient(135deg, var(--gold), var(--gold-dark)) !important;
-      color: var(--deep-forest) !important;
-      border-radius: 2px;
-      font-weight: 700 !important;
-      letter-spacing: 0.1em !important;
-    }
-    .btn-nav-cta::after { display: none !important; }
-    .btn-nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 15px rgba(212,175,55,0.35); }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      padding: 4px;
-      cursor: pointer;
-    }
-    .hamburger span {
-      display: block;
-      width: 24px; height: 2px;
-      background: var(--gold);
-      border-radius: 1px;
-      transition: all 0.3s ease;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    @media (max-width: 768px) {
-      .hamburger { display: flex; }
-      .nav-links {
-        position: fixed;
-        top: 0; right: -100%;
-        width: 75%; max-width: 320px;
-        height: 100vh;
-        background: var(--forest-mid);
-        flex-direction: column;
-        justify-content: center;
-        gap: 2rem;
-        padding: 2rem;
-        border-left: 1px solid var(--border-gold);
-        transition: right 0.4s ease;
-      }
-      .nav-links.open { right: 0; }
-      .nav-links a { font-size: 1rem; }
+    .navbar { position:fixed; top:0; left:0; right:0; z-index:1000; padding:1.25rem 0; transition:all 0.4s ease; }
+    .navbar.scrolled { background:rgba(10,28,16,0.95); backdrop-filter:blur(20px); padding:0.85rem 0; border-bottom:1px solid var(--border-gold); }
+    .nav-container { max-width:1200px; margin:0 auto; padding:0 2rem; display:flex; align-items:center; gap:2rem; }
+    .nav-logo { display:flex; align-items:center; gap:0.75rem; text-decoration:none; }
+    .logo-img { width:36px; height:36px; border-radius:50%; object-fit:cover; border:1px solid var(--border-gold); }
+    .logo-text { font-family:var(--font-display); font-size:1.4rem; color:var(--cream); letter-spacing:0.05em; }
+    .nav-links { display:flex; align-items:center; gap:2.5rem; margin-left:auto; }
+    .nav-links a { font-size:0.78rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(250,244,230,0.65); transition:color 0.3s ease; text-decoration:none; }
+    .nav-links a:hover, .nav-links a.active { color:var(--cream); }
+    .nav-whatsapp { display:flex; align-items:center; gap:0.5rem; padding:0.55rem 1.25rem; border:1px solid rgba(37,211,102,0.4); border-radius:50px; color:rgba(37,211,102,0.9) !important; transition:all 0.3s ease !important; }
+    .nav-whatsapp:hover { background:rgba(37,211,102,0.12); border-color:rgba(37,211,102,0.7); color:#25d366 !important; }
+    .hamburger { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+    .hamburger span { display:block; width:22px; height:1.5px; background:var(--cream); transition:all 0.3s ease; }
+    @media (max-width:768px) {
+      .hamburger { display:flex; margin-left:auto; }
+      .nav-links { position:fixed; top:0; right:-100%; width:75%; max-width:300px; height:100vh; background:var(--deep-forest); border-left:1px solid var(--border-gold); flex-direction:column; align-items:flex-start; padding:5rem 2rem 2rem; gap:1.5rem; transition:right 0.4s ease; }
+      .nav-links.open { right:0; }
+      .nav-links a { font-size:0.9rem; }
     }
   `]
 })
 export class NavbarComponent {
-  isScrolled = false;
+  scrolled = false;
   menuOpen = false;
+  whatsappUrl = 'https://wa.me/919867368847?text=' + encodeURIComponent('Hi! I\'d like to order Vedrithm hair oil. Can you share more details?');
 
   @HostListener('window:scroll')
-  onScroll() {
-    this.isScrolled = window.scrollY > 60;
-  }
+  onScroll() { this.scrolled = window.scrollY > 50; }
+
+  closeMenu() { this.menuOpen = false; }
 }

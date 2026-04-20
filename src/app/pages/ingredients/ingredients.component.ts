@@ -4,40 +4,7 @@ import { RouterLink } from '@angular/router';
 import { IngredientService, Ingredient } from '../../services/ingredient.service';
 import { SiteConfigService } from '../../services/site-config.service';
 
-// ─── Image asset paths for ingredient cards ────────────────────────────────
-// Place all PNGs from the "ingredients" assets folder here.
-// The key matches ingredient.imageSlug from the backend.
-const INGREDIENT_IMAGES: Record<string, string> = {
- // 'sesame': 'assets/ingredients/sesame.png',
-  
-   'coconut-oil': 'assets/ingredients/coconut-oil.png',
-   'hibiscus':    'assets/ingredients/hibiscus.png',
-   'aloe-vera': 'assets/ingredients/aloe-vera.png',
-      'fenugreek': 'assets/ingredients/fenugreek.png',
-         'amla': 'assets/ingredients/amla.png',
-      'rosemary': 'assets/ingredients/rosemary.png',
-      'castor-oil': 'assets/ingredients/castor-oil.png',
-      'indian-nard': 'assets/ingredients/indian-nard.png',
-      'cinnamon': 'assets/ingredients/cinnamon.png',
-      'cloves': 'assets/ingredients/cloves.png',
-      'nigella-seeds': 'assets/ingredients/nigella-seeds.png',
-      'neem': 'assets/ingredients/neem.png',
-      'curry-leaves': 'assets/ingredients/curry-leaves.png',
-      'bhringraj': 'assets/ingredients/bhringraj.png',
-      'sesame': 'assets/ingredients/sesame.png'
-
-
-
-
-
-};
-
-// Fallback image (golden oil drop) used when no slug match is found
 const FALLBACK_IMAGE = 'assets/ingredients/locks-moisture.png';
-
-function getIngredientImage(slug: string): string {
-  return INGREDIENT_IMAGES[slug] || FALLBACK_IMAGE;
-}
 
 @Component({
   selector: 'app-ingredients',
@@ -51,7 +18,6 @@ function getIngredientImage(slug: string): string {
       <div class="hero-lines">
         <div class="h-line" *ngFor="let n of [1,2,3,4,5]"></div>
       </div>
-
       <div class="container hero-content">
         <div class="hero-eyebrow">
           <span class="eyebrow-gem"></span>
@@ -60,7 +26,7 @@ function getIngredientImage(slug: string): string {
         </div>
         <h1 class="hero-title">Our <em>Sacred</em><br>Ingredients</h1>
         <p class="hero-sub">
-          {{ ingredients.length || 8 }} time-honoured Ayurvedic herbs, each chosen for their unique ability
+          {{ ingredients.length }} time-honoured Ayurvedic herbs, each chosen for their unique ability
           to restore, protect and nourish your hair from root to tip.
         </p>
         <div class="hero-count-row">
@@ -70,22 +36,12 @@ function getIngredientImage(slug: string): string {
           </div>
         </div>
       </div>
-
-      <!-- Hero decorative image 
-      <div class="deco-plant dp1">
-        <img src="assets/ingredients/promotes-growth.png" alt="" aria-hidden="true" />
-      </div>
-      <div class="deco-plant dp2">
-        <img src="assets/ingredients/strengthens-roots.png" alt="" aria-hidden="true" />
-      </div>-->
     </section>
 
     <!-- ░░ FILTER STRIP ░░ -->
-    <div class="filter-strip" *ngIf="!loading && !error && allTags.length > 1">
+    <div class="filter-strip" *ngIf="allTags.length > 1">
       <div class="container filter-inner">
-        <button class="filter-pill"
-                [class.active]="activeFilter === ''"
-                (click)="activeFilter = ''">All</button>
+        <button class="filter-pill" [class.active]="activeFilter === ''" (click)="activeFilter = ''">All</button>
         <button class="filter-pill"
                 *ngFor="let t of allTags"
                 [class.active]="activeFilter === t"
@@ -96,62 +52,30 @@ function getIngredientImage(slug: string): string {
     <!-- ░░ MAIN GRID ░░ -->
     <section class="ingredients-section">
       <div class="container">
-
-        <!-- Loading -->
-        <div class="ingredients-grid" *ngIf="loading">
-          <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6,7,8]">
-            <div class="skel-img"></div>
-            <div class="skel-lines">
-              <div class="skel-line w70"></div>
-              <div class="skel-line w50"></div>
-              <div class="skel-line w90"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Error -->
-        <div class="error-state" *ngIf="error && !loading">
-          <div class="error-icon">
-            <img src="assets/ingredients/promotes-growth.png" alt="" style="width:80px;height:80px;opacity:0.3;" />
-          </div>
-          <p>Could not load ingredients. Please try again.</p>
-          <button class="btn-outline" (click)="load()">Retry</button>
-        </div>
-
-        <!-- Grid -->
-        <div class="ingredients-grid" *ngIf="!loading && !error">
+        <div class="ingredients-grid">
           <article class="ingredient-card"
                *ngFor="let ing of filteredIngredients; let i = index"
                [class.is-open]="activeCard === i"
                (click)="toggleCard(i)">
 
-            <!-- card top accent line -->
             <div class="card-accent"></div>
 
             <div class="card-front">
-              <!-- number badge -->
               <span class="card-num">{{ (i+1).toString().padStart(2,'0') }}</span>
 
-              <!-- ✅ Real ingredient image -->
               <div class="card-illus">
-                <img
-                  [src]="getImage(ing.imageSlug)"
-                  [alt]="ing.name"
-                  class="card-illus-img"
-                  loading="lazy"
-                  (error)="onImgError($event)"
-                />
+                <img [src]="'assets/ingredients/' + ing.imageSlug + '.png'"
+                     [alt]="ing.name" class="card-illus-img" loading="lazy"
+                     (error)="onImgError($event)" />
                 <div class="illus-glow"></div>
               </div>
 
-              <!-- metadata -->
               <div class="card-meta">
                 <div class="card-tag">{{ ing.tag }}</div>
                 <h3 class="card-name">{{ ing.name }}</h3>
                 <p class="card-sanskrit">{{ ing.sanskritName }}</p>
               </div>
 
-              <!-- expand toggle -->
               <div class="expand-row">
                 <span class="expand-label">{{ activeCard === i ? 'Close' : 'Discover' }}</span>
                 <div class="expand-icon" [class.rotated]="activeCard === i">
@@ -162,17 +86,14 @@ function getIngredientImage(slug: string): string {
               </div>
             </div>
 
-            <!-- expanded detail drawer -->
             <div class="card-drawer" [class.open]="activeCard === i">
               <p class="drawer-desc">{{ ing.description }}</p>
-
               <div class="drawer-benefits">
                 <div class="benefit-row" *ngFor="let b of ing.benefits">
                   <span class="benefit-gem">✦</span>
                   <span>{{ b }}</span>
                 </div>
               </div>
-
               <div class="drawer-origin" *ngIf="ing.originPlace">
                 <img src="assets/ingredients/SourcedLocally.png" alt="origin" class="origin-pin-img" />
                 <span>{{ ing.originPlace }}</span>
@@ -181,12 +102,11 @@ function getIngredientImage(slug: string): string {
 
           </article>
         </div>
-
       </div>
     </section>
 
     <!-- ░░ PROVENANCE BAND ░░ -->
-    <section class="provenance-band" *ngIf="!loading && !error">
+    <section class="provenance-band">
       <div class="container prov-inner">
         <div class="prov-text">
           <p class="prov-label">Our Promise</p>
@@ -224,373 +144,98 @@ function getIngredientImage(slug: string): string {
     </section>
   `,
   styles: [`
-    /* ── Reset / shared ── */
     .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-
-    /* ══════════════════════════════════════════
-       HERO
-    ══════════════════════════════════════════ */
-    .page-hero {
-      min-height: 80vh;
-      display: flex;
-      align-items: center;
-      padding: 10rem 0 6rem;
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-    }
-    .hero-noise {
-      position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-    }
-    .hero-radial {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 80% 80% at 50% 40%, rgba(26,74,46,0.45) 0%, transparent 70%);
-    }
-    .hero-lines {
-      position: absolute; inset: 0;
-      display: flex; justify-content: space-around;
-      pointer-events: none;
-    }
-    .h-line {
-      width: 1px; height: 100%;
-      background: linear-gradient(180deg, transparent 0%, rgba(212,175,55,0.06) 40%, transparent 100%);
-    }
+    .page-hero { min-height: 80vh; display: flex; align-items: center; padding: 10rem 0 6rem; position: relative; overflow: hidden; text-align: center; }
+    .hero-noise { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; }
+    .hero-radial { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 80% at 50% 40%, rgba(26,74,46,0.45) 0%, transparent 70%); }
+    .hero-lines { position: absolute; inset: 0; display: flex; justify-content: space-around; pointer-events: none; }
+    .h-line { width: 1px; height: 100%; background: linear-gradient(180deg, transparent 0%, rgba(212,175,55,0.06) 40%, transparent 100%); }
     .hero-content { position: relative; z-index: 2; }
-
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 0.75rem;
-      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
-      color: rgba(212,175,55,0.7); margin-bottom: 1.5rem;
-    }
-    .eyebrow-gem {
-      width: 4px; height: 4px; background: var(--gold);
-      border-radius: 50%; display: block;
-    }
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 7vw, 6rem); font-weight: 300;
-      color: var(--cream); line-height: 1.05;
-      margin-bottom: 1.5rem; letter-spacing: -0.01em;
-    }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.75rem; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(212,175,55,0.7); margin-bottom: 1.5rem; }
+    .eyebrow-gem { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; display: block; }
+    .hero-title { font-family: var(--font-display); font-size: clamp(3rem,7vw,6rem); font-weight: 300; color: var(--cream); line-height: 1.05; margin-bottom: 1.5rem; }
     .hero-title em { color: var(--gold); font-style: italic; }
-    .hero-sub {
-      max-width: 560px; margin: 0 auto 3rem;
-      font-size: 1rem; color: rgba(250,244,230,0.55); line-height: 1.85;
-    }
-    .hero-count-row {
-      display: inline-flex; gap: 3rem; padding: 1.25rem 2.5rem;
-      border: 1px solid var(--border-gold);
-      background: rgba(10,35,24,0.6); backdrop-filter: blur(12px);
-      border-radius: 4px;
-    }
+    .hero-sub { max-width: 560px; margin: 0 auto 3rem; font-size: 1rem; color: rgba(250,244,230,0.55); line-height: 1.85; }
+    .hero-count-row { display: inline-flex; gap: 3rem; padding: 1.25rem 2.5rem; border: 1px solid var(--border-gold); background: rgba(10,35,24,0.6); backdrop-filter: blur(12px); border-radius: 4px; }
     .hero-stat { display: flex; flex-direction: column; gap: 0.2rem; }
     .stat-num { font-family: var(--font-display); font-size: 1.8rem; color: var(--gold); line-height: 1; }
     .stat-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(212,175,55,0.5); }
-
-    /* ── Decorative floating images ── */
-    .deco-plant {
-      position: absolute; pointer-events: none;
-    }
-    .deco-plant img { width: 160px; height: 160px; object-fit: contain; opacity: 0.12; }
-    .dp1 { top: 5%; left: -1%; transform: rotate(-15deg) scale(1.4); }
-    .dp2 { bottom: 2%; right: -1%; transform: rotate(165deg) scale(1.4); }
-
-    /* ══════════════════════════════════════════
-       FILTER STRIP
-    ══════════════════════════════════════════ */
-    .filter-strip {
-      padding: 1.5rem 0;
-      border-bottom: 1px solid var(--border-gold);
-      background: rgba(10,35,24,0.8); backdrop-filter: blur(12px);
-      position: sticky; top: 0; z-index: 10;
-    }
+    .filter-strip { padding: 1.5rem 0; border-bottom: 1px solid var(--border-gold); background: rgba(10,35,24,0.8); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 10; }
     .filter-inner { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
-    .filter-pill {
-      padding: 0.35rem 1rem; border: 1px solid var(--border-gold);
-      background: transparent; color: rgba(212,175,55,0.6);
-      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
-      border-radius: 50px; cursor: pointer; transition: all 0.25s ease;
-    }
-    .filter-pill:hover, .filter-pill.active {
-      background: rgba(212,175,55,0.12); color: var(--gold);
-      border-color: rgba(212,175,55,0.5);
-    }
-
-    /* ══════════════════════════════════════════
-       GRID
-    ══════════════════════════════════════════ */
+    .filter-pill { padding: 0.35rem 1rem; border: 1px solid var(--border-gold); background: transparent; color: rgba(212,175,55,0.6); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 50px; cursor: pointer; transition: all 0.25s ease; }
+    .filter-pill:hover, .filter-pill.active { background: rgba(212,175,55,0.12); color: var(--gold); border-color: rgba(212,175,55,0.5); }
     .ingredients-section { padding: 5rem 0 8rem; }
-    .ingredients-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    /* Skeleton */
-    .skeleton-card {
-      background: var(--forest-mid); border: 1px solid var(--border-gold);
-      border-radius: 8px; padding: 2rem;
-      animation: skelPulse 1.8s ease-in-out infinite;
-    }
-    .skel-img { height: 140px; background: rgba(212,175,55,0.06); border-radius: 4px; margin-bottom: 1.5rem; }
-    .skel-lines { display: flex; flex-direction: column; gap: 0.5rem; }
-    .skel-line { height: 10px; background: rgba(212,175,55,0.06); border-radius: 4px; }
-    .w70 { width: 70%; } .w50 { width: 50%; } .w90 { width: 90%; }
-    @keyframes skelPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 0.9; } }
-
-    /* Error */
-    .error-state { text-align: center; padding: 5rem 2rem; }
-    .error-state p { color: rgba(250,244,230,0.5); margin-bottom: 1.5rem; }
-
-    /* ══ CARD ══ */
-    .ingredient-card {
-      position: relative;
-      background: linear-gradient(160deg, rgba(15,48,32,0.95) 0%, rgba(10,35,24,0.98) 100%);
-      border: 1px solid var(--border-gold);
-      border-radius: 8px; overflow: hidden; cursor: pointer;
-      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-    }
-    .ingredient-card:hover, .ingredient-card.is-open {
-      transform: translateY(-4px);
-      border-color: rgba(212,175,55,0.55);
-      box-shadow:
-        0 12px 50px rgba(0,0,0,0.5),
-        0 0 0 1px rgba(212,175,55,0.1),
-        0 0 40px rgba(212,175,55,0.08);
-    }
-    .card-accent {
-      position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
-      opacity: 0; transition: opacity 0.35s ease;
-    }
-    .ingredient-card:hover .card-accent,
-    .ingredient-card.is-open .card-accent { opacity: 1; }
-
+    .ingredients-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 1.5rem; }
+    .ingredient-card { position: relative; background: linear-gradient(160deg, rgba(15,48,32,0.95) 0%, rgba(10,35,24,0.98) 100%); border: 1px solid var(--border-gold); border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease; }
+    .ingredient-card:hover, .ingredient-card.is-open { transform: translateY(-4px); border-color: rgba(212,175,55,0.55); box-shadow: 0 12px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.1), 0 0 40px rgba(212,175,55,0.08); }
+    .card-accent { position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%); opacity: 0; transition: opacity 0.35s ease; }
+    .ingredient-card:hover .card-accent, .ingredient-card.is-open .card-accent { opacity: 1; }
     .card-front { padding: 2rem 2rem 1.5rem; }
-
-    .card-num {
-      position: absolute; top: 1.25rem; right: 1.5rem;
-      font-family: var(--font-display);
-      font-size: 3.5rem; font-weight: 700; line-height: 1;
-      color: rgba(212,175,55,0.05); user-select: none;
-    }
-
-    /* ── Image container ── */
-    .card-illus {
-      width: 100%; height: 160px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1.5rem; position: relative;
-    }
-    .card-illus-img {
-      width: 140px; height: 140px;
-      object-fit: contain;
-      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.55));
-      transition: transform 0.4s ease, filter 0.4s ease;
-    }
-    .ingredient-card:hover .card-illus-img {
-      transform: scale(1.08) translateY(-4px);
-      filter: drop-shadow(0 12px 32px rgba(212,175,55,0.25));
-    }
-    /* Golden halo beneath image */
-    .illus-glow {
-      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: 100px; height: 30px;
-      background: radial-gradient(ellipse, rgba(212,175,55,0.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
+    .card-num { position: absolute; top: 1.25rem; right: 1.5rem; font-family: var(--font-display); font-size: 3.5rem; font-weight: 700; line-height: 1; color: rgba(212,175,55,0.05); user-select: none; }
+    .card-illus { width: 100%; height: 160px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; position: relative; }
+    .card-illus-img { width: 140px; height: 140px; object-fit: contain; filter: drop-shadow(0 8px 24px rgba(0,0,0,0.55)); transition: transform 0.4s ease, filter 0.4s ease; }
+    .ingredient-card:hover .card-illus-img { transform: scale(1.08) translateY(-4px); filter: drop-shadow(0 12px 32px rgba(212,175,55,0.25)); }
+    .illus-glow { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 100px; height: 30px; background: radial-gradient(ellipse, rgba(212,175,55,0.18) 0%, transparent 70%); pointer-events: none; }
     .card-meta { margin-bottom: 1.25rem; }
-    .card-tag {
-      display: inline-block; padding: 0.2rem 0.65rem;
-      background: rgba(212,175,55,0.08); border: 1px solid var(--border-gold);
-      border-radius: 50px; font-size: 0.66rem; letter-spacing: 0.14em;
-      text-transform: uppercase; color: rgba(212,175,55,0.65); margin-bottom: 0.5rem;
-    }
-    .card-name {
-      font-family: var(--font-display); font-size: 1.55rem; font-weight: 400;
-      color: var(--gold); margin-bottom: 0.15rem; letter-spacing: 0.01em;
-    }
-    .card-sanskrit {
-      font-family: var(--font-display); font-style: italic;
-      font-size: 0.82rem; color: rgba(212,175,55,0.4);
-    }
-    .expand-row {
-      display: flex; align-items: center; gap: 0.45rem;
-      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(212,175,55,0.5);
-      border-top: 1px solid rgba(212,175,55,0.1);
-      padding-top: 1rem; transition: color 0.25s;
-    }
+    .card-tag { display: inline-block; padding: 0.2rem 0.65rem; background: rgba(212,175,55,0.08); border: 1px solid var(--border-gold); border-radius: 50px; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(212,175,55,0.65); margin-bottom: 0.5rem; }
+    .card-name { font-family: var(--font-display); font-size: 1.55rem; font-weight: 400; color: var(--gold); margin-bottom: 0.15rem; }
+    .card-sanskrit { font-family: var(--font-display); font-style: italic; font-size: 0.82rem; color: rgba(212,175,55,0.4); }
+    .expand-row { display: flex; align-items: center; gap: 0.45rem; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(212,175,55,0.5); border-top: 1px solid rgba(212,175,55,0.1); padding-top: 1rem; transition: color 0.25s; }
     .ingredient-card:hover .expand-row { color: rgba(212,175,55,0.8); }
-    .expand-icon {
-      display: flex; align-items: center; justify-content: center;
-      width: 20px; height: 20px;
-      border: 1px solid rgba(212,175,55,0.3); border-radius: 50%;
-      transition: transform 0.35s ease, border-color 0.25s;
-    }
+    .expand-icon { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border: 1px solid rgba(212,175,55,0.3); border-radius: 50%; transition: transform 0.35s ease, border-color 0.25s; }
     .expand-icon.rotated { transform: rotate(180deg); border-color: rgba(212,175,55,0.6); }
-
-    /* drawer */
-    .card-drawer {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
-      border-top: 0px solid transparent;
-    }
-    .card-drawer.open {
-      max-height: 500px;
-      border-top: 1px solid rgba(212,175,55,0.12);
-    }
-    .drawer-desc {
-      font-size: 0.84rem; color: rgba(250,244,230,0.6); line-height: 1.85;
-      padding: 1.25rem 2rem 0.75rem;
-    }
+    .card-drawer { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1); border-top: 0px solid transparent; }
+    .card-drawer.open { max-height: 500px; border-top: 1px solid rgba(212,175,55,0.12); }
+    .drawer-desc { font-size: 0.84rem; color: rgba(250,244,230,0.6); line-height: 1.85; padding: 1.25rem 2rem 0.75rem; }
     .drawer-benefits { padding: 0 2rem 1rem; }
-    .benefit-row {
-      display: flex; gap: 0.6rem; align-items: flex-start;
-      font-size: 0.81rem; color: rgba(250,244,230,0.65);
-      padding: 0.3rem 0; border-bottom: 1px solid rgba(212,175,55,0.06);
-    }
+    .benefit-row { display: flex; gap: 0.6rem; align-items: flex-start; font-size: 0.81rem; color: rgba(250,244,230,0.65); padding: 0.3rem 0; border-bottom: 1px solid rgba(212,175,55,0.06); }
     .benefit-row:last-child { border-bottom: none; }
     .benefit-gem { color: var(--gold); flex-shrink: 0; font-size: 0.65rem; margin-top: 0.2rem; }
-    .drawer-origin {
-      display: flex; align-items: center; gap: 0.6rem;
-      padding: 0.75rem 2rem 1.25rem;
-      border-top: 1px solid rgba(212,175,55,0.1);
-      font-size: 0.8rem; color: rgba(212,175,55,0.6);
-      font-family: var(--font-display); font-style: italic;
-    }
-    .origin-pin-img {
-      width: 22px; height: 22px; object-fit: contain; flex-shrink: 0;
-      filter: drop-shadow(0 2px 6px rgba(212,175,55,0.3));
-    }
-
-    /* ══════════════════════════════════════════
-       PROVENANCE BAND
-    ══════════════════════════════════════════ */
-    .provenance-band {
-      padding: 7rem 0;
-      background: var(--forest-mid);
-      border-top: 1px solid var(--border-gold);
-      border-bottom: 1px solid var(--border-gold);
-    }
-    .prov-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
-    }
-    .prov-label {
-      font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
-      color: rgba(212,175,55,0.5); margin-bottom: 1rem;
-    }
-    .prov-title {
-      font-family: var(--font-display); font-size: clamp(2rem,4vw,3.2rem);
-      font-weight: 300; color: var(--cream); line-height: 1.2; margin-bottom: 1.5rem;
-    }
+    .drawer-origin { display: flex; align-items: center; gap: 0.6rem; padding: 0.75rem 2rem 1.25rem; border-top: 1px solid rgba(212,175,55,0.1); font-size: 0.8rem; color: rgba(212,175,55,0.6); font-family: var(--font-display); font-style: italic; }
+    .origin-pin-img { width: 22px; height: 22px; object-fit: contain; flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(212,175,55,0.3)); }
+    .provenance-band { padding: 7rem 0; background: var(--forest-mid); border-top: 1px solid var(--border-gold); border-bottom: 1px solid var(--border-gold); }
+    .prov-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .prov-label { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(212,175,55,0.5); margin-bottom: 1rem; }
+    .prov-title { font-family: var(--font-display); font-size: clamp(2rem,4vw,3.2rem); font-weight: 300; color: var(--cream); line-height: 1.2; margin-bottom: 1.5rem; }
     .prov-title em { color: var(--gold); font-style: italic; }
     .prov-body { font-size: 0.9rem; color: rgba(250,244,230,0.55); line-height: 1.9; }
-    .prov-pillars {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-    }
-    .prov-pillar {
-      display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
-      padding: 2rem 1rem;
-      border: 1px solid var(--border-gold); border-radius: 6px;
-      background: rgba(10,35,24,0.6); text-align: center;
-      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
-      color: rgba(212,175,55,0.6);
-      transition: all 0.3s ease;
-    }
-    .prov-pillar:hover {
-      background: rgba(212,175,55,0.05);
-      border-color: rgba(212,175,55,0.4);
-      transform: translateY(-3px);
-    }
-    .pillar-img-wrap {
-      width: 72px; height: 72px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .pillar-img {
-      width: 72px; height: 72px; object-fit: contain;
-      filter: drop-shadow(0 4px 12px rgba(212,175,55,0.25));
-      transition: transform 0.3s ease, filter 0.3s ease;
-    }
-    .prov-pillar:hover .pillar-img {
-      transform: scale(1.1);
-      filter: drop-shadow(0 6px 18px rgba(212,175,55,0.45));
-    }
-
-    /* ══════════════════════════════════════════
-       BOTTOM CTA
-    ══════════════════════════════════════════ */
-    .bottom-cta {
-      padding: 8rem 0; position: relative; overflow: hidden;
-      background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(26,74,46,0.2) 0%, transparent 70%);
-    }
-    .cta-noise {
-      position: absolute; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-    }
+    .prov-pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .prov-pillar { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 2rem 1rem; border: 1px solid var(--border-gold); border-radius: 6px; background: rgba(10,35,24,0.6); text-align: center; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(212,175,55,0.6); transition: all 0.3s ease; }
+    .prov-pillar:hover { background: rgba(212,175,55,0.05); border-color: rgba(212,175,55,0.4); transform: translateY(-3px); }
+    .pillar-img-wrap { width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; }
+    .pillar-img { width: 72px; height: 72px; object-fit: contain; filter: drop-shadow(0 4px 12px rgba(212,175,55,0.25)); transition: transform 0.3s ease, filter 0.3s ease; }
+    .prov-pillar:hover .pillar-img { transform: scale(1.1); filter: drop-shadow(0 6px 18px rgba(212,175,55,0.45)); }
+    .bottom-cta { padding: 8rem 0; position: relative; overflow: hidden; background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(26,74,46,0.2) 0%, transparent 70%); }
+    .cta-noise { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E"); }
     .cta-inner { position: relative; z-index: 1; text-align: center; max-width: 620px; margin: 0 auto; }
-    .cta-eyebrow {
-      display: inline-block; font-size: 0.68rem; letter-spacing: 0.22em;
-      text-transform: uppercase; color: rgba(212,175,55,0.55); margin-bottom: 1rem;
-    }
-    .cta-title {
-      font-family: var(--font-display); font-size: clamp(2.2rem,5vw,3.8rem);
-      font-weight: 300; color: var(--cream); line-height: 1.15; margin-bottom: 1.25rem;
-    }
+    .cta-eyebrow { display: inline-block; font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(212,175,55,0.55); margin-bottom: 1rem; }
+    .cta-title { font-family: var(--font-display); font-size: clamp(2.2rem,5vw,3.8rem); font-weight: 300; color: var(--cream); line-height: 1.15; margin-bottom: 1.25rem; }
     .cta-title em { color: var(--gold); font-style: italic; }
     .cta-inner p { font-size: 0.95rem; color: rgba(250,244,230,0.5); line-height: 1.8; margin-bottom: 2.5rem; }
     .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-    /* ══════════════════════════════════════════
-       RESPONSIVE
-    ══════════════════════════════════════════ */
-    @media (max-width: 900px) {
-      .prov-inner { grid-template-columns: 1fr; gap: 3rem; }
-    }
-    @media (max-width: 640px) {
-      .ingredients-grid { grid-template-columns: 1fr; }
-      .hero-count-row { gap: 1.5rem; padding: 1rem 1.5rem; }
-      .prov-pillars { grid-template-columns: 1fr 1fr; }
-    }
+    @media (max-width: 900px) { .prov-inner { grid-template-columns: 1fr; gap: 3rem; } }
+    @media (max-width: 640px) { .ingredients-grid { grid-template-columns: 1fr; } .hero-count-row { gap: 1.5rem; padding: 1rem 1.5rem; } .prov-pillars { grid-template-columns: 1fr 1fr; } }
   `]
 })
 export class IngredientsComponent implements OnInit {
   ingredients: Ingredient[] = [];
   activeCard: number | null = null;
   activeFilter = '';
-  loading = true;
-  error = false;
+  allTags: string[] = [];
   whatsappUrl = '';
 
   heroStats = [
-    { num: '15',    label: 'Sacred Herbs' },
+    { num: '12',   label: 'Sacred Herbs' },
     { num: '100%', label: 'Cold-Pressed' },
     { num: '0',    label: 'Chemicals' },
   ];
 
-  // ✅ Provenance pillars now use real uploaded images
   provPillars = [
-    {
-      label: 'Single-Origin Sourced',
-      imgSrc: 'assets/ingredients/SourcedLocally.png',
-    },
-    {
-      label: 'Cold-Pressed Within 48 hrs',
-      imgSrc: 'assets/ingredients/Infused.png',
-    },
-    {
-      label: 'No Synthetic Additives',
-      imgSrc: 'assets/ingredients/noChemicals.png',
-    },
-    {
-      label: 'Vedic Formulation',
-      imgSrc: 'assets/ingredients/VedicFormula.png',
-    },
+    { label: 'Single-Origin Sourced', imgSrc: 'assets/ingredients/SourcedLocally.png' },
+    { label: 'Cold-Pressed Within 48 hrs', imgSrc: 'assets/ingredients/Infused.png' },
+    { label: 'No Synthetic Additives', imgSrc: 'assets/ingredients/noChemicals.png' },
+    { label: 'Vedic Formulation', imgSrc: 'assets/ingredients/VedicFormula.png' },
   ];
-
-  allTags: string[] = [];
 
   constructor(
     private ingredientService: IngredientService,
@@ -600,22 +245,11 @@ export class IngredientsComponent implements OnInit {
   ngOnInit() {
     const num = this.configService.snapshot.whatsappNumber;
     this.whatsappUrl = `https://wa.me/${num}?text=Hi%2C%20I%20want%20to%20order%20Vedrithm%20Herbal%20Hair%20Oil`;
-    this.load();
-  }
 
-  load() {
-    this.loading = true;
-    this.error = false;
-    this.ingredientService.getAll().subscribe({
-      next: data => {
-        this.ingredients = data.map(({ emoji, ...rest }) => rest as Ingredient);
-        this.allTags = [...new Set(this.ingredients.map(i => i.tag))].filter(Boolean);
-        this.loading = false;
-      },
-      error: () => {
-        this.error = true;
-        this.loading = false;
-      }
+    // Returns instantly — static Observable
+    this.ingredientService.getAll().subscribe(data => {
+      this.ingredients = data;
+      this.allTags = [...new Set(data.map(i => i.tag))].filter(Boolean);
     });
   }
 
@@ -624,18 +258,10 @@ export class IngredientsComponent implements OnInit {
     return this.ingredients.filter(i => i.tag === this.activeFilter);
   }
 
-  toggleCard(i: number) {
-    this.activeCard = this.activeCard === i ? null : i;
-  }
+  toggleCard(i: number) { this.activeCard = this.activeCard === i ? null : i; }
 
-  /** Returns a real asset path for the ingredient image slug */
-  getImage(slug: string): string {
-    return getIngredientImage(slug);
-  }
-
-  /** Fallback to generic gold drop if image fails */
   onImgError(event: Event) {
     const img = event.target as HTMLImageElement;
-    img.src = FALLBACK_IMAGE;
+    if (img.src !== FALLBACK_IMAGE) img.src = FALLBACK_IMAGE;
   }
 }

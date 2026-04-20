@@ -14,6 +14,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/quiz/quiz.component').then(m => m.QuizComponent)
   },
   {
+    path: 'reviews',
+    loadComponent: () => import('./pages/reviews/reviews.component').then(m => m.ReviewsComponent)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

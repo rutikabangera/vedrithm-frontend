@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { WhatsappButtonComponent } from './components/whatsapp-button/whatsapp-button.component';
-import { SiteConfigService } from './services/site-config.service';
 
 @Component({
   selector: 'app-root',
@@ -17,12 +16,4 @@ import { SiteConfigService } from './services/site-config.service';
   `,
   styles: [`main { min-height: 100vh; }`]
 })
-export class AppComponent implements OnInit {
-  constructor(private configService: SiteConfigService) {}
-
-  ngOnInit() {
-    // Load site config from backend on app start
-    // All components subscribe to configService.stream for reactive updates
-    this.configService.load().subscribe();
-  }
-}
+export class AppComponent {}
