@@ -162,7 +162,7 @@ export class QuizService {
   }
 
   saveReview(review: { name: string; rating: number; text: string; productUsed?: string }): Observable<any> {
-    if (this.APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+    if (this.APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec') {
       console.warn('⚠️ Google Apps Script URL not set. Reviews will not be saved.');
       return of({ success: true });
     }
