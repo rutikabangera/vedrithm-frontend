@@ -177,10 +177,11 @@ const WHATSAPP_NUMBER = '919867368847'; // ← Update with your number
                 </div>
               </div>
             </div>
-            <div class="result-usage">
+
+             <div class="result-usage">
                 <div class="usage-icon">💡</div>
                 <div>
-                  <strong>Please note</strong>
+                  <strong>Usage Tip</strong>
                   <p>
 This blend is designed to support healthier hair and scalp over time — but consistency is key. Natural care works gradually, so visible improvements typically take 2–3 months of regular use. Pairing it with a balanced diet and healthy lifestyle will give you the best results.
 <br><br>
@@ -189,6 +190,7 @@ If your concerns are severe or persistent, it’s always a good idea to consult 
                 </div>
               </div>
             </div>
+            
 
             <!-- CTA -->
             <div class="result-cta">
