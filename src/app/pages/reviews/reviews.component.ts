@@ -242,7 +242,8 @@ const APPROVED_REVIEWS: Review[] = [
   `]
 })
 export class ReviewsComponent implements OnInit {
-  reviews: Review[] = APPROVED_REVIEWS;
+  //reviews: Review[] = APPROVED_REVIEWS;
+  reviews: Review[] = [];
   Math = Math;
 
   reviewForm = { name: '', rating: 0, text: '', productUsed: '' };
@@ -257,7 +258,26 @@ export class ReviewsComponent implements OnInit {
 
   constructor(private quizService: QuizService) {}
 
-  ngOnInit() {}
+  //ngOnInit() {}
+
+  ngOnInit() {
+  this.quizService.getReviews().subscribe(data => {
+    this.reviews = data.map(r => ({
+      ...r,
+      initials: this.getInitials(r.name)
+    }));
+  });
+}
+
+getInitials(name: string): string {
+  if (!name) return '';
+  
+  return name
+    .split(' ')
+    .map(n => n[0])
+    .join('')
+    .toUpperCase();
+}
 
   submitReview() {
     this.formError = '';

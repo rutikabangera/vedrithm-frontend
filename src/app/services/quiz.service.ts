@@ -186,4 +186,15 @@ export class QuizService {
       return of({ success: true }); // Don't block UX on review save failure
     }));
   }
+
+  getReviews(): Observable<any[]> {
+  return this.http.get<any[]>(
+    this.APPS_SCRIPT_URL + '?action=getReviews'
+  ).pipe(
+    catchError(err => {
+      console.error('Fetch reviews failed:', err);
+      return of([]);
+    })
+  );
+}
 }
