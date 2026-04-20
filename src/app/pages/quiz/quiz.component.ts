@@ -163,33 +163,33 @@ const WHATSAPP_NUMBER = '919867368847'; // ← Update with your number
               </span>
             </div>
 
-            <div class="result-body">
-              <div class="result-rec">
-                <h3>Why This Blend?</h3>
-                <p>{{ result.recommendation }}</p>
-              </div>
+           <div class="result-body">
+  <div class="result-rec">
+    <h3>Why This Blend?</h3>
+    <p>{{ result.recommendation }}</p>
+  </div>
 
-              <div class="result-usage">
-                <div class="usage-icon">💡</div>
-                <div>
-                  <strong>Usage Tip</strong>
-                  <p>{{ result.usageTip }}</p>
-                </div>
-              </div>
-            </div>
+  <div class="result-usage">
+    <div class="usage-icon">💡</div>
+    <div>
+      <strong>Usage Tip</strong>
+      <p>{{ result.usageTip }}</p>
+    </div>
+  </div>
+</div>
 
-             <div class="result-usage">
-                <div class="usage-icon">💡</div>
-                <div>
-                  <strong>Usage Tip</strong>
-                  <p>
-This blend is designed to support healthier hair and scalp over time — but consistency is key. Natural care works gradually, so visible improvements typically take 2–3 months of regular use. Pairing it with a balanced diet and healthy lifestyle will give you the best results.
-<br><br>
-If your concerns are severe or persistent, it’s always a good idea to consult a professional. And if you have known sensitivities, are pregnant, or undergoing medical treatment, we recommend checking with your doctor before use.
-</p>
-                </div>
-              </div>
-            </div>
+<!-- ✅ Separate block -->
+<div class="result-usage">
+  <div class="usage-icon">💡</div>
+  <div>
+    <strong>Please Note</strong>
+    <p>
+      This blend is designed to support healthier hair and scalp over time — but consistency is key. Natural care works gradually, so visible improvements typically take 2–3 months of regular use. Pairing it with a balanced diet and healthy lifestyle will give you the best results.
+      <br><br>
+      If your concerns are severe or persistent, it’s always a good idea to consult a professional. If you have known sensitivities, are pregnant, or undergoing medical treatment, we recommend checking with your doctor before use.
+    </p>
+  </div>
+</div>
             
 
             <!-- CTA -->
@@ -359,7 +359,7 @@ export class QuizComponent {
   get currentSingleStep() { return this.currentStep > 0 && this.currentStep <= this.singleSteps.length ? this.singleSteps[this.currentStep - 1] : null; }
   get hasNoConcern(): boolean { return this.selectedConcerns.includes('healthy_hair'); }
 
-  constructor(private quizService: QuizService) {}
+  constructor(private quizService: QuizService) { }
 
   setAnswer(key: string, value: string) { this.answers[key] = value; }
 
