@@ -148,18 +148,22 @@ const APPROVED_REVIEWS: Review[] = [
               <div class="form-group">
                 <label>Product Used</label>
                 <div class="select-wrap">
-                  <select class="form-input form-select" [(ngModel)]="reviewForm.productUsed">
+                  <select class="form-input form-select" [(ngModel)]="reviewForm.productUsedSelect" (ngModelChange)="onProductSelectChange($event)">
                     <option value="" disabled>Select your blend...</option>
                     <option value="Vedrithm Base Oil + Hair Growth Booster">Base Oil + Hair Growth Booster</option>
                     <option value="Vedrithm Base Oil + Dandruff Control Booster">Base Oil + Dandruff Control Booster</option>
                     <option value="Vedrithm Base Oil + Anti-Greying Booster">Base Oil + Anti-Greying Booster</option>
                     <option value="Vedrithm Base Oil + Moisture Seal Booster">Base Oil + Moisture Seal Booster</option>
                     <option value="Vedrithm Base Oil + Shine Revival Booster">Base Oil + Shine Revival Booster</option>
-                    <option value="Vedrithm Base Oil + Repair &amp; Restore Booster">Base Oil + Repair &amp; Restore Booster</option>
+                    <option value="Vedrithm Base Oil + Repair & Restore Booster">Base Oil + Repair &amp; Restore Booster</option>
                     <option value="Vedrithm Base Oil + Nourishment Booster">Base Oil + Nourishment Booster</option>
+                    <option value="__other__">Other — I'll type it in</option>
                   </select>
                   <span class="select-arrow">&#9662;</span>
                 </div>
+                <input *ngIf="showCustomProduct" type="text" class="form-input custom-product-input"
+                       placeholder="e.g. My custom blend..."
+                       [(ngModel)]="reviewForm.productUsed" />
               </div>
             </div>
 
@@ -240,6 +244,7 @@ const APPROVED_REVIEWS: Review[] = [
     .form-select { width:100%; appearance:none; -webkit-appearance:none; cursor:pointer; padding-right:2.5rem; }
     .form-select option { background:var(--forest-mid,#1a3a28); color:var(--cream,#faf4e6); }
     .select-arrow { position:absolute; right:1rem; top:50%; transform:translateY(-50%); color:var(--gold); font-size:0.9rem; pointer-events:none; }
+    .custom-product-input { margin-top:0.6rem; animation:fadeInUp 0.3s ease; }
     .form-textarea { resize:vertical; min-height:120px; }
     .char-count { position:absolute; bottom:-1.25rem; right:0; font-size:0.7rem; color:rgba(250,244,230,0.3); }
     .star-picker { display:flex; align-items:center; gap:0.25rem; }
@@ -261,7 +266,8 @@ export class ReviewsComponent implements OnInit {
   reviews: Review[] = [];
   Math = Math;
 
-  reviewForm = { name: '', rating: 0, text: '', productUsed: '' };
+  reviewForm = { name: '', rating: 0, text: '', productUsed: '', productUsedSelect: '' };
+  showCustomProduct = false;
   reviewSubmitted = false;
   submittingReview = false;
   formError = '';
@@ -294,6 +300,16 @@ getInitials(name: string): string {
     .toUpperCase();
 }
 
+  onProductSelectChange(value: string) {
+    if (value === '__other__') {
+      this.showCustomProduct = true;
+      this.reviewForm.productUsed = '';
+    } else {
+      this.showCustomProduct = false;
+      this.reviewForm.productUsed = value;
+    }
+  }
+
   submitReview() {
     this.formError = '';
     if (!this.reviewForm.name.trim()) { this.formError = 'Please enter your name.'; return; }
@@ -314,7 +330,8 @@ getInitials(name: string): string {
   }
 
   resetForm() {
-    this.reviewForm = { name: '', rating: 0, text: '', productUsed: '' };
+    this.reviewForm = { name: '', rating: 0, text: '', productUsed: '', productUsedSelect: '' };
+    this.showCustomProduct = false;
     this.reviewSubmitted = false;
     this.formError = '';
   }
