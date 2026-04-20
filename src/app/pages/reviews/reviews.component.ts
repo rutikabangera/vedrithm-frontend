@@ -147,8 +147,19 @@ const APPROVED_REVIEWS: Review[] = [
               </div>
               <div class="form-group">
                 <label>Product Used</label>
-                <input type="text" class="form-input" placeholder="e.g. Hair Fall Formula"
-                       [(ngModel)]="reviewForm.productUsed" />
+                <div class="select-wrap">
+                  <select class="form-input form-select" [(ngModel)]="reviewForm.productUsed">
+                    <option value="" disabled>Select your blend...</option>
+                    <option value="Vedrithm Base Oil + Hair Growth Booster">Base Oil + Hair Growth Booster</option>
+                    <option value="Vedrithm Base Oil + Dandruff Control Booster">Base Oil + Dandruff Control Booster</option>
+                    <option value="Vedrithm Base Oil + Anti-Greying Booster">Base Oil + Anti-Greying Booster</option>
+                    <option value="Vedrithm Base Oil + Moisture Seal Booster">Base Oil + Moisture Seal Booster</option>
+                    <option value="Vedrithm Base Oil + Shine Revival Booster">Base Oil + Shine Revival Booster</option>
+                    <option value="Vedrithm Base Oil + Repair &amp; Restore Booster">Base Oil + Repair &amp; Restore Booster</option>
+                    <option value="Vedrithm Base Oil + Nourishment Booster">Base Oil + Nourishment Booster</option>
+                  </select>
+                  <span class="select-arrow">&#9662;</span>
+                </div>
               </div>
             </div>
 
@@ -225,6 +236,10 @@ const APPROVED_REVIEWS: Review[] = [
     .form-input { background:var(--forest-light); border:1px solid var(--border-gold); border-radius:4px; padding:0.9rem 1.1rem; font-family:var(--font-body); font-size:0.92rem; color:var(--cream); outline:none; transition:border-color 0.3s ease; }
     .form-input::placeholder { color:rgba(250,244,230,0.3); }
     .form-input:focus { border-color:var(--gold); }
+    .select-wrap { position:relative; }
+    .form-select { width:100%; appearance:none; -webkit-appearance:none; cursor:pointer; padding-right:2.5rem; }
+    .form-select option { background:var(--forest-mid,#1a3a28); color:var(--cream,#faf4e6); }
+    .select-arrow { position:absolute; right:1rem; top:50%; transform:translateY(-50%); color:var(--gold); font-size:0.9rem; pointer-events:none; }
     .form-textarea { resize:vertical; min-height:120px; }
     .char-count { position:absolute; bottom:-1.25rem; right:0; font-size:0.7rem; color:rgba(250,244,230,0.3); }
     .star-picker { display:flex; align-items:center; gap:0.25rem; }
