@@ -106,7 +106,7 @@ export class QuizService {
 
   // ─── Replace this with YOUR Google Apps Script Web App URL ─────────────
   // See SETUP.md for instructions on how to create this
-  private readonly APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec';
+  private readonly APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBD4qAumQOYFqQnfh2wgxh2AK24I4law4MFo1GlHj2rirPvlZu1Ia68kFU1Lrx3uE79w/exec';
 
   constructor(private http: HttpClient) {}
 
