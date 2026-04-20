@@ -136,7 +136,7 @@ export class QuizService {
   }
 
   private saveToSheets(request: QuizRequest, recommendedProduct: string): Observable<any> {
-    if (this.APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+    if (this.APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec') {
       console.warn('⚠️ Google Apps Script URL not set. Quiz submissions will not be saved.');
       return of(null);
     }
