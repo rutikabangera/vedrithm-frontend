@@ -4837,11 +4837,11 @@ var routes = [
   },
   {
     path: "quiz",
-    loadComponent: () => import("./chunk-YS4VGXP6.js").then((m) => m.QuizComponent)
+    loadComponent: () => import("./chunk-3LBHJEYJ.js").then((m) => m.QuizComponent)
   },
   {
     path: "reviews",
-    loadComponent: () => import("./chunk-X5TZ423U.js").then((m) => m.ReviewsComponent)
+    loadComponent: () => import("./chunk-P5SKTKHN.js").then((m) => m.ReviewsComponent)
   },
   {
     path: "**",

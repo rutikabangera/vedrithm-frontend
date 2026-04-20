@@ -6258,8 +6258,7 @@ var QuizService = class _QuizService {
     return of(response);
   }
   saveToSheets(request, recommendedProduct) {
-    if (this.APPS_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec") {
-      console.warn("\u26A0\uFE0F Google Apps Script URL not set. Quiz submissions will not be saved.");
+    if (!this.APPS_SCRIPT_URL || this.APPS_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec") {
       return of(null);
     }
     const payload = {
@@ -6275,7 +6274,6 @@ var QuizService = class _QuizService {
     };
     return this.http.post(this.APPS_SCRIPT_URL, payload, {
       headers: { "Content-Type": "text/plain" }
-      // Required for CORS with Apps Script
     }).pipe(catchError((err) => {
       console.error("Sheet save failed:", err);
       return of(null);
@@ -6283,7 +6281,6 @@ var QuizService = class _QuizService {
   }
   saveReview(review) {
     if (this.APPS_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec") {
-      console.warn("\u26A0\uFE0F Google Apps Script URL not set. Reviews will not be saved.");
       return of({ success: true });
     }
     const payload = __spreadProps(__spreadValues({
@@ -6325,4 +6322,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-VJKXDGJA.js.map
+//# sourceMappingURL=chunk-55IE2KJL.js.map

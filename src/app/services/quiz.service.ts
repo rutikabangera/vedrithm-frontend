@@ -136,8 +136,11 @@ export class QuizService {
   }
 
   private saveToSheets(request: QuizRequest, recommendedProduct: string): Observable<any> {
-  if (!this.APPS_SCRIPT_URL || this.APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec') {
-    console.warn('⚠️ Google Apps Script URL not set. Quiz submissions will not be saved.');
+  //if (!this.APPS_SCRIPT_URL || this.APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec') {
+    //console.warn('⚠️ Google Apps Script URL not set. Quiz submissions will not be saved.');
+    if (!this.APPS_SCRIPT_URL){
+
+    
     return of(null);
   }
 
@@ -164,9 +167,10 @@ export class QuizService {
 }
 
   saveReview(review: { name: string; rating: number; text: string; productUsed?: string }): Observable<any> {
-    if (this.APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec') {
+    //if (this.APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec') {
      // console.warn('⚠️ Google Apps Script URL not set. Reviews will not be saved.');
-      return of({ success: true });
+     if (!this.APPS_SCRIPT_URL){ 
+     return of({ success: true });
     }
 
     const payload = {
