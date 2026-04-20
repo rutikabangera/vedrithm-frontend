@@ -1,15 +1,14 @@
 import {
   IngredientService
-} from "./chunk-QMFA6Q37.js";
+} from "./chunk-NLWRHQNA.js";
 import {
-  RouterLink
-} from "./chunk-F3IBTWQF.js";
+  RouterLink,
+  SiteConfigService
+} from "./chunk-SYUN4H56.js";
 import {
   CommonModule,
   NgForOf,
   NgIf,
-  SiteConfigService,
-  __objRest,
   ɵsetClassDebugInfo,
   ɵɵStandaloneFeature,
   ɵɵadvance,
@@ -33,22 +32,21 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵtextInterpolate1
-} from "./chunk-QU5HRPSL.js";
+} from "./chunk-O7KYMSXY.js";
 
 // src/app/pages/ingredients/ingredients.component.ts
 var _c0 = () => [1, 2, 3, 4, 5];
-var _c1 = () => [1, 2, 3, 4, 5, 6, 7, 8];
 function IngredientsComponent_div_4_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "div", 32);
+    \u0275\u0275element(0, "div", 35);
   }
 }
 function IngredientsComponent_div_20_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 33)(1, "span", 34);
+    \u0275\u0275elementStart(0, "div", 36)(1, "span", 37);
     \u0275\u0275text(2);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 35);
+    \u0275\u0275elementStart(3, "span", 38);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()();
   }
@@ -60,11 +58,11 @@ function IngredientsComponent_div_20_Template(rf, ctx) {
     \u0275\u0275textInterpolate(s_r1.label);
   }
 }
-function IngredientsComponent_div_25_button_4_Template(rf, ctx) {
+function IngredientsComponent_div_21_button_4_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 38);
-    \u0275\u0275listener("click", function IngredientsComponent_div_25_button_4_Template_button_click_0_listener() {
+    \u0275\u0275elementStart(0, "button", 41);
+    \u0275\u0275listener("click", function IngredientsComponent_div_21_button_4_Template_button_click_0_listener() {
       const t_r5 = \u0275\u0275restoreView(_r4).$implicit;
       const ctx_r2 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r2.activeFilter = t_r5);
@@ -80,18 +78,18 @@ function IngredientsComponent_div_25_button_4_Template(rf, ctx) {
     \u0275\u0275textInterpolate(t_r5);
   }
 }
-function IngredientsComponent_div_25_Template(rf, ctx) {
+function IngredientsComponent_div_21_Template(rf, ctx) {
   if (rf & 1) {
     const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 36)(1, "div", 37)(2, "button", 38);
-    \u0275\u0275listener("click", function IngredientsComponent_div_25_Template_button_click_2_listener() {
+    \u0275\u0275elementStart(0, "div", 39)(1, "div", 40)(2, "button", 41);
+    \u0275\u0275listener("click", function IngredientsComponent_div_21_Template_button_click_2_listener() {
       \u0275\u0275restoreView(_r2);
       const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.activeFilter = "");
     });
     \u0275\u0275text(3, "All");
     \u0275\u0275elementEnd();
-    \u0275\u0275template(4, IngredientsComponent_div_25_button_4_Template, 2, 3, "button", 39);
+    \u0275\u0275template(4, IngredientsComponent_div_21_button_4_Template, 2, 3, "button", 42);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
@@ -102,48 +100,9 @@ function IngredientsComponent_div_25_Template(rf, ctx) {
     \u0275\u0275property("ngForOf", ctx_r2.allTags);
   }
 }
-function IngredientsComponent_div_28_div_1_Template(rf, ctx) {
+function IngredientsComponent_article_25_div_25_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 42);
-    \u0275\u0275element(1, "div", 43);
-    \u0275\u0275elementStart(2, "div", 44);
-    \u0275\u0275element(3, "div", 45)(4, "div", 46)(5, "div", 47);
-    \u0275\u0275elementEnd()();
-  }
-}
-function IngredientsComponent_div_28_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 40);
-    \u0275\u0275template(1, IngredientsComponent_div_28_div_1_Template, 6, 0, "div", 41);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    \u0275\u0275advance();
-    \u0275\u0275property("ngForOf", \u0275\u0275pureFunction0(1, _c1));
-  }
-}
-function IngredientsComponent_div_29_Template(rf, ctx) {
-  if (rf & 1) {
-    const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 48)(1, "div", 49);
-    \u0275\u0275element(2, "img", 50);
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "p");
-    \u0275\u0275text(4, "Could not load ingredients. Please try again.");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "button", 51);
-    \u0275\u0275listener("click", function IngredientsComponent_div_29_Template_button_click_5_listener() {
-      \u0275\u0275restoreView(_r6);
-      const ctx_r2 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r2.load());
-    });
-    \u0275\u0275text(6, "Retry");
-    \u0275\u0275elementEnd()();
-  }
-}
-function IngredientsComponent_div_30_article_1_div_25_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 74)(1, "span", 75);
+    \u0275\u0275elementStart(0, "div", 64)(1, "span", 65);
     \u0275\u0275text(2, "\u2726");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "span");
@@ -151,178 +110,121 @@ function IngredientsComponent_div_30_article_1_div_25_Template(rf, ctx) {
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const b_r9 = ctx.$implicit;
+    const b_r8 = ctx.$implicit;
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(b_r9);
+    \u0275\u0275textInterpolate(b_r8);
   }
 }
-function IngredientsComponent_div_30_article_1_div_26_Template(rf, ctx) {
+function IngredientsComponent_article_25_div_26_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 76);
-    \u0275\u0275element(1, "img", 77);
+    \u0275\u0275elementStart(0, "div", 66);
+    \u0275\u0275element(1, "img", 67);
     \u0275\u0275elementStart(2, "span");
     \u0275\u0275text(3);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ing_r10 = \u0275\u0275nextContext().$implicit;
+    const ing_r9 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ing_r10.originPlace);
+    \u0275\u0275textInterpolate(ing_r9.originPlace);
   }
 }
-function IngredientsComponent_div_30_article_1_Template(rf, ctx) {
+function IngredientsComponent_article_25_Template(rf, ctx) {
   if (rf & 1) {
-    const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "article", 53);
-    \u0275\u0275listener("click", function IngredientsComponent_div_30_article_1_Template_article_click_0_listener() {
-      const i_r8 = \u0275\u0275restoreView(_r7).index;
-      const ctx_r2 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r2.toggleCard(i_r8));
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "article", 43);
+    \u0275\u0275listener("click", function IngredientsComponent_article_25_Template_article_click_0_listener() {
+      const i_r7 = \u0275\u0275restoreView(_r6).index;
+      const ctx_r2 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r2.toggleCard(i_r7));
     });
-    \u0275\u0275element(1, "div", 54);
-    \u0275\u0275elementStart(2, "div", 55)(3, "span", 56);
+    \u0275\u0275element(1, "div", 44);
+    \u0275\u0275elementStart(2, "div", 45)(3, "span", 46);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "div", 57)(6, "img", 58);
-    \u0275\u0275listener("error", function IngredientsComponent_div_30_article_1_Template_img_error_6_listener($event) {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r2 = \u0275\u0275nextContext(2);
+    \u0275\u0275elementStart(5, "div", 47)(6, "img", 48);
+    \u0275\u0275listener("error", function IngredientsComponent_article_25_Template_img_error_6_listener($event) {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r2 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r2.onImgError($event));
     });
     \u0275\u0275elementEnd();
-    \u0275\u0275element(7, "div", 59);
+    \u0275\u0275element(7, "div", 49);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(8, "div", 60)(9, "div", 61);
+    \u0275\u0275elementStart(8, "div", 50)(9, "div", 51);
     \u0275\u0275text(10);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(11, "h3", 62);
+    \u0275\u0275elementStart(11, "h3", 52);
     \u0275\u0275text(12);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(13, "p", 63);
+    \u0275\u0275elementStart(13, "p", 53);
     \u0275\u0275text(14);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(15, "div", 64)(16, "span", 65);
+    \u0275\u0275elementStart(15, "div", 54)(16, "span", 55);
     \u0275\u0275text(17);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(18, "div", 66);
+    \u0275\u0275elementStart(18, "div", 56);
     \u0275\u0275namespaceSVG();
-    \u0275\u0275elementStart(19, "svg", 67);
-    \u0275\u0275element(20, "path", 68);
+    \u0275\u0275elementStart(19, "svg", 57);
+    \u0275\u0275element(20, "path", 58);
     \u0275\u0275elementEnd()()()();
     \u0275\u0275namespaceHTML();
-    \u0275\u0275elementStart(21, "div", 69)(22, "p", 70);
+    \u0275\u0275elementStart(21, "div", 59)(22, "p", 60);
     \u0275\u0275text(23);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(24, "div", 71);
-    \u0275\u0275template(25, IngredientsComponent_div_30_article_1_div_25_Template, 5, 1, "div", 72);
+    \u0275\u0275elementStart(24, "div", 61);
+    \u0275\u0275template(25, IngredientsComponent_article_25_div_25_Template, 5, 1, "div", 62);
     \u0275\u0275elementEnd();
-    \u0275\u0275template(26, IngredientsComponent_div_30_article_1_div_26_Template, 4, 1, "div", 73);
+    \u0275\u0275template(26, IngredientsComponent_article_25_div_26_Template, 4, 1, "div", 63);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ing_r10 = ctx.$implicit;
-    const i_r8 = ctx.index;
-    const ctx_r2 = \u0275\u0275nextContext(2);
-    \u0275\u0275classProp("is-open", ctx_r2.activeCard === i_r8);
-    \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate((i_r8 + 1).toString().padStart(2, "0"));
-    \u0275\u0275advance(2);
-    \u0275\u0275property("src", ctx_r2.getImage(ing_r10.imageSlug), \u0275\u0275sanitizeUrl)("alt", ing_r10.name);
-    \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(ing_r10.tag);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ing_r10.name);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ing_r10.sanskritName);
-    \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ctx_r2.activeCard === i_r8 ? "Close" : "Discover");
-    \u0275\u0275advance();
-    \u0275\u0275classProp("rotated", ctx_r2.activeCard === i_r8);
-    \u0275\u0275advance(3);
-    \u0275\u0275classProp("open", ctx_r2.activeCard === i_r8);
-    \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ing_r10.description);
-    \u0275\u0275advance(2);
-    \u0275\u0275property("ngForOf", ing_r10.benefits);
-    \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ing_r10.originPlace);
-  }
-}
-function IngredientsComponent_div_30_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 40);
-    \u0275\u0275template(1, IngredientsComponent_div_30_article_1_Template, 27, 16, "article", 52);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
+    const ing_r9 = ctx.$implicit;
+    const i_r7 = ctx.index;
     const ctx_r2 = \u0275\u0275nextContext();
+    \u0275\u0275classProp("is-open", ctx_r2.activeCard === i_r7);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate((i_r7 + 1).toString().padStart(2, "0"));
+    \u0275\u0275advance(2);
+    \u0275\u0275property("src", "assets/ingredients/" + ing_r9.imageSlug + ".png", \u0275\u0275sanitizeUrl)("alt", ing_r9.name);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(ing_r9.tag);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ing_r9.name);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ing_r9.sanskritName);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r2.activeCard === i_r7 ? "Close" : "Discover");
     \u0275\u0275advance();
-    \u0275\u0275property("ngForOf", ctx_r2.filteredIngredients);
+    \u0275\u0275classProp("rotated", ctx_r2.activeCard === i_r7);
+    \u0275\u0275advance(3);
+    \u0275\u0275classProp("open", ctx_r2.activeCard === i_r7);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ing_r9.description);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngForOf", ing_r9.benefits);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ing_r9.originPlace);
   }
 }
-function IngredientsComponent_section_31_div_13_Template(rf, ctx) {
+function IngredientsComponent_div_39_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 86)(1, "div", 87);
-    \u0275\u0275element(2, "img", 88);
+    \u0275\u0275elementStart(0, "div", 68)(1, "div", 69);
+    \u0275\u0275element(2, "img", 70);
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(3, "span");
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const p_r11 = ctx.$implicit;
+    const p_r10 = ctx.$implicit;
     \u0275\u0275advance(2);
-    \u0275\u0275property("src", p_r11.imgSrc, \u0275\u0275sanitizeUrl)("alt", p_r11.label);
+    \u0275\u0275property("src", p_r10.imgSrc, \u0275\u0275sanitizeUrl)("alt", p_r10.label);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(p_r11.label);
+    \u0275\u0275textInterpolate(p_r10.label);
   }
 }
-function IngredientsComponent_section_31_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "section", 78)(1, "div", 79)(2, "div", 80)(3, "p", 81);
-    \u0275\u0275text(4, "Our Promise");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(5, "h2", 82);
-    \u0275\u0275text(6, "From Sacred Soil");
-    \u0275\u0275element(7, "br");
-    \u0275\u0275elementStart(8, "em");
-    \u0275\u0275text(9, "to Your Hands");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(10, "p", 83);
-    \u0275\u0275text(11, "Every ingredient is sourced directly from its native region of India \u2014 where the soil, climate and centuries of cultivation combine to produce the highest possible potency. Cold-pressed within 48 hours of harvest. Nothing more, nothing less.");
-    \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(12, "div", 84);
-    \u0275\u0275template(13, IngredientsComponent_section_31_div_13_Template, 5, 3, "div", 85);
-    \u0275\u0275elementEnd()()();
-  }
-  if (rf & 2) {
-    const ctx_r2 = \u0275\u0275nextContext();
-    \u0275\u0275advance(13);
-    \u0275\u0275property("ngForOf", ctx_r2.provPillars);
-  }
-}
-var INGREDIENT_IMAGES = {
-  // 'sesame': 'assets/ingredients/sesame.png',
-  "coconut-oil": "assets/ingredients/coconut-oil.png",
-  "hibiscus": "assets/ingredients/hibiscus.png",
-  "aloe-vera": "assets/ingredients/aloe-vera.png",
-  "fenugreek": "assets/ingredients/fenugreek.png",
-  "amla": "assets/ingredients/amla.png",
-  "rosemary": "assets/ingredients/rosemary.png",
-  "castor-oil": "assets/ingredients/castor-oil.png",
-  "indian-nard": "assets/ingredients/indian-nard.png",
-  "cinnamon": "assets/ingredients/cinnamon.png",
-  "cloves": "assets/ingredients/cloves.png",
-  "nigella-seeds": "assets/ingredients/nigella-seeds.png",
-  "neem": "assets/ingredients/neem.png",
-  "curry-leaves": "assets/ingredients/curry-leaves.png",
-  "bhringraj": "assets/ingredients/bhringraj.png",
-  "sesame": "assets/ingredients/sesame.png"
-};
 var FALLBACK_IMAGE = "assets/ingredients/locks-moisture.png";
-function getIngredientImage(slug) {
-  return INGREDIENT_IMAGES[slug] || FALLBACK_IMAGE;
-}
 var IngredientsComponent = class _IngredientsComponent {
   constructor(ingredientService, configService) {
     this.ingredientService = ingredientService;
@@ -330,55 +232,26 @@ var IngredientsComponent = class _IngredientsComponent {
     this.ingredients = [];
     this.activeCard = null;
     this.activeFilter = "";
-    this.loading = true;
-    this.error = false;
+    this.allTags = [];
     this.whatsappUrl = "";
     this.heroStats = [
-      { num: "15", label: "Sacred Herbs" },
+      { num: "12", label: "Sacred Herbs" },
       { num: "100%", label: "Cold-Pressed" },
       { num: "0", label: "Chemicals" }
     ];
     this.provPillars = [
-      {
-        label: "Single-Origin Sourced",
-        imgSrc: "assets/ingredients/SourcedLocally.png"
-      },
-      {
-        label: "Cold-Pressed Within 48 hrs",
-        imgSrc: "assets/ingredients/Infused.png"
-      },
-      {
-        label: "No Synthetic Additives",
-        imgSrc: "assets/ingredients/noChemicals.png"
-      },
-      {
-        label: "Vedic Formulation",
-        imgSrc: "assets/ingredients/VedicFormula.png"
-      }
+      { label: "Single-Origin Sourced", imgSrc: "assets/ingredients/SourcedLocally.png" },
+      { label: "Cold-Pressed Within 48 hrs", imgSrc: "assets/ingredients/Infused.png" },
+      { label: "No Synthetic Additives", imgSrc: "assets/ingredients/noChemicals.png" },
+      { label: "Vedic Formulation", imgSrc: "assets/ingredients/VedicFormula.png" }
     ];
-    this.allTags = [];
   }
   ngOnInit() {
     const num = this.configService.snapshot.whatsappNumber;
     this.whatsappUrl = `https://wa.me/${num}?text=Hi%2C%20I%20want%20to%20order%20Vedrithm%20Herbal%20Hair%20Oil`;
-    this.load();
-  }
-  load() {
-    this.loading = true;
-    this.error = false;
-    this.ingredientService.getAll().subscribe({
-      next: (data) => {
-        this.ingredients = data.map((_a) => {
-          var _b = _a, { emoji } = _b, rest = __objRest(_b, ["emoji"]);
-          return rest;
-        });
-        this.allTags = [...new Set(this.ingredients.map((i) => i.tag))].filter(Boolean);
-        this.loading = false;
-      },
-      error: () => {
-        this.error = true;
-        this.loading = false;
-      }
+    this.ingredientService.getAll().subscribe((data) => {
+      this.ingredients = data;
+      this.allTags = [...new Set(data.map((i) => i.tag))].filter(Boolean);
     });
   }
   get filteredIngredients() {
@@ -389,14 +262,10 @@ var IngredientsComponent = class _IngredientsComponent {
   toggleCard(i) {
     this.activeCard = this.activeCard === i ? null : i;
   }
-  /** Returns a real asset path for the ingredient image slug */
-  getImage(slug) {
-    return getIngredientImage(slug);
-  }
-  /** Fallback to generic gold drop if image fails */
   onImgError(event) {
     const img = event.target;
-    img.src = FALLBACK_IMAGE;
+    if (img.src !== FALLBACK_IMAGE)
+      img.src = FALLBACK_IMAGE;
   }
   static {
     this.\u0275fac = function IngredientsComponent_Factory(t) {
@@ -404,7 +273,7 @@ var IngredientsComponent = class _IngredientsComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IngredientsComponent, selectors: [["app-ingredients"]], standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 50, vars: 10, consts: [[1, "page-hero"], [1, "hero-noise"], [1, "hero-radial"], [1, "hero-lines"], ["class", "h-line", 4, "ngFor", "ngForOf"], [1, "container", "hero-content"], [1, "hero-eyebrow"], [1, "eyebrow-gem"], [1, "hero-title"], [1, "hero-sub"], [1, "hero-count-row"], ["class", "hero-stat", 4, "ngFor", "ngForOf"], [1, "deco-plant", "dp1"], ["src", "assets/ingredients/promotes-growth.png", "alt", "", "aria-hidden", "true"], [1, "deco-plant", "dp2"], ["src", "assets/ingredients/strengthens-roots.png", "alt", "", "aria-hidden", "true"], ["class", "filter-strip", 4, "ngIf"], [1, "ingredients-section"], [1, "container"], ["class", "ingredients-grid", 4, "ngIf"], ["class", "error-state", 4, "ngIf"], ["class", "provenance-band", 4, "ngIf"], [1, "bottom-cta"], [1, "cta-noise"], [1, "container", "cta-inner"], [1, "cta-eyebrow"], [1, "cta-title"], [1, "cta-actions"], ["routerLink", "/quiz", 1, "btn-primary"], ["width", "16", "height", "16", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M3 8h10M9 4l4 4-4 4", "stroke", "currentColor", "stroke-width", "1.5", "stroke-linecap", "round"], ["target", "_blank", 1, "btn-outline", 3, "href"], [1, "h-line"], [1, "hero-stat"], [1, "stat-num"], [1, "stat-label"], [1, "filter-strip"], [1, "container", "filter-inner"], [1, "filter-pill", 3, "click"], ["class", "filter-pill", 3, "active", "click", 4, "ngFor", "ngForOf"], [1, "ingredients-grid"], ["class", "skeleton-card", 4, "ngFor", "ngForOf"], [1, "skeleton-card"], [1, "skel-img"], [1, "skel-lines"], [1, "skel-line", "w70"], [1, "skel-line", "w50"], [1, "skel-line", "w90"], [1, "error-state"], [1, "error-icon"], ["src", "assets/ingredients/promotes-growth.png", "alt", "", 2, "width", "80px", "height", "80px", "opacity", "0.3"], [1, "btn-outline", 3, "click"], ["class", "ingredient-card", 3, "is-open", "click", 4, "ngFor", "ngForOf"], [1, "ingredient-card", 3, "click"], [1, "card-accent"], [1, "card-front"], [1, "card-num"], [1, "card-illus"], ["loading", "lazy", 1, "card-illus-img", 3, "error", "src", "alt"], [1, "illus-glow"], [1, "card-meta"], [1, "card-tag"], [1, "card-name"], [1, "card-sanskrit"], [1, "expand-row"], [1, "expand-label"], [1, "expand-icon"], ["width", "12", "height", "12", "viewBox", "0 0 12 12", "fill", "none"], ["d", "M2 4l4 4 4-4", "stroke", "currentColor", "stroke-width", "1.5", "stroke-linecap", "round"], [1, "card-drawer"], [1, "drawer-desc"], [1, "drawer-benefits"], ["class", "benefit-row", 4, "ngFor", "ngForOf"], ["class", "drawer-origin", 4, "ngIf"], [1, "benefit-row"], [1, "benefit-gem"], [1, "drawer-origin"], ["src", "assets/ingredients/SourcedLocally.png", "alt", "origin", 1, "origin-pin-img"], [1, "provenance-band"], [1, "container", "prov-inner"], [1, "prov-text"], [1, "prov-label"], [1, "prov-title"], [1, "prov-body"], [1, "prov-pillars"], ["class", "prov-pillar", 4, "ngFor", "ngForOf"], [1, "prov-pillar"], [1, "pillar-img-wrap"], ["loading", "lazy", 1, "pillar-img", 3, "src", "alt"]], template: function IngredientsComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _IngredientsComponent, selectors: [["app-ingredients"]], standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 58, vars: 8, consts: [[1, "page-hero"], [1, "hero-noise"], [1, "hero-radial"], [1, "hero-lines"], ["class", "h-line", 4, "ngFor", "ngForOf"], [1, "container", "hero-content"], [1, "hero-eyebrow"], [1, "eyebrow-gem"], [1, "hero-title"], [1, "hero-sub"], [1, "hero-count-row"], ["class", "hero-stat", 4, "ngFor", "ngForOf"], ["class", "filter-strip", 4, "ngIf"], [1, "ingredients-section"], [1, "container"], [1, "ingredients-grid"], ["class", "ingredient-card", 3, "is-open", "click", 4, "ngFor", "ngForOf"], [1, "provenance-band"], [1, "container", "prov-inner"], [1, "prov-text"], [1, "prov-label"], [1, "prov-title"], [1, "prov-body"], [1, "prov-pillars"], ["class", "prov-pillar", 4, "ngFor", "ngForOf"], [1, "bottom-cta"], [1, "cta-noise"], [1, "container", "cta-inner"], [1, "cta-eyebrow"], [1, "cta-title"], [1, "cta-actions"], ["routerLink", "/quiz", 1, "btn-primary"], ["width", "16", "height", "16", "viewBox", "0 0 16 16", "fill", "none"], ["d", "M3 8h10M9 4l4 4-4 4", "stroke", "currentColor", "stroke-width", "1.5", "stroke-linecap", "round"], ["target", "_blank", 1, "btn-outline", 3, "href"], [1, "h-line"], [1, "hero-stat"], [1, "stat-num"], [1, "stat-label"], [1, "filter-strip"], [1, "container", "filter-inner"], [1, "filter-pill", 3, "click"], ["class", "filter-pill", 3, "active", "click", 4, "ngFor", "ngForOf"], [1, "ingredient-card", 3, "click"], [1, "card-accent"], [1, "card-front"], [1, "card-num"], [1, "card-illus"], ["loading", "lazy", 1, "card-illus-img", 3, "error", "src", "alt"], [1, "illus-glow"], [1, "card-meta"], [1, "card-tag"], [1, "card-name"], [1, "card-sanskrit"], [1, "expand-row"], [1, "expand-label"], [1, "expand-icon"], ["width", "12", "height", "12", "viewBox", "0 0 12 12", "fill", "none"], ["d", "M2 4l4 4 4-4", "stroke", "currentColor", "stroke-width", "1.5", "stroke-linecap", "round"], [1, "card-drawer"], [1, "drawer-desc"], [1, "drawer-benefits"], ["class", "benefit-row", 4, "ngFor", "ngForOf"], ["class", "drawer-origin", 4, "ngIf"], [1, "benefit-row"], [1, "benefit-gem"], [1, "drawer-origin"], ["src", "assets/ingredients/SourcedLocally.png", "alt", "origin", 1, "origin-pin-img"], [1, "prov-pillar"], [1, "pillar-img-wrap"], ["loading", "lazy", 1, "pillar-img", 3, "src", "alt"]], template: function IngredientsComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "section", 0);
         \u0275\u0275element(1, "div", 1)(2, "div", 2);
@@ -431,59 +300,63 @@ var IngredientsComponent = class _IngredientsComponent {
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(19, "div", 10);
         \u0275\u0275template(20, IngredientsComponent_div_20_Template, 5, 2, "div", 11);
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(21, "div", 12);
-        \u0275\u0275element(22, "img", 13);
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275template(21, IngredientsComponent_div_21_Template, 5, 3, "div", 12);
+        \u0275\u0275elementStart(22, "section", 13)(23, "div", 14)(24, "div", 15);
+        \u0275\u0275template(25, IngredientsComponent_article_25_Template, 27, 16, "article", 16);
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(26, "section", 17)(27, "div", 18)(28, "div", 19)(29, "p", 20);
+        \u0275\u0275text(30, "Our Promise");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(23, "div", 14);
-        \u0275\u0275element(24, "img", 15);
+        \u0275\u0275elementStart(31, "h2", 21);
+        \u0275\u0275text(32, "From Sacred Soil");
+        \u0275\u0275element(33, "br");
+        \u0275\u0275elementStart(34, "em");
+        \u0275\u0275text(35, "to Your Hands");
         \u0275\u0275elementEnd()();
-        \u0275\u0275template(25, IngredientsComponent_div_25_Template, 5, 3, "div", 16);
-        \u0275\u0275elementStart(26, "section", 17)(27, "div", 18);
-        \u0275\u0275template(28, IngredientsComponent_div_28_Template, 2, 2, "div", 19)(29, IngredientsComponent_div_29_Template, 7, 0, "div", 20)(30, IngredientsComponent_div_30_Template, 2, 1, "div", 19);
+        \u0275\u0275elementStart(36, "p", 22);
+        \u0275\u0275text(37, "Every ingredient is sourced directly from its native region of India \u2014 where the soil, climate and centuries of cultivation combine to produce the highest possible potency. Cold-pressed within 48 hours of harvest. Nothing more, nothing less.");
         \u0275\u0275elementEnd()();
-        \u0275\u0275template(31, IngredientsComponent_section_31_Template, 14, 1, "section", 21);
-        \u0275\u0275elementStart(32, "section", 22);
-        \u0275\u0275element(33, "div", 23);
-        \u0275\u0275elementStart(34, "div", 24)(35, "span", 25);
-        \u0275\u0275text(36, "Ready to begin?");
+        \u0275\u0275elementStart(38, "div", 23);
+        \u0275\u0275template(39, IngredientsComponent_div_39_Template, 5, 3, "div", 24);
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(40, "section", 25);
+        \u0275\u0275element(41, "div", 26);
+        \u0275\u0275elementStart(42, "div", 27)(43, "span", 28);
+        \u0275\u0275text(44, "Ready to begin?");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(37, "h2", 26);
-        \u0275\u0275text(38, "Find Your ");
-        \u0275\u0275elementStart(39, "em");
-        \u0275\u0275text(40, "Perfect Blend");
+        \u0275\u0275elementStart(45, "h2", 29);
+        \u0275\u0275text(46, "Find Your ");
+        \u0275\u0275elementStart(47, "em");
+        \u0275\u0275text(48, "Perfect Blend");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(41, "p");
-        \u0275\u0275text(42, "Not sure which formulation suits your hair best? Take our personalised hair quiz.");
+        \u0275\u0275elementStart(49, "p");
+        \u0275\u0275text(50, "Not sure which formulation suits your hair best? Take our personalised hair quiz.");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(43, "div", 27)(44, "a", 28);
-        \u0275\u0275text(45, " Take the Hair Quiz ");
+        \u0275\u0275elementStart(51, "div", 30)(52, "a", 31);
+        \u0275\u0275text(53, " Take the Hair Quiz ");
         \u0275\u0275namespaceSVG();
-        \u0275\u0275elementStart(46, "svg", 29);
-        \u0275\u0275element(47, "path", 30);
+        \u0275\u0275elementStart(54, "svg", 32);
+        \u0275\u0275element(55, "path", 33);
         \u0275\u0275elementEnd()();
         \u0275\u0275namespaceHTML();
-        \u0275\u0275elementStart(48, "a", 31);
-        \u0275\u0275text(49, "Order on WhatsApp");
+        \u0275\u0275elementStart(56, "a", 34);
+        \u0275\u0275text(57, "Order on WhatsApp");
         \u0275\u0275elementEnd()()()();
       }
       if (rf & 2) {
         \u0275\u0275advance(4);
-        \u0275\u0275property("ngForOf", \u0275\u0275pureFunction0(9, _c0));
+        \u0275\u0275property("ngForOf", \u0275\u0275pureFunction0(7, _c0));
         \u0275\u0275advance(14);
-        \u0275\u0275textInterpolate1(" ", ctx.ingredients.length || 8, " time-honoured Ayurvedic herbs, each chosen for their unique ability to restore, protect and nourish your hair from root to tip. ");
+        \u0275\u0275textInterpolate1(" ", ctx.ingredients.length, " time-honoured Ayurvedic herbs, each chosen for their unique ability to restore, protect and nourish your hair from root to tip. ");
         \u0275\u0275advance(2);
         \u0275\u0275property("ngForOf", ctx.heroStats);
-        \u0275\u0275advance(5);
-        \u0275\u0275property("ngIf", !ctx.loading && !ctx.error && ctx.allTags.length > 1);
-        \u0275\u0275advance(3);
-        \u0275\u0275property("ngIf", ctx.loading);
         \u0275\u0275advance();
-        \u0275\u0275property("ngIf", ctx.error && !ctx.loading);
-        \u0275\u0275advance();
-        \u0275\u0275property("ngIf", !ctx.loading && !ctx.error);
-        \u0275\u0275advance();
-        \u0275\u0275property("ngIf", !ctx.loading && !ctx.error);
+        \u0275\u0275property("ngIf", ctx.allTags.length > 1);
+        \u0275\u0275advance(4);
+        \u0275\u0275property("ngForOf", ctx.filteredIngredients);
+        \u0275\u0275advance(14);
+        \u0275\u0275property("ngForOf", ctx.provPillars);
         \u0275\u0275advance(17);
         \u0275\u0275property("href", ctx.whatsappUrl, \u0275\u0275sanitizeUrl);
       }
@@ -563,7 +436,6 @@ var IngredientsComponent = class _IngredientsComponent {
   color: var(--cream);
   line-height: 1.05;
   margin-bottom: 1.5rem;
-  letter-spacing: -0.01em;
 }
 .hero-title[_ngcontent-%COMP%]   em[_ngcontent-%COMP%] {
   color: var(--gold);
@@ -602,26 +474,6 @@ var IngredientsComponent = class _IngredientsComponent {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: rgba(212, 175, 55, 0.5);
-}
-.deco-plant[_ngcontent-%COMP%] {
-  position: absolute;
-  pointer-events: none;
-}
-.deco-plant[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {
-  width: 160px;
-  height: 160px;
-  object-fit: contain;
-  opacity: 0.12;
-}
-.dp1[_ngcontent-%COMP%] {
-  top: 5%;
-  left: -1%;
-  transform: rotate(-15deg) scale(1.4);
-}
-.dp2[_ngcontent-%COMP%] {
-  bottom: 2%;
-  right: -1%;
-  transform: rotate(165deg) scale(1.4);
 }
 .filter-strip[_ngcontent-%COMP%] {
   padding: 1.5rem 0;
@@ -663,54 +515,6 @@ var IngredientsComponent = class _IngredientsComponent {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
-}
-.skeleton-card[_ngcontent-%COMP%] {
-  background: var(--forest-mid);
-  border: 1px solid var(--border-gold);
-  border-radius: 8px;
-  padding: 2rem;
-  animation: _ngcontent-%COMP%_skelPulse 1.8s ease-in-out infinite;
-}
-.skel-img[_ngcontent-%COMP%] {
-  height: 140px;
-  background: rgba(212, 175, 55, 0.06);
-  border-radius: 4px;
-  margin-bottom: 1.5rem;
-}
-.skel-lines[_ngcontent-%COMP%] {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.skel-line[_ngcontent-%COMP%] {
-  height: 10px;
-  background: rgba(212, 175, 55, 0.06);
-  border-radius: 4px;
-}
-.w70[_ngcontent-%COMP%] {
-  width: 70%;
-}
-.w50[_ngcontent-%COMP%] {
-  width: 50%;
-}
-.w90[_ngcontent-%COMP%] {
-  width: 90%;
-}
-@keyframes _ngcontent-%COMP%_skelPulse {
-  0%, 100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 0.9;
-  }
-}
-.error-state[_ngcontent-%COMP%] {
-  text-align: center;
-  padding: 5rem 2rem;
-}
-.error-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {
-  color: rgba(250, 244, 230, 0.5);
-  margin-bottom: 1.5rem;
 }
 .ingredient-card[_ngcontent-%COMP%] {
   position: relative;
@@ -824,7 +628,6 @@ var IngredientsComponent = class _IngredientsComponent {
   font-weight: 400;
   color: var(--gold);
   margin-bottom: 0.15rem;
-  letter-spacing: 0.01em;
 }
 .card-sanskrit[_ngcontent-%COMP%] {
   font-family: var(--font-display);
@@ -1072,9 +875,9 @@ var IngredientsComponent = class _IngredientsComponent {
   }
 };
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(IngredientsComponent, { className: "IngredientsComponent", filePath: "src\\app\\pages\\ingredients\\ingredients.component.ts", lineNumber: 559 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(IngredientsComponent, { className: "IngredientsComponent", filePath: "src\\app\\pages\\ingredients\\ingredients.component.ts", lineNumber: 220 });
 })();
 export {
   IngredientsComponent
 };
-//# sourceMappingURL=chunk-W3ULV2JU.js.map
+//# sourceMappingURL=chunk-RU3WWOMD.js.map

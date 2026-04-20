@@ -1583,28 +1583,6 @@ var EmptyError = createErrorClass((_super) => function EmptyErrorImpl() {
   this.message = "no elements in sequence";
 });
 
-// node_modules/rxjs/dist/esm/internal/firstValueFrom.js
-function firstValueFrom(source, config2) {
-  const hasConfig = typeof config2 === "object";
-  return new Promise((resolve, reject) => {
-    const subscriber = new SafeSubscriber({
-      next: (value) => {
-        resolve(value);
-        subscriber.unsubscribe();
-      },
-      error: reject,
-      complete: () => {
-        if (hasConfig) {
-          resolve(config2.defaultValue);
-        } else {
-          reject(new EmptyError());
-        }
-      }
-    });
-    source.subscribe(subscriber);
-  });
-}
-
 // node_modules/rxjs/dist/esm/internal/operators/map.js
 function map(project, thisArg) {
   return operate((source, subscriber) => {
@@ -27521,48 +27499,6 @@ var HttpClientJsonpModule = class _HttpClientJsonpModule {
 })();
 var CACHE_OPTIONS = new InjectionToken(ngDevMode ? "HTTP_TRANSFER_STATE_CACHE_OPTIONS" : "");
 
-// src/app/services/site-config.service.ts
-var SiteConfigService = class _SiteConfigService {
-  constructor(http) {
-    this.http = http;
-    this.apiUrl = "https://vedrithm-backend-1.onrender.com/api/config/public";
-    this.config$ = new BehaviorSubject(this.defaults());
-  }
-  /** Call once at app boot */
-  load() {
-    return this.http.get(this.apiUrl).pipe(tap((cfg) => this.config$.next(cfg)));
-  }
-  get snapshot() {
-    return this.config$.value;
-  }
-  get stream() {
-    return this.config$.asObservable();
-  }
-  /** Build WhatsApp URL with optional message */
-  whatsappUrl(message) {
-    const num = this.config$.value.whatsappNumber;
-    return `https://wa.me/${num}?text=${encodeURIComponent(message)}`;
-  }
-  defaults() {
-    return {
-      whatsappNumber: "919867368847",
-      brandTagline: "Ancient Ayurvedic wisdom for modern hair care",
-      heroTitle: "Rooted in Nature. Nourished by Vedas.",
-      heroSubtitle: "A sacred blend of 8 time-honoured Ayurvedic herbs, cold-pressed to restore your hair's natural vitality.",
-      brandStory: "Vedrithm was born from a deep reverence for India's ancient Ayurvedic heritage.",
-      instagramUrl: "https://instagram.com/vedrithm"
-    };
-  }
-  static {
-    this.\u0275fac = function SiteConfigService_Factory(t) {
-      return new (t || _SiteConfigService)(\u0275\u0275inject(HttpClient));
-    };
-  }
-  static {
-    this.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _SiteConfigService, factory: _SiteConfigService.\u0275fac, providedIn: "root" });
-  }
-};
-
 export {
   __spreadValues,
   __spreadProps,
@@ -27580,7 +27516,6 @@ export {
   throwError,
   isObservable,
   EmptyError,
-  firstValueFrom,
   map,
   combineLatest,
   mergeMap,
@@ -27751,8 +27686,7 @@ export {
   ViewportScroller,
   XhrFactory,
   HttpClient,
-  provideHttpClient,
-  SiteConfigService
+  provideHttpClient
 };
 /*! Bundled license information:
 
@@ -27829,4 +27763,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-QU5HRPSL.js.map
+//# sourceMappingURL=chunk-O7KYMSXY.js.map

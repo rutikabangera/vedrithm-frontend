@@ -147,7 +147,7 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-} from "./chunk-QU5HRPSL.js";
+} from "./chunk-O7KYMSXY.js";
 
 // node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs
 var GenericBrowserDomAdapter = class extends DomAdapter {
@@ -7216,6 +7216,32 @@ function provideRouterInitializer() {
 }
 var VERSION2 = new Version("17.3.12");
 
+// src/app/services/site-config.service.ts
+var CONFIG = {
+  whatsappNumber: "919867368847",
+  brandTagline: "Ancient Ayurvedic wisdom for modern hair care",
+  heroTitle: "Rooted in Nature. Nourished by Vedas.",
+  heroSubtitle: "A sacred blend of 8 time-honoured Ayurvedic herbs, cold-pressed to restore your hair's natural vitality.",
+  brandStory: "Vedrithm was born from a deep reverence for India's ancient Ayurvedic heritage.",
+  instagramUrl: "https://instagram.com/vedrithm"
+};
+var SiteConfigService = class _SiteConfigService {
+  get snapshot() {
+    return CONFIG;
+  }
+  whatsappUrl(message) {
+    return `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+  }
+  static {
+    this.\u0275fac = function SiteConfigService_Factory(t) {
+      return new (t || _SiteConfigService)();
+    };
+  }
+  static {
+    this.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _SiteConfigService, factory: _SiteConfigService.\u0275fac, providedIn: "root" });
+  }
+};
+
 export {
   DomRendererFactory2,
   bootstrapApplication,
@@ -7223,7 +7249,8 @@ export {
   RouterOutlet,
   RouterLink,
   RouterLinkActive,
-  provideRouter
+  provideRouter,
+  SiteConfigService
 };
 /*! Bundled license information:
 
@@ -7241,4 +7268,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-F3IBTWQF.js.map
+//# sourceMappingURL=chunk-SYUN4H56.js.map

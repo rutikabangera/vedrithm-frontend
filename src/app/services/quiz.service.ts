@@ -136,30 +136,32 @@ export class QuizService {
   }
 
   private saveToSheets(request: QuizRequest, recommendedProduct: string): Observable<any> {
-    if (this.APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec') {
-      console.warn('⚠️ Google Apps Script URL not set. Quiz submissions will not be saved.');
-      return of(null);
-    }
+  if (!this.APPS_SCRIPT_URL || this.APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec') {
+    console.warn('⚠️ Google Apps Script URL not set. Quiz submissions will not be saved.');
+    return of(null);
+  }
 
-    const payload = {
-      action: 'saveQuiz',
-      name: request.name,
-      mobileNumber: request.mobileNumber,
-      hairType: request.hairType,
-      scalpType: request.scalpType,
-      concerns: request.concerns.join(', '),
-      lifestyle: request.lifestyle,
-      recommendedProduct,
-      submittedAt: new Date().toISOString()
-    };
+  const payload = {
+    action: 'saveQuiz',
+    name: request.name,
+    mobileNumber: request.mobileNumber,
+    hairType: request.hairType,
+    scalpType: request.scalpType,
+    concerns: request.concerns.join(', '),
+    lifestyle: request.lifestyle,
+    recommendedProduct,
+    submittedAt: new Date().toISOString()
+  };
 
-    return this.http.post(this.APPS_SCRIPT_URL, payload, {
-      headers: { 'Content-Type': 'text/plain' } // Required for CORS with Apps Script
-    }).pipe(catchError(err => {
+  return this.http.post(this.APPS_SCRIPT_URL, payload, {
+    headers: { 'Content-Type': 'text/plain' }
+  }).pipe(
+    catchError(err => {
       console.error('Sheet save failed:', err);
       return of(null);
-    }));
-  }
+    })
+  );
+}
 
   saveReview(review: { name: string; rating: number; text: string; productUsed?: string }): Observable<any> {
     if (this.APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec') {

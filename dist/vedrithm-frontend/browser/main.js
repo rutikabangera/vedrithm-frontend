@@ -4,12 +4,12 @@ import {
   RouterLink,
   RouterLinkActive,
   RouterOutlet,
+  SiteConfigService,
   bootstrapApplication,
   provideRouter
-} from "./chunk-F3IBTWQF.js";
+} from "./chunk-SYUN4H56.js";
 import {
   ANIMATION_MODULE_TYPE,
-  APP_INITIALIZER,
   ChangeDetectionScheduler,
   CommonModule,
   DOCUMENT,
@@ -19,11 +19,9 @@ import {
   NgZone,
   RendererFactory2,
   RuntimeError,
-  SiteConfigService,
   ViewEncapsulation$1,
   __objRest,
   __spreadValues,
-  firstValueFrom,
   inject,
   performanceMarkFeature,
   provideHttpClient,
@@ -31,6 +29,7 @@ import {
   ɵsetClassDebugInfo,
   ɵɵStandaloneFeature,
   ɵɵadvance,
+  ɵɵattribute,
   ɵɵclassProp,
   ɵɵdefineComponent,
   ɵɵdefineInjectable,
@@ -49,17 +48,21 @@ import {
   ɵɵresolveWindow,
   ɵɵsanitizeUrl,
   ɵɵtext
-} from "./chunk-QU5HRPSL.js";
+} from "./chunk-O7KYMSXY.js";
 
 // src/app/components/navbar/navbar.component.ts
 var _c0 = () => ({ exact: true });
 var NavbarComponent = class _NavbarComponent {
   constructor() {
-    this.isScrolled = false;
+    this.scrolled = false;
     this.menuOpen = false;
+    this.whatsappUrl = "https://wa.me/919867368847?text=" + encodeURIComponent("Hi! I'd like to order Vedrithm hair oil. Can you share more details?");
   }
   onScroll() {
-    this.isScrolled = window.scrollY > 60;
+    this.scrolled = window.scrollY > 50;
+  }
+  closeMenu() {
+    this.menuOpen = false;
   }
   static {
     this.\u0275fac = function NavbarComponent_Factory(t) {
@@ -73,52 +76,71 @@ var NavbarComponent = class _NavbarComponent {
           return ctx.onScroll();
         }, false, \u0275\u0275resolveWindow);
       }
-    }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 20, vars: 10, consts: [[1, "nav-inner"], ["routerLink", "/", 1, "brand"], ["src", "assets/images/logo.jpg", "alt", "Vedrithm Logo", 1, "brand-logo"], [1, "brand-name"], [1, "nav-links"], ["routerLink", "/", "routerLinkActive", "active", 3, "click", "routerLinkActiveOptions"], ["routerLink", "/ingredients", "routerLinkActive", "active", 3, "click"], ["routerLink", "/quiz", "routerLinkActive", "active", 3, "click"], ["aria-label", "Menu", 1, "hamburger", 3, "click"]], template: function NavbarComponent_Template(rf, ctx) {
+    }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 23, vars: 10, consts: [[1, "navbar"], [1, "nav-container"], ["routerLink", "/", 1, "nav-logo"], ["src", "assets/images/logo.jpg", "alt", "Vedrithm", 1, "logo-img"], [1, "logo-text"], [1, "nav-links"], ["routerLink", "/", "routerLinkActive", "active", 3, "click", "routerLinkActiveOptions"], ["routerLink", "/ingredients", "routerLinkActive", "active", 3, "click"], ["routerLink", "/quiz", "routerLinkActive", "active", 3, "click"], ["routerLink", "/reviews", "routerLinkActive", "active", 3, "click"], ["target", "_blank", 1, "nav-whatsapp", 3, "click", "href"], ["viewBox", "0 0 24 24", "fill", "currentColor", "width", "16"], ["d", "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"], [1, "hamburger", 3, "click"]], template: function NavbarComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275elementStart(0, "nav")(1, "div", 0)(2, "a", 1);
-        \u0275\u0275element(3, "img", 2);
-        \u0275\u0275elementStart(4, "span", 3);
-        \u0275\u0275text(5, "VEDRITHM");
+        \u0275\u0275elementStart(0, "nav", 0)(1, "div", 1)(2, "a", 2);
+        \u0275\u0275element(3, "img", 3);
+        \u0275\u0275elementStart(4, "span", 4);
+        \u0275\u0275text(5, "Vedrithm");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(6, "ul", 4)(7, "li")(8, "a", 5);
-        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_8_listener() {
-          return ctx.menuOpen = false;
+        \u0275\u0275elementStart(6, "div", 5)(7, "a", 6);
+        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_7_listener() {
+          return ctx.closeMenu();
         });
-        \u0275\u0275text(9, "Home");
-        \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(10, "li")(11, "a", 6);
+        \u0275\u0275text(8, "Home");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(9, "a", 7);
+        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_9_listener() {
+          return ctx.closeMenu();
+        });
+        \u0275\u0275text(10, "Ingredients");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(11, "a", 8);
         \u0275\u0275listener("click", function NavbarComponent_Template_a_click_11_listener() {
-          return ctx.menuOpen = false;
+          return ctx.closeMenu();
         });
-        \u0275\u0275text(12, "Ingredients");
+        \u0275\u0275text(12, "Hair Quiz");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(13, "a", 9);
+        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_13_listener() {
+          return ctx.closeMenu();
+        });
+        \u0275\u0275text(14, "Reviews");
+        \u0275\u0275elementEnd();
+        \u0275\u0275elementStart(15, "a", 10);
+        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_15_listener() {
+          return ctx.closeMenu();
+        });
+        \u0275\u0275namespaceSVG();
+        \u0275\u0275elementStart(16, "svg", 11);
+        \u0275\u0275element(17, "path", 12);
+        \u0275\u0275elementEnd();
+        \u0275\u0275text(18, " Order ");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(13, "li")(14, "a", 7);
-        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_14_listener() {
-          return ctx.menuOpen = false;
-        });
-        \u0275\u0275text(15, "Find Your Oil");
-        \u0275\u0275elementEnd()()();
-        \u0275\u0275elementStart(16, "button", 8);
-        \u0275\u0275listener("click", function NavbarComponent_Template_button_click_16_listener() {
+        \u0275\u0275namespaceHTML();
+        \u0275\u0275elementStart(19, "button", 13);
+        \u0275\u0275listener("click", function NavbarComponent_Template_button_click_19_listener() {
           return ctx.menuOpen = !ctx.menuOpen;
         });
-        \u0275\u0275element(17, "span")(18, "span")(19, "span");
+        \u0275\u0275element(20, "span")(21, "span")(22, "span");
         \u0275\u0275elementEnd()()();
       }
       if (rf & 2) {
-        \u0275\u0275classProp("scrolled", ctx.isScrolled)("menu-open", ctx.menuOpen);
+        \u0275\u0275classProp("scrolled", ctx.scrolled)("menu-open", ctx.menuOpen);
         \u0275\u0275advance(6);
         \u0275\u0275classProp("open", ctx.menuOpen);
-        \u0275\u0275advance(2);
+        \u0275\u0275advance();
         \u0275\u0275property("routerLinkActiveOptions", \u0275\u0275pureFunction0(9, _c0));
         \u0275\u0275advance(8);
-        \u0275\u0275classProp("open", ctx.menuOpen);
+        \u0275\u0275property("href", ctx.whatsappUrl, \u0275\u0275sanitizeUrl);
+        \u0275\u0275advance(4);
+        \u0275\u0275attribute("aria-label", ctx.menuOpen ? "Close menu" : "Open menu");
       }
-    }, dependencies: [RouterLink, RouterLinkActive, CommonModule], styles: ['\n\nnav[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: 1000;\n  padding: 1.5rem 2rem;\n  transition: all 0.4s ease;\n  background: transparent;\n}\nnav.scrolled[_ngcontent-%COMP%] {\n  background: rgba(5, 22, 16, 0.97);\n  -webkit-backdrop-filter: blur(20px);\n  backdrop-filter: blur(20px);\n  padding: 1rem 2rem;\n  border-bottom: 1px solid var(--border-gold);\n  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);\n}\n.nav-inner[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  text-decoration: none;\n}\n.brand-logo[_ngcontent-%COMP%] {\n  width: 44px;\n  height: 44px;\n  border-radius: 8px;\n  object-fit: cover;\n  border: 1px solid var(--border-gold);\n}\n.brand-name[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.4rem;\n  font-weight: 600;\n  letter-spacing: 0.25em;\n  color: var(--gold);\n  background:\n    linear-gradient(\n      135deg,\n      var(--gold-pale),\n      var(--gold));\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 2.5rem;\n  list-style: none;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  font-family: var(--font-body);\n  font-size: 0.78rem;\n  font-weight: 500;\n  letter-spacing: 0.12em;\n  text-transform: uppercase;\n  color: rgba(250, 244, 230, 0.75);\n  text-decoration: none;\n  transition: color 0.3s ease;\n  position: relative;\n  padding-bottom: 4px;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]::after {\n  content: "";\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  width: 0;\n  height: 1px;\n  background: var(--gold);\n  transition: width 0.3s ease;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover, .nav-links[_ngcontent-%COMP%]   a.active[_ngcontent-%COMP%] {\n  color: var(--gold);\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover::after, .nav-links[_ngcontent-%COMP%]   a.active[_ngcontent-%COMP%]::after {\n  width: 100%;\n}\n.btn-nav-cta[_ngcontent-%COMP%] {\n  padding: 0.6rem 1.4rem !important;\n  background:\n    linear-gradient(\n      135deg,\n      var(--gold),\n      var(--gold-dark)) !important;\n  color: var(--deep-forest) !important;\n  border-radius: 2px;\n  font-weight: 700 !important;\n  letter-spacing: 0.1em !important;\n}\n.btn-nav-cta[_ngcontent-%COMP%]::after {\n  display: none !important;\n}\n.btn-nav-cta[_ngcontent-%COMP%]:hover {\n  transform: translateY(-1px);\n  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);\n}\n.hamburger[_ngcontent-%COMP%] {\n  display: none;\n  flex-direction: column;\n  gap: 5px;\n  background: none;\n  border: none;\n  padding: 4px;\n  cursor: pointer;\n}\n.hamburger[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n  width: 24px;\n  height: 2px;\n  background: var(--gold);\n  border-radius: 1px;\n  transition: all 0.3s ease;\n}\n.hamburger.open[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(1) {\n  transform: translateY(7px) rotate(45deg);\n}\n.hamburger.open[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(2) {\n  opacity: 0;\n}\n.hamburger.open[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]:nth-child(3) {\n  transform: translateY(-7px) rotate(-45deg);\n}\n@media (max-width: 768px) {\n  .hamburger[_ngcontent-%COMP%] {\n    display: flex;\n  }\n  .nav-links[_ngcontent-%COMP%] {\n    position: fixed;\n    top: 0;\n    right: -100%;\n    width: 75%;\n    max-width: 320px;\n    height: 100vh;\n    background: var(--forest-mid);\n    flex-direction: column;\n    justify-content: center;\n    gap: 2rem;\n    padding: 2rem;\n    border-left: 1px solid var(--border-gold);\n    transition: right 0.4s ease;\n  }\n  .nav-links.open[_ngcontent-%COMP%] {\n    right: 0;\n  }\n  .nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n    font-size: 1rem;\n  }\n}\n/*# sourceMappingURL=navbar.component.css.map */'] });
+    }, dependencies: [RouterLink, RouterLinkActive, CommonModule], styles: ["\n\n.navbar[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: 1000;\n  padding: 1.25rem 0;\n  transition: all 0.4s ease;\n}\n.navbar.scrolled[_ngcontent-%COMP%] {\n  background: rgba(10, 28, 16, 0.95);\n  -webkit-backdrop-filter: blur(20px);\n  backdrop-filter: blur(20px);\n  padding: 0.85rem 0;\n  border-bottom: 1px solid var(--border-gold);\n}\n.nav-container[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem;\n  display: flex;\n  align-items: center;\n  gap: 2rem;\n}\n.nav-logo[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  text-decoration: none;\n}\n.logo-img[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  object-fit: cover;\n  border: 1px solid var(--border-gold);\n}\n.logo-text[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.4rem;\n  color: var(--cream);\n  letter-spacing: 0.05em;\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 2.5rem;\n  margin-left: auto;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  letter-spacing: 0.15em;\n  text-transform: uppercase;\n  color: rgba(250, 244, 230, 0.65);\n  transition: color 0.3s ease;\n  text-decoration: none;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover, .nav-links[_ngcontent-%COMP%]   a.active[_ngcontent-%COMP%] {\n  color: var(--cream);\n}\n.nav-whatsapp[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.25rem;\n  border: 1px solid rgba(37, 211, 102, 0.4);\n  border-radius: 50px;\n  color: rgba(37, 211, 102, 0.9) !important;\n  transition: all 0.3s ease !important;\n}\n.nav-whatsapp[_ngcontent-%COMP%]:hover {\n  background: rgba(37, 211, 102, 0.12);\n  border-color: rgba(37, 211, 102, 0.7);\n  color: #25d366 !important;\n}\n.hamburger[_ngcontent-%COMP%] {\n  display: none;\n  flex-direction: column;\n  gap: 5px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  padding: 4px;\n}\n.hamburger[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n  width: 22px;\n  height: 1.5px;\n  background: var(--cream);\n  transition: all 0.3s ease;\n}\n@media (max-width:768px) {\n  .hamburger[_ngcontent-%COMP%] {\n    display: flex;\n    margin-left: auto;\n  }\n  .nav-links[_ngcontent-%COMP%] {\n    position: fixed;\n    top: 0;\n    right: -100%;\n    width: 75%;\n    max-width: 300px;\n    height: 100vh;\n    background: var(--deep-forest);\n    border-left: 1px solid var(--border-gold);\n    flex-direction: column;\n    align-items: flex-start;\n    padding: 5rem 2rem 2rem;\n    gap: 1.5rem;\n    transition: right 0.4s ease;\n  }\n  .nav-links.open[_ngcontent-%COMP%] {\n    right: 0;\n  }\n  .nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n    font-size: 0.9rem;\n  }\n}\n/*# sourceMappingURL=navbar.component.css.map */"] });
   }
 };
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(NavbarComponent, { className: "NavbarComponent", filePath: "src\\app\\components\\navbar\\navbar.component.ts", lineNumber: 167 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(NavbarComponent, { className: "NavbarComponent", filePath: "src\\app\\components\\navbar\\navbar.component.ts", lineNumber: 56 });
 })();
 
 // src/app/components/footer/footer.component.ts
@@ -129,7 +151,7 @@ var FooterComponent = class _FooterComponent {
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 49, vars: 0, consts: [[1, "footer-ornament"], [1, "line"], [1, "leaf"], [1, "footer-content", "container"], [1, "footer-brand"], ["src", "assets/images/logo.jpg", "alt", "Vedrithm", 1, "footer-logo"], [1, "social-links"], ["href", "https://wa.me/919999999999", "target", "_blank", "aria-label", "WhatsApp"], ["viewBox", "0 0 24 24", "fill", "currentColor"], ["d", "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"], ["href", "https://instagram.com/vedrithm", "target", "_blank", "aria-label", "Instagram"], ["d", "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"], [1, "footer-links"], ["routerLink", "/"], ["routerLink", "/ingredients"], ["routerLink", "/quiz"], [1, "footer-contact"], ["href", "https://wa.me/919867368847?text=Hi%2C%20I%20want%20to%20order%20Vedrithm%20Herbal%20Hair%20Oil", "target", "_blank", 1, "whatsapp-cta"], ["viewBox", "0 0 24 24", "fill", "currentColor", "width", "16"], [1, "footer-bottom"]], template: function FooterComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _FooterComponent, selectors: [["app-footer"]], standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 52, vars: 0, consts: [[1, "footer-ornament"], [1, "line"], [1, "leaf"], [1, "footer-content", "container"], [1, "footer-brand"], ["src", "assets/images/logo.jpg", "alt", "Vedrithm", 1, "footer-logo"], [1, "social-links"], ["href", "https://wa.me/919867368847?text=Hi!%20I%20want%20to%20order%20Vedrithm", "target", "_blank", "aria-label", "WhatsApp"], ["viewBox", "0 0 24 24", "fill", "currentColor"], ["d", "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"], ["href", "https://instagram.com/vedrithm", "target", "_blank", "aria-label", "Instagram"], ["d", "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"], [1, "footer-links"], ["routerLink", "/"], ["routerLink", "/ingredients"], ["routerLink", "/quiz"], ["routerLink", "/reviews"], [1, "footer-contact"], ["href", "https://wa.me/919867368847?text=Hi%2C%20I%20want%20to%20order%20Vedrithm%20Herbal%20Hair%20Oil", "target", "_blank", 1, "whatsapp-cta"], ["viewBox", "0 0 24 24", "fill", "currentColor", "width", "16"], [1, "footer-bottom"]], template: function FooterComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275elementStart(0, "footer")(1, "div", 0);
         \u0275\u0275element(2, "div", 1);
@@ -171,32 +193,35 @@ var FooterComponent = class _FooterComponent {
         \u0275\u0275elementEnd()();
         \u0275\u0275elementStart(32, "li")(33, "a", 15);
         \u0275\u0275text(34, "Find Your Oil");
+        \u0275\u0275elementEnd()();
+        \u0275\u0275elementStart(35, "li")(36, "a", 16);
+        \u0275\u0275text(37, "Reviews");
         \u0275\u0275elementEnd()()()();
-        \u0275\u0275elementStart(35, "div", 16)(36, "h4");
-        \u0275\u0275text(37, "Get In Touch");
+        \u0275\u0275elementStart(38, "div", 17)(39, "h4");
+        \u0275\u0275text(40, "Get In Touch");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(38, "p");
-        \u0275\u0275text(39, "We'd love to hear from you.");
-        \u0275\u0275element(40, "br");
-        \u0275\u0275text(41, "Reach us on WhatsApp for orders & queries.");
+        \u0275\u0275elementStart(41, "p");
+        \u0275\u0275text(42, "We'd love to hear from you.");
+        \u0275\u0275element(43, "br");
+        \u0275\u0275text(44, "Reach us on WhatsApp for orders & queries.");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(42, "a", 17);
+        \u0275\u0275elementStart(45, "a", 18);
         \u0275\u0275namespaceSVG();
-        \u0275\u0275elementStart(43, "svg", 18);
-        \u0275\u0275element(44, "path", 9);
+        \u0275\u0275elementStart(46, "svg", 19);
+        \u0275\u0275element(47, "path", 9);
         \u0275\u0275elementEnd();
-        \u0275\u0275text(45, " Order on WhatsApp ");
+        \u0275\u0275text(48, " Order on WhatsApp ");
         \u0275\u0275elementEnd()()();
         \u0275\u0275namespaceHTML();
-        \u0275\u0275elementStart(46, "div", 19)(47, "p");
-        \u0275\u0275text(48, "\xA9 2024 Vedrithm. All rights reserved. Rooted in Ayurveda, crafted in India.");
+        \u0275\u0275elementStart(49, "div", 20)(50, "p");
+        \u0275\u0275text(51, "\xA9 2025 Vedrithm. All rights reserved. Rooted in Ayurveda, crafted in India.");
         \u0275\u0275elementEnd()()();
       }
-    }, dependencies: [RouterLink], styles: ["\n\nfooter[_ngcontent-%COMP%] {\n  background: var(--forest-mid);\n  border-top: 1px solid var(--border-gold);\n  padding-top: 4rem;\n}\n.footer-ornament[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  padding: 0 2rem;\n  margin-bottom: 3rem;\n}\n.footer-ornament[_ngcontent-%COMP%]   .line[_ngcontent-%COMP%] {\n  flex: 1;\n  height: 1px;\n  background: var(--border-gold);\n}\n.footer-ornament[_ngcontent-%COMP%]   .leaf[_ngcontent-%COMP%] {\n  font-size: 1.4rem;\n}\n.footer-content[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1.5fr 1fr 1.5fr;\n  gap: 4rem;\n  padding-bottom: 3rem;\n}\n.footer-logo[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  border-radius: 10px;\n  object-fit: cover;\n  border: 1px solid var(--border-gold);\n  margin-bottom: 1rem;\n}\n.footer-brand[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.4rem;\n  letter-spacing: 0.25em;\n  color: var(--gold);\n  margin-bottom: 0.75rem;\n}\n.footer-brand[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  color: rgba(250, 244, 230, 0.6);\n  line-height: 1.8;\n  margin-bottom: 1.5rem;\n}\n.social-links[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 1rem;\n}\n.social-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  width: 38px;\n  height: 38px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  border: 1px solid var(--border-gold);\n  border-radius: 50%;\n  color: var(--gold);\n  transition: all 0.3s ease;\n}\n.social-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  background: rgba(212, 175, 55, 0.1);\n  transform: translateY(-2px);\n}\n.social-links[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 16px;\n}\n.footer-links[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%], .footer-contact[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  font-family: var(--font-body);\n  font-size: 0.7rem;\n  letter-spacing: 0.25em;\n  text-transform: uppercase;\n  color: var(--gold);\n  margin-bottom: 1.25rem;\n}\n.footer-links[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%] {\n  list-style: none;\n}\n.footer-links[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  margin-bottom: 0.75rem;\n}\n.footer-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  font-size: 0.9rem;\n  color: rgba(250, 244, 230, 0.65);\n  transition: color 0.3s ease;\n}\n.footer-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  color: var(--gold);\n}\n.footer-contact[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  color: rgba(250, 244, 230, 0.6);\n  line-height: 1.8;\n  margin-bottom: 1.25rem;\n}\n.whatsapp-cta[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.65rem 1.25rem;\n  background: #25d366;\n  color: white;\n  font-size: 0.8rem;\n  font-weight: 600;\n  border-radius: 2px;\n  transition: all 0.3s ease;\n}\n.whatsapp-cta[_ngcontent-%COMP%]:hover {\n  background: #1da851;\n  transform: translateY(-2px);\n  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);\n}\n.footer-bottom[_ngcontent-%COMP%] {\n  border-top: 1px solid var(--border-gold);\n  padding: 1.25rem 2rem;\n  text-align: center;\n}\n.footer-bottom[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  color: rgba(250, 244, 230, 0.4);\n  letter-spacing: 0.05em;\n}\n@media (max-width: 768px) {\n  .footer-content[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 2.5rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */"] });
+    }, dependencies: [RouterLink], styles: ["\n\nfooter[_ngcontent-%COMP%] {\n  background: var(--forest-mid);\n  border-top: 1px solid var(--border-gold);\n  padding-top: 4rem;\n}\n.footer-ornament[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  padding: 0 2rem 3rem;\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.footer-ornament[_ngcontent-%COMP%]   .line[_ngcontent-%COMP%] {\n  flex: 1;\n  height: 1px;\n  background:\n    linear-gradient(\n      to right,\n      transparent,\n      var(--border-gold));\n}\n.footer-ornament[_ngcontent-%COMP%]   .line[_ngcontent-%COMP%]:last-child {\n  background:\n    linear-gradient(\n      to left,\n      transparent,\n      var(--border-gold));\n}\n.leaf[_ngcontent-%COMP%] {\n  font-size: 1.2rem;\n}\n.footer-content[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem 3rem;\n  display: grid;\n  grid-template-columns: 2fr 1fr 1.5fr;\n  gap: 4rem;\n}\n.footer-logo[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  border-radius: 50%;\n  object-fit: cover;\n  border: 1px solid var(--border-gold);\n  margin-bottom: 1rem;\n}\n.footer-brand[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-family: var(--font-body);\n  font-size: 0.75rem;\n  letter-spacing: 0.3em;\n  color: var(--gold);\n  margin-bottom: 0.6rem;\n}\n.footer-brand[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(250, 244, 230, 0.45);\n  line-height: 1.7;\n  margin-bottom: 1.25rem;\n}\n.social-links[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 0.75rem;\n}\n.social-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border: 1px solid var(--border-gold);\n  border-radius: 50%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: rgba(250, 244, 230, 0.4);\n  transition: all 0.3s ease;\n}\n.social-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]   svg[_ngcontent-%COMP%] {\n  width: 16px;\n  height: 16px;\n}\n.social-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  color: var(--gold);\n  border-color: var(--gold);\n  background: rgba(212, 175, 55, 0.08);\n}\n.footer-links[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%], .footer-contact[_ngcontent-%COMP%]   h4[_ngcontent-%COMP%] {\n  font-family: var(--font-body);\n  font-size: 0.7rem;\n  letter-spacing: 0.2em;\n  text-transform: uppercase;\n  color: var(--gold);\n  margin-bottom: 1.25rem;\n  opacity: 0.7;\n}\n.footer-links[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%] {\n  list-style: none;\n  padding: 0;\n  margin: 0;\n  display: flex;\n  flex-direction: column;\n  gap: 0.6rem;\n}\n.footer-links[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  font-size: 0.85rem;\n  color: rgba(250, 244, 230, 0.5);\n  text-decoration: none;\n  transition: color 0.3s ease;\n}\n.footer-links[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  color: var(--cream);\n}\n.footer-contact[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.82rem;\n  color: rgba(250, 244, 230, 0.45);\n  line-height: 1.7;\n  margin-bottom: 1.25rem;\n}\n.whatsapp-cta[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.65rem 1.25rem;\n  background: rgba(37, 211, 102, 0.1);\n  border: 1px solid rgba(37, 211, 102, 0.3);\n  border-radius: 4px;\n  font-size: 0.78rem;\n  font-weight: 600;\n  color: #25d366;\n  text-decoration: none;\n  transition: all 0.3s ease;\n}\n.whatsapp-cta[_ngcontent-%COMP%]:hover {\n  background: rgba(37, 211, 102, 0.18);\n  border-color: rgba(37, 211, 102, 0.6);\n}\n.footer-bottom[_ngcontent-%COMP%] {\n  border-top: 1px solid var(--border-gold);\n  padding: 1.5rem 2rem;\n  text-align: center;\n}\n.footer-bottom[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 0.75rem;\n  color: rgba(250, 244, 230, 0.25);\n  letter-spacing: 0.08em;\n}\n@media (max-width: 768px) {\n  .footer-content[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 2.5rem;\n  }\n}\n/*# sourceMappingURL=footer.component.css.map */"] });
   }
 };
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FooterComponent, { className: "FooterComponent", filePath: "src\\app\\components\\footer\\footer.component.ts", lineNumber: 179 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(FooterComponent, { className: "FooterComponent", filePath: "src\\app\\components\\footer\\footer.component.ts", lineNumber: 83 });
 })();
 
 // src/app/components/whatsapp-button/whatsapp-button.component.ts
@@ -204,13 +229,9 @@ var WhatsappButtonComponent = class _WhatsappButtonComponent {
   constructor(configService) {
     this.configService = configService;
     this.showTooltip = false;
-    this.waUrl = "";
-  }
-  ngOnInit() {
-    this.configService.stream.subscribe((cfg) => {
-      const msg = `Hi! I'm interested in Vedrithm Herbal Hair Oil. Please share more details.`;
-      this.waUrl = `https://wa.me/${cfg.whatsappNumber}?text=${encodeURIComponent(msg)}`;
-    });
+    const cfg = this.configService.snapshot;
+    const msg = `Hi! I'm interested in Vedrithm Herbal Hair Oil. Please share more details.`;
+    this.waUrl = `https://wa.me/${cfg.whatsappNumber}?text=${encodeURIComponent(msg)}`;
   }
   static {
     this.\u0275fac = function WhatsappButtonComponent_Factory(t) {
@@ -243,24 +264,18 @@ var WhatsappButtonComponent = class _WhatsappButtonComponent {
         \u0275\u0275advance(2);
         \u0275\u0275property("href", ctx.waUrl, \u0275\u0275sanitizeUrl);
       }
-    }, dependencies: [CommonModule], styles: ["\n\n.wa-float-wrapper[_ngcontent-%COMP%] {\n  position: fixed;\n  bottom: 2rem;\n  right: 2rem;\n  z-index: 999;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n}\n.wa-tooltip[_ngcontent-%COMP%] {\n  background: var(--forest-mid);\n  color: var(--gold);\n  border: 1px solid var(--border-gold);\n  padding: 0.5rem 0.9rem;\n  border-radius: 4px;\n  font-size: 0.78rem;\n  font-weight: 500;\n  white-space: nowrap;\n  opacity: 0;\n  transform: translateY(8px);\n  transition: all 0.3s ease;\n  pointer-events: none;\n  margin-bottom: 0.6rem;\n}\n.wa-tooltip.show[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: translateY(0);\n}\n.wa-float[_ngcontent-%COMP%] {\n  width: 58px;\n  height: 58px;\n  background: #25d366;\n  border-radius: 50%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);\n  transition: all 0.3s ease;\n  position: relative;\n  overflow: visible;\n}\n.wa-float[_ngcontent-%COMP%]:hover {\n  transform: scale(1.08);\n  box-shadow: 0 8px 35px rgba(37, 211, 102, 0.5);\n}\n.ripple[_ngcontent-%COMP%] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  border-radius: 50%;\n  background: #25d366;\n  animation: _ngcontent-%COMP%_rippleAnim 2s infinite;\n  z-index: -1;\n}\n@keyframes _ngcontent-%COMP%_rippleAnim {\n  0% {\n    transform: scale(1);\n    opacity: 0.4;\n  }\n  100% {\n    transform: scale(1.8);\n    opacity: 0;\n  }\n}\n/*# sourceMappingURL=whatsapp-button.component.css.map */"] });
+    }, styles: ["\n\n.wa-float-wrapper[_ngcontent-%COMP%] {\n  position: fixed;\n  bottom: 2rem;\n  right: 2rem;\n  z-index: 999;\n  display: flex;\n  flex-direction: column;\n  align-items: flex-end;\n}\n.wa-tooltip[_ngcontent-%COMP%] {\n  background: var(--forest-mid);\n  color: var(--gold);\n  border: 1px solid var(--border-gold);\n  padding: 0.5rem 0.9rem;\n  border-radius: 4px;\n  font-size: 0.78rem;\n  font-weight: 500;\n  white-space: nowrap;\n  opacity: 0;\n  transform: translateY(8px);\n  transition: all 0.3s ease;\n  pointer-events: none;\n  margin-bottom: 0.6rem;\n}\n.wa-tooltip.show[_ngcontent-%COMP%] {\n  opacity: 1;\n  transform: translateY(0);\n}\n.wa-float[_ngcontent-%COMP%] {\n  width: 58px;\n  height: 58px;\n  background: #25d366;\n  border-radius: 50%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);\n  transition: all 0.3s ease;\n  position: relative;\n  overflow: visible;\n}\n.wa-float[_ngcontent-%COMP%]:hover {\n  transform: scale(1.08);\n  box-shadow: 0 8px 35px rgba(37, 211, 102, 0.5);\n}\n.ripple[_ngcontent-%COMP%] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  border-radius: 50%;\n  background: #25d366;\n  animation: _ngcontent-%COMP%_rippleAnim 2s infinite;\n  z-index: -1;\n}\n@keyframes _ngcontent-%COMP%_rippleAnim {\n  0% {\n    transform: scale(1);\n    opacity: 0.4;\n  }\n  100% {\n    transform: scale(1.8);\n    opacity: 0;\n  }\n}\n/*# sourceMappingURL=whatsapp-button.component.css.map */"] });
   }
 };
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(WhatsappButtonComponent, { className: "WhatsappButtonComponent", filePath: "src\\app\\components\\whatsapp-button\\whatsapp-button.component.ts", lineNumber: 35 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(WhatsappButtonComponent, { className: "WhatsappButtonComponent", filePath: "src\\app\\components\\whatsapp-button\\whatsapp-button.component.ts", lineNumber: 30 });
 })();
 
 // src/app/app.component.ts
 var AppComponent = class _AppComponent {
-  constructor(configService) {
-    this.configService = configService;
-  }
-  ngOnInit() {
-    this.configService.load().subscribe();
-  }
   static {
     this.\u0275fac = function AppComponent_Factory(t) {
-      return new (t || _AppComponent)(\u0275\u0275directiveInject(SiteConfigService));
+      return new (t || _AppComponent)();
     };
   }
   static {
@@ -276,7 +291,7 @@ var AppComponent = class _AppComponent {
   }
 };
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent", filePath: "src\\app\\app.component.ts", lineNumber: 20 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent", filePath: "src\\app\\app.component.ts", lineNumber: 19 });
 })();
 
 // node_modules/@angular/animations/fesm2022/animations.mjs
@@ -4814,15 +4829,19 @@ var NoopAnimationsModule = class _NoopAnimationsModule {
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-IDF26HUV.js").then((m) => m.HomeComponent)
+    loadComponent: () => import("./chunk-BOEAN3EA.js").then((m) => m.HomeComponent)
   },
   {
     path: "ingredients",
-    loadComponent: () => import("./chunk-W3ULV2JU.js").then((m) => m.IngredientsComponent)
+    loadComponent: () => import("./chunk-RU3WWOMD.js").then((m) => m.IngredientsComponent)
   },
   {
     path: "quiz",
-    loadComponent: () => import("./chunk-7QU27PGE.js").then((m) => m.QuizComponent)
+    loadComponent: () => import("./chunk-YS4VGXP6.js").then((m) => m.QuizComponent)
+  },
+  {
+    path: "reviews",
+    loadComponent: () => import("./chunk-X5TZ423U.js").then((m) => m.ReviewsComponent)
   },
   {
     path: "**",
@@ -4831,20 +4850,11 @@ var routes = [
 ];
 
 // src/app/app.config.ts
-function initConfig(configService) {
-  return () => firstValueFrom(configService.load());
-}
 var appConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
-    provideAnimations(),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initConfig,
-      deps: [SiteConfigService],
-      multi: true
-    }
+    provideAnimations()
   ]
 };
 
