@@ -16,7 +16,7 @@ const CONFIG: SiteConfig = {
   brandTagline: 'Ancient Ayurvedic wisdom for modern hair care',
   heroTitle: 'Rooted in Nature. Nourished by Vedas.',
   heroSubtitle: 'A sacred blend of 8 time-honoured Ayurvedic herbs, cold-pressed to restore your hair\'s natural vitality.',
-  brandStory: 'Vedrithm was born from a deep reverence for India\'s ancient Ayurvedic heritage.',
+  brandStory: 'Vedhrithm was born from a deep reverence for India\'s ancient Ayurvedic heritage.',
   instagramUrl: 'https://instagram.com/vedrithm'
 };
 

@@ -271,7 +271,7 @@ var APPROVED_REVIEWS = [
     id: "1",
     name: "Anjali Mehta",
     rating: 5,
-    text: "I've been using Vedrithm for 6 weeks and the difference is unbelievable. My hair fall has reduced dramatically and my scalp feels so calm. The fragrance is divine \u2014 truly Ayurvedic.",
+    text: "I've been using Vedhrithm for 6 weeks and the difference is unbelievable. My hair fall has reduced dramatically and my scalp feels so calm. The fragrance is divine \u2014 truly Ayurvedic.",
     productUsed: "Bhringraj & Castor Base + Fenugreek Booster",
     date: "March 2025",
     initials: "AM"
@@ -362,7 +362,7 @@ var ReviewsComponent = class _ReviewsComponent {
       name: this.reviewForm.name,
       rating: this.reviewForm.rating,
       text: this.reviewForm.text,
-      productUsed: this.reviewForm.productUsed || "Vedrithm Herbal Hair Oil"
+      productUsed: this.reviewForm.productUsed || "Vedhrithm Herbal Hair Oil"
     }).subscribe({
       next: () => {
         this.reviewSubmitted = true;
@@ -401,7 +401,7 @@ var ReviewsComponent = class _ReviewsComponent {
         \u0275\u0275text(9, " Says");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(10, "p", 5);
-        \u0275\u0275text(11, "Honest reviews from people who've made Vedrithm part of their hair care ritual.");
+        \u0275\u0275text(11, "Honest reviews from people who've made Vedhrithm part of their hair care ritual.");
         \u0275\u0275elementEnd();
         \u0275\u0275elementStart(12, "div", 6)(13, "div", 7);
         \u0275\u0275text(14);
@@ -424,7 +424,7 @@ var ReviewsComponent = class _ReviewsComponent {
         \u0275\u0275text(32, "Review");
         \u0275\u0275elementEnd()();
         \u0275\u0275elementStart(33, "p", 18);
-        \u0275\u0275text(34, "Tried Vedrithm? We'd love to hear about your experience.");
+        \u0275\u0275text(34, "Tried Vedhrithm? We'd love to hear about your experience.");
         \u0275\u0275elementEnd()();
         \u0275\u0275template(35, ReviewsComponent_div_35_Template, 9, 1, "div", 19)(36, ReviewsComponent_div_36_Template, 26, 11, "div", 20);
         \u0275\u0275elementEnd()()();

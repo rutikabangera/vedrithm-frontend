@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { QuizService } from '../../services/quiz.service';
+import { ThemedSelectComponent, SelectOption } from '../../components/themed-select/themed-select.component';
 
 interface Review {
   id: string;
@@ -19,7 +20,7 @@ const APPROVED_REVIEWS: Review[] = [
     id: '1',
     name: 'Anjali Mehta',
     rating: 5,
-    text: 'I\'ve been using Vedrithm for 6 weeks and the difference is unbelievable. My hair fall has reduced dramatically and my scalp feels so calm. The fragrance is divine — truly Ayurvedic.',
+    text: 'I\'ve been using Vedhrithm for 6 weeks and the difference is unbelievable. My hair fall has reduced dramatically and my scalp feels so calm. The fragrance is divine — truly Ayurvedic.',
     productUsed: 'Bhringraj & Castor Base + Fenugreek Booster',
     date: 'March 2025',
     initials: 'AM'
@@ -74,7 +75,7 @@ const APPROVED_REVIEWS: Review[] = [
 @Component({
   selector: 'app-reviews',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ThemedSelectComponent],
   template: `
     <!-- Hero -->
     <section class="reviews-hero">
@@ -82,7 +83,7 @@ const APPROVED_REVIEWS: Review[] = [
       <div class="container">
         <span class="section-tag">Real Customers, Real Results</span>
         <h1 class="page-title">What Our <span>Community</span> Says</h1>
-        <p class="page-subtitle">Honest reviews from people who've made Vedrithm part of their hair care ritual.</p>
+        <p class="page-subtitle">Honest reviews from people who've made Vedhrithm part of their hair care ritual.</p>
         <div class="rating-summary">
           <div class="avg-rating">{{ avgRating.toFixed(1) }}</div>
           <div class="avg-stars">
@@ -126,7 +127,7 @@ const APPROVED_REVIEWS: Review[] = [
           <div class="submit-header">
             <span class="section-tag">Share Your Story</span>
             <h2 class="submit-title">Leave a <span>Review</span></h2>
-            <p class="submit-desc">Tried Vedrithm? We'd love to hear about your experience.</p>
+            <p class="submit-desc">Tried Vedhrithm? We'd love to hear about your experience.</p>
           </div>
 
           <!-- Success state -->
@@ -147,20 +148,12 @@ const APPROVED_REVIEWS: Review[] = [
               </div>
               <div class="form-group">
                 <label>Product Used</label>
-                <div class="select-wrap">
-                  <select class="form-input form-select" [(ngModel)]="reviewForm.productUsedSelect" (ngModelChange)="onProductSelectChange($event)">
-                    <option value="" disabled>Select your blend...</option>
-                    <option value="Vedrithm Base Oil + Hair Growth Booster">Base Oil + Hair Growth Booster</option>
-                    <option value="Vedrithm Base Oil + Dandruff Control Booster">Base Oil + Dandruff Control Booster</option>
-                    <option value="Vedrithm Base Oil + Anti-Greying Booster">Base Oil + Anti-Greying Booster</option>
-                    <option value="Vedrithm Base Oil + Moisture Seal Booster">Base Oil + Moisture Seal Booster</option>
-                    <option value="Vedrithm Base Oil + Shine Revival Booster">Base Oil + Shine Revival Booster</option>
-                    <option value="Vedrithm Base Oil + Repair & Restore Booster">Base Oil + Repair &amp; Restore Booster</option>
-                    <option value="Vedrithm Base Oil + Nourishment Booster">Base Oil + Nourishment Booster</option>
-                    <option value="__other__">Other — I'll type it in</option>
-                  </select>
-                  <span class="select-arrow">&#9662;</span>
-                </div>
+                <app-themed-select
+                  [options]="productOptions"
+                  [(value)]="reviewForm.productUsedSelect"
+                  (valueChange)="onProductSelectChange($event)"
+                  placeholder="Select your blend...">
+                </app-themed-select>
                 <input *ngIf="showCustomProduct" type="text" class="form-input custom-product-input"
                        placeholder="e.g. My custom blend..."
                        [(ngModel)]="reviewForm.productUsed" />
@@ -262,9 +255,18 @@ const APPROVED_REVIEWS: Review[] = [
   `]
 })
 export class ReviewsComponent implements OnInit {
-  //reviews: Review[] = APPROVED_REVIEWS;
   reviews: Review[] = [];
   Math = Math;
+  productOptions: SelectOption[] = [
+    { value: 'Vedrithm Base Oil + Hair Growth Booster',       label: 'Base Oil + Hair Growth Booster' },
+    { value: 'Vedrithm Base Oil + Dandruff Control Booster',  label: 'Base Oil + Dandruff Control Booster' },
+    { value: 'Vedrithm Base Oil + Anti-Greying Booster',      label: 'Base Oil + Anti-Greying Booster' },
+    { value: 'Vedrithm Base Oil + Moisture Seal Booster',     label: 'Base Oil + Moisture Seal Booster' },
+    { value: 'Vedrithm Base Oil + Shine Revival Booster',     label: 'Base Oil + Shine Revival Booster' },
+    { value: 'Vedrithm Base Oil + Repair & Restore Booster',  label: 'Base Oil + Repair & Restore Booster' },
+    { value: 'Vedrithm Base Oil + Nourishment Booster',       label: 'Base Oil + Nourishment Booster' },
+    { value: '__other__',                                      label: 'Other — I\'ll type it in' },
+  ];
 
   reviewForm = { name: '', rating: 0, text: '', productUsed: '', productUsedSelect: '' };
   showCustomProduct = false;
@@ -279,26 +281,29 @@ export class ReviewsComponent implements OnInit {
 
   constructor(private quizService: QuizService) {}
 
-  //ngOnInit() {}
-
   ngOnInit() {
-  this.quizService.getReviews().subscribe(data => {
-    this.reviews = data.map(r => ({
-      ...r,
-      initials: this.getInitials(r.name)
-    }));
-  });
-}
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    this.quizService.getReviews().subscribe({
+      next: (data: any[]) => {
+        if (data && data.length > 0) {
+          this.reviews = data.map((r: any) => ({
+            ...r,
+            initials: this.getInitials(r.name)
+          }));
+        } else {
+          this.reviews = [...APPROVED_REVIEWS];
+        }
+      },
+      error: () => {
+        this.reviews = [...APPROVED_REVIEWS];
+      }
+    });
+  }
 
-getInitials(name: string): string {
-  if (!name) return '';
-  
-  return name
-    .split(' ')
-    .map(n => n[0])
-    .join('')
-    .toUpperCase();
-}
+  getInitials(name: string): string {
+    if (!name) return '';
+    return name.split(' ').map((n: string) => n[0]).join('').toUpperCase();
+  }
 
   onProductSelectChange(value: string) {
     if (value === '__other__') {
@@ -322,10 +327,10 @@ getInitials(name: string): string {
       name: this.reviewForm.name,
       rating: this.reviewForm.rating,
       text: this.reviewForm.text,
-      productUsed: this.reviewForm.productUsed || 'Vedrithm Herbal Hair Oil'
+      productUsed: this.reviewForm.productUsed || 'Vedhrithm Herbal Hair Oil'
     }).subscribe({
       next: () => { this.reviewSubmitted = true; this.submittingReview = false; },
-      error: () => { this.reviewSubmitted = true; this.submittingReview = false; } // Still show success to user
+      error: () => { this.reviewSubmitted = true; this.submittingReview = false; }
     });
   }
 

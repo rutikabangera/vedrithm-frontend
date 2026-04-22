@@ -33,7 +33,7 @@ export class WhatsappButtonComponent {
 
   constructor(private configService: SiteConfigService) {
     const cfg = this.configService.snapshot;
-    const msg = `Hi! I'm interested in Vedrithm Herbal Hair Oil. Please share more details.`;
+    const msg = `Hi! I'm interested in Vedhrithm Herbal Hair Oil. Please share more details.`;
     this.waUrl = `https://wa.me/${cfg.whatsappNumber}?text=${encodeURIComponent(msg)}`;
   }
 }

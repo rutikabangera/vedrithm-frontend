@@ -225,7 +225,7 @@ export class IngredientsComponent implements OnInit {
   whatsappUrl = '';
 
   heroStats = [
-    { num: '12',   label: 'Sacred Herbs' },
+    { num: '15',   label: 'Sacred Herbs' },
     { num: '100%', label: 'Cold-Pressed' },
     { num: '0',    label: 'Chemicals' },
   ];
@@ -243,6 +243,7 @@ export class IngredientsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    window.scrollTo({ top: 0, behavior: 'instant' });
     const num = this.configService.snapshot.whatsappNumber;
     this.whatsappUrl = `https://wa.me/${num}?text=Hi%2C%20I%20want%20to%20order%20Vedrithm%20Herbal%20Hair%20Oil`;
 

@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 
       <div class="footer-content container">
         <div class="footer-brand">
-          <img src="assets/images/logo.jpg" alt="Vedrithm" class="footer-logo" />
+          <img src="assets/images/logo.jpg" alt="Vedhrithm" class="footer-logo" />
           <h3>VEDRITHM</h3>
           <p>Ancient Ayurvedic wisdom,<br>crafted for modern hair care.</p>
           <div class="social-links">
@@ -50,7 +50,7 @@ import { RouterLink } from '@angular/router';
       </div>
 
       <div class="footer-bottom">
-        <p>© 2025 Vedrithm. All rights reserved. Rooted in Ayurveda, crafted in India.</p>
+        <p>© 2025 Vedhrithm. All rights reserved. Rooted in Ayurveda, crafted in India.</p>
       </div>
     </footer>
   `,

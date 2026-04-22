@@ -14,8 +14,6 @@ export interface Ingredient {
   benefits: string[];
 }
 
-// ─── All ingredient data is now static — no backend needed ────────────────
-// Previously fetched from MySQL via Render. Now served instantly from here.
 const INGREDIENTS: Ingredient[] = [
   {
     id: 1, name: 'Bhringraj', sanskritName: 'Eclipta Alba', emoji: '🌿',
@@ -100,6 +98,27 @@ const INGREDIENTS: Ingredient[] = [
     description: 'Called "Habbatus Sauda" — the seed of blessing — in ancient texts, Nigella Sativa contains Thymoquinone, a powerful compound that inhibits DHT (the hormone responsible for hair thinning) and calms inflamed scalps.',
     originPlace: 'Madhya Pradesh', displayOrder: 12,
     benefits: ['Inhibits DHT naturally', 'Calms inflamed scalp', 'Antioxidant-rich', 'Supports melanin production']
+  },
+  {
+    id: 13, name: 'Cinnamon', sanskritName: 'Cinnamomum Verum', emoji: '🍂',
+    imageSlug: 'cinnamon', tag: 'Scalp Stimulation',
+    description: 'Ceylon Cinnamon is a warming circulatory stimulant that dilates blood vessels in the scalp, dramatically increasing nutrient delivery to hair follicles. Its antimicrobial properties also fight scalp fungus and bacteria.',
+    originPlace: 'Kerala & Sri Lanka Border', displayOrder: 13,
+    benefits: ['Boosts scalp blood flow', 'Antimicrobial action', 'Stimulates follicle activity', 'Warms and revives dull scalp']
+  },
+  {
+    id: 14, name: 'Cloves', sanskritName: 'Syzygium Aromaticum', emoji: '🌿',
+    imageSlug: 'cloves', tag: 'Purifying & Strengthening',
+    description: 'Cloves are rich in eugenol — a powerful antioxidant and antiseptic that purifies the scalp, combats free radical damage to hair fibres, and strengthens the cortex of each strand from within.',
+    originPlace: 'Tamil Nadu & Kerala', displayOrder: 14,
+    benefits: ['Eugenol-rich antioxidant', 'Deep scalp antiseptic', 'Combats free radical damage', 'Fortifies hair cortex']
+  },
+  {
+    id: 15, name: 'Indian Nard', sanskritName: 'Nardostachys Jatamansi', emoji: '🌸',
+    imageSlug: 'indian-nard', tag: 'Rare Ayurvedic Herb',
+    description: 'Jatamansi is one of the rarest and most revered herbs in Ayurvedic medicine, used since Vedic times for its profound ability to calm the mind-scalp connection, enhance pigmentation, and awaken dormant follicles.',
+    originPlace: 'Himalayas, Uttarakhand', displayOrder: 15,
+    benefits: ['Awakens dormant follicles', 'Enhances hair pigmentation', 'Rare Himalayan sourcing', 'Calms mind-scalp stress axis']
   }
 ];
 

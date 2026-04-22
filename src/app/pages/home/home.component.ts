@@ -1,9 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SiteConfigService, SiteConfig } from '../../services/site-config.service';
 import { HomeBenefitService, HomeBenefit } from '../../services/home-benefit.service';
 import { IngredientService, Ingredient } from '../../services/ingredient.service';
+import { QuizService } from '../../services/quiz.service';
+
+interface Review {
+  id: string; name: string; rating: number; text: string;
+  productUsed: string; date: string; initials: string;
+}
+
+const FALLBACK_REVIEWS: Review[] = [
+  { id:'1', name:'Anjali M.', rating:5, initials:'AM',
+    text:'My hair fall reduced dramatically in just 6 weeks. The fragrance is divine — truly Ayurvedic.',
+    productUsed:'Bhringraj & Castor Base', date:'March 2025' },
+  { id:'2', name:'Priya S.', rating:5, initials:'PS',
+    text:'The quiz result was spot on! My hair growth has visibly improved and the packaging is beautiful.',
+    productUsed:'Amla & Sesame Base', date:'Feb 2025' },
+  { id:'3', name:'Rohan D.', rating:5, initials:'RD',
+    text:'My dandruff is almost gone after 3 weeks. Light texture, absorbs fast — no greasy residue!',
+    productUsed:'Neem & Cinnamon Base', date:'Jan 2025' },
+  { id:'4', name:'Kavita N.', rating:4, initials:'KN',
+    text:'Lovely oil with authentic Ayurvedic herbs. My frizz has calmed down noticeably.',
+    productUsed:'Coconut & Hibiscus Base', date:'March 2025' },
+  { id:'5', name:'Sunita P.', rating:5, initials:'SP',
+    text:'Best Ayurvedic oil I\'ve found. Authentic scent, not artificial. My greying has slowed in 2 months.',
+    productUsed:'Curry Leaf & Nard Base', date:'Dec 2024' },
+  { id:'6', name:'Deepak R.', rating:5, initials:'DR',
+    text:'Bought for my wife. She says it\'s the first oil that doesn\'t irritate her sensitive scalp.',
+    productUsed:'Coconut & Bhringraj Base', date:'Jan 2025' },
+];
 
 @Component({
   selector: 'app-home',
@@ -48,7 +75,7 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
         <div class="hero-product">
           <div class="product-glow-ring"></div>
           <div class="product-frame">
-            <img src="assets/images/product.jpg" alt="Vedrithm Herbal Hair Oil" class="product-img" />
+            <img src="assets/images/product.jpg" alt="Vedhrithm Herbal Hair Oil" class="product-img" />
           </div>
         </div>
       </div>
@@ -66,25 +93,40 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
       </div>
     </div>
 
-    <!-- ─── BENEFITS ─── -->
+    <!-- ─── BENEFITS SLIDER ─── -->
     <section class="benefits">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Why Vedrithm</span>
+          <span class="section-tag">Why Vedhrithm</span>
           <h2 class="section-title">Transformative <span>Benefits</span></h2>
           <p class="section-desc">Every drop carries centuries of Ayurvedic knowledge, balanced for your modern lifestyle.</p>
         </div>
-        <div class="benefits-grid">
-          <div class="benefit-card" *ngFor="let b of benefits; let i = index"
-               [style.animation-delay]="(i * 0.1) + 's'">
-            <div class="benefit-icon-wrap">
-              <img [src]="getBenefitImage(b.icon)" [alt]="b.title"
-                   class="benefit-icon-img" loading="lazy"
-                   (error)="onBenefitImgError($event)" />
+        <div class="benefits-slider-wrap">
+          <button class="slider-nav prev" (click)="prevBenefit()" [disabled]="benefitIndex === 0" aria-label="Previous">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="benefits-slider-viewport">
+            <div class="benefits-slider-track" [style.transform]="'translateX(-' + (benefitIndex * benefitSlideWidth) + '%)'">
+              <div class="benefit-card" *ngFor="let b of benefits; let i = index"
+                   [class.active-card]="i >= benefitIndex && i < benefitIndex + visibleBenefits">
+                <div class="benefit-icon-wrap">
+                  <img [src]="getBenefitImage(b.icon)" [alt]="b.title"
+                       class="benefit-icon-img" loading="lazy"
+                       (error)="onBenefitImgError($event)" />
+                </div>
+                <h3>{{ b.title }}</h3>
+                <p>{{ b.description }}</p>
+              </div>
             </div>
-            <h3>{{ b.title }}</h3>
-            <p>{{ b.description }}</p>
           </div>
+          <button class="slider-nav next" (click)="nextBenefit()" [disabled]="benefitIndex >= benefits.length - visibleBenefits" aria-label="Next">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div class="slider-dots">
+          <button class="dot" *ngFor="let d of benefitDots; let i = index"
+                  [class.active]="i === benefitIndex"
+                  (click)="benefitIndex = i" [attr.aria-label]="'Go to benefit ' + (i+1)"></button>
         </div>
       </div>
     </section>
@@ -116,7 +158,7 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
         <div class="story-inner">
           <div class="story-image-side">
             <div class="story-img-frame">
-              <img src="assets/images/logo.jpg" alt="Vedrithm Brand" class="story-logo-img" />
+              <img src="assets/images/logo.jpg" alt="Vedhrithm Brand" class="story-logo-img" />
             </div>
           </div>
           <div class="story-text-side">
@@ -149,7 +191,8 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
           <h2 class="section-title">Sourced from <span>Nature's Pharmacy</span></h2>
         </div>
         <div class="ingr-preview-grid">
-          <div class="ingr-preview-card" *ngFor="let ing of featuredIngredients">
+          <div class="ingr-preview-card" *ngFor="let ing of featuredIngredients"
+               (mouseenter)="hoveredIngr = ing.id" (mouseleave)="hoveredIngr = 0">
             <div class="ingr-visual">
               <img [src]="'assets/ingredients/' + ing.imageSlug + '.png'"
                    [alt]="ing.name" class="ingr-preview-img" loading="lazy"
@@ -157,6 +200,7 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
             </div>
             <div class="ingr-name">{{ ing.name }}</div>
             <div class="ingr-benefit">{{ ing.tag }}</div>
+            <div class="ingr-hover-pill" [class.show]="hoveredIngr === ing.id">{{ ing.emoji }} {{ ing.originPlace }}</div>
           </div>
         </div>
         <div class="ingr-cta">
@@ -173,12 +217,12 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
       <div class="container">
         <div class="proof-inner">
           <div class="proof-stat">
-            <span class="proof-num">4.9★</span>
+            <span class="proof-num">{{ liveAvgRating > 0 ? liveAvgRating.toFixed(1) : '5.0' }}★</span>
             <span class="proof-label">Average Rating</span>
           </div>
           <div class="proof-divider"></div>
           <div class="proof-stat">
-            <span class="proof-num">500+</span>
+            <span class="proof-num">{{ reviews.length > 0 ? reviews.length + '+' : '500+' }}</span>
             <span class="proof-label">Happy Customers</span>
           </div>
           <div class="proof-divider"></div>
@@ -195,20 +239,52 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
       </div>
     </section>
 
-    <!-- ─── REVIEW TEASER ─── -->
+    <!-- ─── REVIEW CAROUSEL ─── -->
     <section class="review-teaser">
       <div class="container">
         <div class="section-header center">
           <span class="section-tag">Real Results</span>
           <h2 class="section-title">Loved by Our <span>Community</span></h2>
+          <p class="section-desc" *ngIf="liveAvgRating > 0">
+            Rated <strong style="color:var(--gold)">{{ liveAvgRating.toFixed(1) }}/5</strong>
+            across {{ reviews.length }} verified reviews
+          </p>
         </div>
-        <div class="teaser-reviews">
-          <div class="teaser-card" *ngFor="let r of featuredReviews">
-            <div class="teaser-stars">★★★★★</div>
-            <p class="teaser-text">"{{ r.text }}"</p>
-            <div class="teaser-author">— {{ r.name }}, <span>{{ r.product }}</span></div>
+
+        <!-- Carousel -->
+        <div class="review-carousel">
+          <button class="slider-nav prev" (click)="prevReview()" aria-label="Previous review">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div class="review-carousel-viewport">
+            <div class="review-carousel-track" [style.transform]="'translateX(-' + (reviewCarouselIndex * 100) + '%)'">
+              <div class="teaser-card" *ngFor="let r of displayReviews">
+                <div class="teaser-top">
+                  <div class="teaser-avatar">{{ r.initials }}</div>
+                  <div>
+                    <div class="teaser-author-name">{{ r.name }}</div>
+                    <div class="teaser-date">{{ r.date }}</div>
+                  </div>
+                  <div class="teaser-stars-row">
+                    <span *ngFor="let s of [1,2,3,4,5]" [class.lit]="s <= r.rating">★</span>
+                  </div>
+                </div>
+                <p class="teaser-text">"{{ r.text }}"</p>
+                <div class="teaser-product">✦ {{ r.productUsed }}</div>
+              </div>
+            </div>
           </div>
+          <button class="slider-nav next" (click)="nextReview()" aria-label="Next review">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
         </div>
+
+        <div class="slider-dots">
+          <button class="dot" *ngFor="let d of displayReviews; let i = index"
+                  [class.active]="i === reviewCarouselIndex"
+                  (click)="reviewCarouselIndex = i"></button>
+        </div>
+
         <div class="ingr-cta" style="margin-top:2.5rem">
           <a routerLink="/reviews" class="btn-outline">
             See All Reviews
@@ -228,7 +304,7 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
         <div class="quiz-cta-inner">
           <span class="section-tag">Personalised For You</span>
           <h2 class="section-title">Not Sure <span>Which Oil?</span></h2>
-          <p>Answer 4 quick questions about your hair. We'll recommend the perfect Vedrithm formulation for your unique needs.</p>
+          <p>Answer 4 quick questions about your hair. We'll recommend the perfect Vedhrithm formulation for your unique needs.</p>
           <a routerLink="/quiz" class="btn-primary">
             Take the Hair Quiz
             <svg width="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -268,19 +344,28 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
     .marquee-strip:hover .marquee-track { animation-play-state: paused; }
     @keyframes marqueeScroll { 0% { transform: translate3d(0,0,0); } 100% { transform: translate3d(-50%,0,0); } }
 
-    /* ── BENEFITS ── */
+    /* ── BENEFITS SLIDER ── */
     .benefits { padding: 8rem 0; }
     .section-header { margin-bottom: 4rem; }
     .section-header.center { text-align: center; }
     .section-desc { margin-top: 1rem; font-size: 0.95rem; color: rgba(250,244,230,0.6); max-width: 500px; line-height: 1.8; }
-    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1.5rem; }
-    .benefit-card { background: var(--forest-mid); border: 1px solid var(--border-gold); border-radius: 4px; padding: 2rem; transition: all 0.4s ease; animation: fadeInUp 0.6s ease both; }
+    .section-header.center .section-desc { margin: 1rem auto 0; }
+    .benefits-slider-wrap { display: flex; align-items: center; gap: 1rem; position: relative; }
+    .benefits-slider-viewport { flex: 1; overflow: hidden; }
+    .benefits-slider-track { display: flex; gap: 1.5rem; transition: transform 0.45s cubic-bezier(0.4,0,0.2,1); will-change: transform; }
+    .benefit-card { flex: 0 0 calc(33.333% - 1rem); min-width: 0; background: var(--forest-mid); border: 1px solid var(--border-gold); border-radius: 4px; padding: 2rem; transition: all 0.4s ease; }
     .benefit-card:hover { background: var(--forest-light); border-color: rgba(212,175,55,0.5); transform: translateY(-4px); box-shadow: var(--shadow-gold); }
     .benefit-icon-wrap { width: 64px; height: 64px; margin-bottom: 1.25rem; border-radius: 50%; background: rgba(212,175,55,0.07); padding: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.35s ease, background 0.35s ease; }
     .benefit-card:hover .benefit-icon-wrap { background: rgba(212,175,55,0.14); transform: scale(1.1) translateY(-3px); }
     .benefit-icon-img { width: 50px; height: 50px; object-fit: contain; filter: drop-shadow(0 3px 10px rgba(212,175,55,0.35)); }
     .benefit-card h3 { font-family: var(--font-display); font-size: 1.3rem; color: var(--gold); margin-bottom: 0.6rem; }
     .benefit-card p { font-size: 0.85rem; color: rgba(250,244,230,0.65); line-height: 1.75; }
+    .slider-nav { width: 44px; height: 44px; border-radius: 50%; background: rgba(212,175,55,0.08); border: 1px solid var(--border-gold); color: var(--gold); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.25s ease; flex-shrink: 0; }
+    .slider-nav:hover:not(:disabled) { background: rgba(212,175,55,0.18); border-color: var(--gold); }
+    .slider-nav:disabled { opacity: 0.3; cursor: not-allowed; }
+    .slider-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(212,175,55,0.2); border: none; cursor: pointer; transition: all 0.25s ease; padding: 0; }
+    .dot.active { background: var(--gold); transform: scale(1.3); }
 
     /* ── KEY BENEFITS VISUAL ROW ── */
     .key-benefits-row { padding: 6rem 0; background: var(--forest-deep, #051610); border-top: 1px solid var(--border-gold); border-bottom: 1px solid var(--border-gold); }
@@ -312,13 +397,15 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
     /* ── INGREDIENTS PREVIEW ── */
     .ingredients-preview { padding: 8rem 0; }
     .ingr-preview-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; margin-top: 3rem; }
-    .ingr-preview-card { background: var(--forest-mid); border: 1px solid var(--border-gold); border-radius: 4px; padding: 1.75rem 1.25rem; text-align: center; transition: all 0.35s ease; }
+    .ingr-preview-card { background: var(--forest-mid); border: 1px solid var(--border-gold); border-radius: 4px; padding: 1.75rem 1.25rem; text-align: center; transition: all 0.35s ease; position: relative; overflow: hidden; cursor: default; }
     .ingr-preview-card:hover { transform: translateY(-6px); background: var(--forest-light); border-color: rgba(212,175,55,0.5); box-shadow: var(--shadow-gold); }
     .ingr-visual { height: 90px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; }
     .ingr-preview-img { width: 76px; height: 76px; object-fit: contain; filter: drop-shadow(0 4px 14px rgba(212,175,55,0.35)); transition: transform 0.3s ease, filter 0.3s ease; border-radius: 50%; background: rgba(212,175,55,0.06); padding: 6px; }
     .ingr-preview-card:hover .ingr-preview-img { transform: scale(1.12) translateY(-4px); filter: drop-shadow(0 10px 24px rgba(212,175,55,0.55)); }
     .ingr-name { font-family: var(--font-display); font-size: 1.05rem; color: var(--gold); margin-bottom: 0.4rem; }
     .ingr-benefit { font-size: 0.75rem; color: rgba(250,244,230,0.55); line-height: 1.6; }
+    .ingr-hover-pill { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(212,175,55,0.12); border-top: 1px solid var(--border-gold); padding: 0.5rem; font-size: 0.72rem; color: var(--gold); transform: translateY(100%); transition: transform 0.3s ease; text-align: center; }
+    .ingr-hover-pill.show { transform: translateY(0); }
     .ingr-cta { text-align: center; margin-top: 3rem; }
 
     /* ── SOCIAL PROOF STRIP ── */
@@ -331,15 +418,21 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
     .proof-cta { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.5rem; border: 1px solid var(--border-gold); border-radius: 50px; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); text-decoration: none; transition: all 0.3s ease; }
     .proof-cta:hover { background: rgba(212,175,55,0.1); border-color: var(--gold); }
 
-    /* ── REVIEW TEASER ── */
+    /* ── REVIEW CAROUSEL ── */
     .review-teaser { padding: 7rem 0; }
-    .teaser-reviews { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
-    .teaser-card { background: var(--forest-mid); border: 1px solid var(--border-gold); border-radius: 8px; padding: 2rem; transition: all 0.35s ease; }
-    .teaser-card:hover { transform: translateY(-4px); border-color: rgba(212,175,55,0.4); box-shadow: var(--shadow-gold); }
-    .teaser-stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 1rem; letter-spacing: 2px; }
-    .teaser-text { font-size: 0.88rem; color: rgba(250,244,230,0.75); line-height: 1.85; font-style: italic; margin-bottom: 1.25rem; }
-    .teaser-author { font-size: 0.78rem; color: rgba(250,244,230,0.45); letter-spacing: 0.05em; }
-    .teaser-author span { color: var(--gold); opacity: 0.7; }
+    .review-carousel { display: flex; align-items: stretch; gap: 1rem; margin-top: 3rem; }
+    .review-carousel-viewport { flex: 1; overflow: hidden; }
+    .review-carousel-track { display: flex; transition: transform 0.45s cubic-bezier(0.4,0,0.2,1); will-change: transform; }
+    .teaser-card { flex: 0 0 100%; min-width: 0; background: var(--forest-mid); border: 1px solid var(--border-gold); border-radius: 8px; padding: 2rem; transition: border-color 0.3s ease; }
+    .teaser-card:hover { border-color: rgba(212,175,55,0.4); }
+    .teaser-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+    .teaser-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg,var(--gold-dark,#b8932a),var(--gold)); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1rem; color: var(--deep-forest,#051a0f); font-weight: 700; flex-shrink: 0; }
+    .teaser-author-name { font-size: 0.92rem; font-weight: 600; color: var(--cream); }
+    .teaser-date { font-size: 0.72rem; color: rgba(250,244,230,0.4); margin-top: 0.1rem; }
+    .teaser-stars-row { margin-left: auto; display: flex; gap: 2px; font-size: 1.1rem; color: rgba(212,175,55,0.2); }
+    .teaser-stars-row .lit { color: var(--gold); }
+    .teaser-text { font-size: 0.9rem; color: rgba(250,244,230,0.75); line-height: 1.85; font-style: italic; margin-bottom: 1.25rem; }
+    .teaser-product { font-size: 0.76rem; color: rgba(250,244,230,0.45); padding: 0.5rem 0.75rem; background: rgba(212,175,55,0.05); border: 1px solid var(--border-gold); border-radius: 4px; }
 
     /* ── QUIZ CTA ── */
     .quiz-cta-section { padding: 8rem 0; background: var(--forest-mid); position: relative; overflow: hidden; }
@@ -350,6 +443,10 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
     .quiz-cta-inner { position: relative; text-align: center; max-width: 600px; margin: 0 auto; }
     .quiz-cta-inner p { font-size: 0.95rem; color: rgba(250,244,230,0.65); margin: 1.25rem 0 2.5rem; line-height: 1.8; }
 
+    @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-14px); } }
+
     @media (max-width: 960px) {
       .hero-content { grid-template-columns: 1fr; gap: 3rem; }
       .hero-product { order: -1; }
@@ -357,20 +454,29 @@ import { IngredientService, Ingredient } from '../../services/ingredient.service
       .story-image-side { display: flex; justify-content: center; }
       .ingr-preview-grid { grid-template-columns: repeat(2,1fr); }
       .kb-grid { grid-template-columns: repeat(2,1fr); }
-      .teaser-reviews { grid-template-columns: 1fr; max-width: 520px; margin-left: auto; margin-right: auto; }
+      .benefit-card { flex: 0 0 calc(50% - 0.75rem); }
     }
     @media (max-width: 600px) {
       .hero-stats { gap: 1rem; }
       .kb-grid { grid-template-columns: repeat(2,1fr); gap: 1.5rem; }
       .proof-inner { gap: 1.5rem; }
       .proof-divider { display: none; }
+      .benefit-card { flex: 0 0 calc(100% - 0rem); }
     }
   `]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   config!: SiteConfig;
   benefits: HomeBenefit[] = [];
   allIngredients: Ingredient[] = [];
+  reviews: Review[] = [];
+
+  hoveredIngr = 0;
+  benefitIndex = 0;
+  reviewCarouselIndex = 0;
+  visibleBenefits = 3;
+
+  private reviewTimer: any;
 
   marqueeItems = ['Coconut Oil','Hibiscus','Fenugreek','Amla','Bhringraj','Curry Leaves','Neem','Sesame','Pure Ayurveda','No Chemicals','Cold Pressed'];
 
@@ -387,15 +493,7 @@ export class HomeComponent implements OnInit {
     { imgSrc: 'assets/ingredients/SourcedLocally.png', title: 'Locally Sourced', desc: 'Ingredients harvested fresh from their native Indian regions' },
   ];
 
-  // 3 review snippets shown on the homepage — edit these as you get real reviews
-  featuredReviews = [
-    { name: 'Anjali M.', text: 'My hair fall reduced dramatically in just 6 weeks. The fragrance is divine — truly Ayurvedic.', product: 'Bhringraj & Castor Base' },
-    { name: 'Priya S.', text: 'The quiz result was spot on! My hair growth has visibly improved and the packaging is beautiful.', product: 'Amla & Sesame Base' },
-    { name: 'Rohan D.', text: 'My dandruff is almost gone after 3 weeks. Light texture, absorbs fast — no greasy residue!', product: 'Neem & Cinnamon Base' },
-  ];
-
   private readonly FALLBACK_IMG = 'assets/ingredients/promotes-growth.png';
-
   private benefitImageMap: Array<{ key: string; src: string }> = [
     { key: 'shine',     src: 'assets/ingredients/adds-shine.png' },
     { key: 'growth',    src: 'assets/ingredients/promotes-growth.png' },
@@ -410,22 +508,82 @@ export class HomeComponent implements OnInit {
   constructor(
     private configService: SiteConfigService,
     private benefitService: HomeBenefitService,
-    private ingredientService: IngredientService
+    private ingredientService: IngredientService,
+    private quizService: QuizService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.config = this.configService.snapshot;
-
-    // Both return static Observables — instant, no network call
     this.benefitService.getAll().subscribe(b => this.benefits = b);
     this.ingredientService.getAll().subscribe(i => this.allIngredients = i);
+
+    // Load live reviews, fall back to static
+    this.quizService.getReviews().subscribe({
+      next: (data: any[]) => {
+        if (data && data.length > 0) {
+          this.reviews = data.map(r => ({
+            ...r,
+            initials: this.getInitials(r.name)
+          }));
+        } else {
+          this.reviews = FALLBACK_REVIEWS;
+        }
+        this.startAutoCarousel();
+      },
+      error: () => {
+        this.reviews = FALLBACK_REVIEWS;
+        this.startAutoCarousel();
+      }
+    });
   }
 
-  get ingredientCount(): number { return this.allIngredients.length || 12; }
+  ngOnDestroy() {
+    if (this.reviewTimer) clearInterval(this.reviewTimer);
+  }
+
+  private startAutoCarousel() {
+    this.reviewTimer = setInterval(() => {
+      this.reviewCarouselIndex = (this.reviewCarouselIndex + 1) % this.displayReviews.length;
+      this.cdr.markForCheck();
+    }, 5000);
+  }
+
+  get liveAvgRating(): number {
+    if (!this.reviews.length) return 0;
+    return this.reviews.reduce((s, r) => s + r.rating, 0) / this.reviews.length;
+  }
+
+  get displayReviews(): Review[] {
+    return this.reviews.length > 0 ? this.reviews.slice(0, 6) : FALLBACK_REVIEWS;
+  }
+
+  get ingredientCount(): number { return this.allIngredients.length || 15; }
   get featuredIngredients(): Ingredient[] { return this.allIngredients.slice(0, 4); }
 
+  get benefitSlideWidth(): number {
+    return this.visibleBenefits === 3 ? 33.333 : this.visibleBenefits === 2 ? 50 : 100;
+  }
+
+  get benefitDots(): number[] {
+    return Array.from({ length: Math.max(0, this.benefits.length - this.visibleBenefits + 1) }, (_,i) => i);
+  }
+
+  prevBenefit() { if (this.benefitIndex > 0) this.benefitIndex--; }
+  nextBenefit() { if (this.benefitIndex < this.benefits.length - this.visibleBenefits) this.benefitIndex++; }
+
+  prevReview() {
+    this.reviewCarouselIndex = (this.reviewCarouselIndex - 1 + this.displayReviews.length) % this.displayReviews.length;
+  }
+  nextReview() {
+    this.reviewCarouselIndex = (this.reviewCarouselIndex + 1) % this.displayReviews.length;
+  }
+
+  getInitials(name: string): string {
+    return name?.split(' ').map(n => n[0]).join('').toUpperCase() || '';
+  }
+
   getBenefitImage(iconSlug: string): string {
-    // Try icon slug first (e.g. 'adds-shine' → adds-shine.png)
     if (iconSlug) return `assets/ingredients/${iconSlug}.png`;
     return this.FALLBACK_IMG;
   }

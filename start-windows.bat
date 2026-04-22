@@ -1,6 +1,6 @@
 @echo off
 echo ========================================
-echo   Vedrithm Frontend - Quick Start
+echo   Vedhrithm Frontend - Quick Start
 echo ========================================
 echo.
 

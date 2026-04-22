@@ -341,7 +341,7 @@ function QuizComponent_div_19_Template(rf, ctx) {
     \u0275\u0275elementStart(26, "svg", 71);
     \u0275\u0275element(27, "path", 72);
     \u0275\u0275elementEnd();
-    \u0275\u0275text(28, " Order Vedrithm on WhatsApp ");
+    \u0275\u0275text(28, " Order Vedhrithm on WhatsApp ");
     \u0275\u0275elementEnd();
     \u0275\u0275namespaceHTML();
     \u0275\u0275elementStart(29, "button", 73);
@@ -498,9 +498,9 @@ var QuizComponent = class _QuizComponent {
   buildWhatsappLink() {
     const name = this.answers["name"] || "Customer";
     const mobile = this.answers["mobileNumber"];
-    const product = this.result?.productName || "Vedrithm Herbal Hair Oil";
+    const product = this.result?.productName || "Vedhrithm Herbal Hair Oil";
     const concern = (this.answers["primaryConcern"] || "").replace(/_/g, " ");
-    const msg = `Hi! I'm ${name} (\u{1F4DE} +91 ${mobile}). I completed the Vedrithm hair quiz and my recommended product is *${product}*. My primary concern is ${concern}. I'm interested in ordering \u2014 please share the details!`;
+    const msg = `Hi! I'm ${name} (\u{1F4DE} +91 ${mobile}). I completed the Vedhrithm hair quiz and my recommended product is *${product}*. My primary concern is ${concern}. I'm interested in ordering \u2014 please share the details!`;
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   }
   reset() {
@@ -530,7 +530,7 @@ var QuizComponent = class _QuizComponent {
         \u0275\u0275text(8, "Hair Quiz");
         \u0275\u0275elementEnd()();
         \u0275\u0275elementStart(9, "p", 5);
-        \u0275\u0275text(10, "Answer a few simple questions and we'll recommend the perfect Vedrithm formulation for your unique hair needs.");
+        \u0275\u0275text(10, "Answer a few simple questions and we'll recommend the perfect Vedhrithm formulation for your unique hair needs.");
         \u0275\u0275elementEnd()()();
         \u0275\u0275elementStart(11, "section", 6)(12, "div", 2)(13, "div", 7);
         \u0275\u0275template(14, QuizComponent_div_14_Template, 7, 5, "div", 8)(15, QuizComponent_div_15_Template, 25, 4, "div", 9)(16, QuizComponent_div_16_Template, 17, 6, "div", 9)(17, QuizComponent_div_17_Template, 15, 0, "div", 10)(18, QuizComponent_div_18_Template, 10, 1, "div", 11)(19, QuizComponent_div_19_Template, 31, 5, "div", 12);

@@ -15,7 +15,7 @@ const WHATSAPP_NUMBER = '919867368847'; // ← Update with your number
       <div class="container">
         <span class="section-tag">Personalised for You</span>
         <h1 class="page-title">Your <span>Hair Quiz</span></h1>
-        <p class="page-subtitle">Answer a few simple questions and we'll blend the perfect Vedrithm formulation for your unique hair needs.</p>
+        <p class="page-subtitle">Answer a few simple questions and we'll blend the perfect Vedhrithm formulation for your unique hair needs.</p>
       </div>
     </section>
 
@@ -359,7 +359,9 @@ export class QuizComponent {
   get currentSingleStep() { return this.currentStep > 0 && this.currentStep <= this.singleSteps.length ? this.singleSteps[this.currentStep - 1] : null; }
   get hasNoConcern(): boolean { return this.selectedConcerns.includes('healthy_hair'); }
 
-  constructor(private quizService: QuizService) { }
+  constructor(private quizService: QuizService) {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
 
   setAnswer(key: string, value: string) { this.answers[key] = value; }
 
@@ -447,9 +449,9 @@ export class QuizComponent {
   buildWhatsappLink(): string {
     const name = this.answers['name'] || 'Customer';
     const mobile = this.answers['mobileNumber'];
-    const product = this.result?.productName || 'Vedrithm Herbal Hair Oil';
+    const product = this.result?.productName || 'Vedhrithm Herbal Hair Oil';
     const concerns = this.selectedConcerns.map(c => this.getConcernLabel(c)).join(', ');
-    const msg = `Hi! I'm ${name} (📞 +91 ${mobile}). I completed the Vedrithm hair quiz.\n\n✨ *My recommended blend:* ${product}\n💆 *My concerns:* ${concerns}\n\nI'm interested in ordering — please share the details!`;
+    const msg = `Hi! I'm ${name} (📞 +91 ${mobile}). I completed the Vedhrithm hair quiz.\n\n✨ *My recommended blend:* ${product}\n💆 *My concerns:* ${concerns}\n\nI'm interested in ordering — please share the details!`;
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   }
 
