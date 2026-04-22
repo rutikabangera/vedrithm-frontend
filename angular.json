@@ -21,7 +21,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/angular.json"
+              "src/angular.json",
+              "src/_redirects"
             ],
             "styles": [
               "src/styles.css"
