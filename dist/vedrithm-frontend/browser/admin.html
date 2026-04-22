@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vedrithm — Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --deep:    #040f09;
+      --forest:  #071a0f;
+      --mid:     #0a2318;
+      --accent:  #122d1c;
+      --panel:   #0d2419;
+      --border:  rgba(212,175,55,.18);
+      --border2: rgba(212,175,55,.38);
+      --gold:    #d4af37;
+      --goldlt:  #e8c84a;
+      --golddk:  #b8941f;
+      --cream:   #faf4e6;
+      --muted:   rgba(250,244,230,.45);
+      --green:   #34c27a;
+      --red:     #e05c5c;
+      --amber:   #e8a83a;
+      --font-d:  'Cormorant Garamond', Georgia, serif;
+      --font-b:  'Manrope', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--deep);
+      color: var(--cream);
+      font-family: var(--font-b);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ── LOGIN SCREEN ── */
+    #loginScreen {
+      position: fixed; inset: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--deep);
+    }
+    .login-box {
+      background: var(--panel);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 3rem 2.5rem;
+      width: 100%; max-width: 380px;
+      text-align: center;
+      box-shadow: 0 40px 80px rgba(0,0,0,.6), 0 0 60px rgba(212,175,55,.06);
+    }
+    .login-box .brand { font-family: var(--font-d); font-size: 2rem; color: var(--gold); letter-spacing: .08em; margin-bottom: .25rem; }
+    .login-box .sub { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 2.5rem; }
+    .login-box input {
+      width: 100%; padding: .75rem 1rem;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--cream);
+      font-family: var(--font-b);
+      font-size: .85rem;
+      margin-bottom: .75rem;
+      outline: none;
+      transition: border-color .25s;
+    }
+    .login-box input:focus { border-color: var(--border2); }
+    .login-box button {
+      width: 100%; padding: .8rem;
+      background: linear-gradient(135deg, var(--golddk), var(--gold));
+      border: none; border-radius: 8px;
+      color: var(--deep); font-family: var(--font-b);
+      font-size: .8rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      cursor: pointer; margin-top: .25rem;
+      transition: opacity .2s, transform .2s;
+    }
+    .login-box button:hover { opacity: .9; transform: translateY(-1px); }
+    .login-error { color: var(--red); font-size: .78rem; margin-top: .75rem; min-height: 1rem; }
+
+    /* ── WRAPPER ── */
+    #app { position: relative; z-index: 1; display: none; }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(4,15,9,.92); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: .9rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .topbar-brand { display: flex; align-items: center; gap: .75rem; }
+    .topbar-brand .leaf { font-size: 1.25rem; }
+    .topbar-brand .name { font-family: var(--font-d); font-size: 1.3rem; color: var(--gold); letter-spacing: .06em; }
+    .topbar-brand .badge { font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); padding: .15rem .5rem; border: 1px solid var(--border); border-radius: 50px; }
+    .topbar-actions { display: flex; align-items: center; gap: 1rem; }
+    .btn-sm {
+      padding: .45rem .9rem; border-radius: 6px;
+      font-family: var(--font-b); font-size: .7rem;
+      font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      cursor: pointer; border: none; transition: all .2s;
+    }
+    .btn-refresh { background: rgba(212,175,55,.1); border: 1px solid var(--border); color: var(--gold); }
+    .btn-refresh:hover { background: rgba(212,175,55,.18); }
+    .btn-logout { background: rgba(224,92,92,.1); border: 1px solid rgba(224,92,92,.25); color: var(--red); }
+    .btn-logout:hover { background: rgba(224,92,92,.18); }
+
+    /* ── MAIN LAYOUT ── */
+    .main { max-width: 1300px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    /* ── STATS ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 2.5rem; }
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem 1.2rem;
+      text-align: center;
+      transition: border-color .25s;
+    }
+    .stat-card:hover { border-color: var(--border2); }
+    .stat-val { font-family: var(--font-d); font-size: 2.6rem; font-weight: 300; line-height: 1; margin-bottom: .4rem; }
+    .stat-val.gold  { color: var(--gold); }
+    .stat-val.green { color: var(--green); }
+    .stat-val.amber { color: var(--amber); }
+    .stat-val.red   { color: var(--red); }
+    .stat-val.cream { color: var(--cream); }
+    .stat-lbl { font-size: .63rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+
+    /* ── TABS ── */
+    .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+    .tab {
+      padding: .85rem 1.8rem;
+      font-size: .72rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--muted); cursor: pointer; border: none;
+      background: none; transition: color .2s;
+      position: relative;
+    }
+    .tab.active { color: var(--gold); }
+    .tab.active::after {
+      content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 2px; background: var(--gold); border-radius: 2px 2px 0 0;
+    }
+    .tab-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: rgba(212,175,55,.15); color: var(--gold);
+      font-size: .65rem; font-weight: 700; margin-left: .4rem;
+    }
+    .tab-badge.green-bg { background: rgba(52,194,122,.15); color: var(--green); }
+
+    /* ── FILTER BAR ── */
+    .filter-bar { display: flex; gap: .5rem; margin-bottom: 1.25rem; flex-wrap: wrap; align-items: center; }
+    .filter-btn {
+      padding: .38rem .85rem; border-radius: 50px;
+      font-size: .67rem; letter-spacing: .12em; text-transform: uppercase;
+      cursor: pointer; border: 1px solid var(--border);
+      background: transparent; color: var(--muted); transition: all .2s;
+    }
+    .filter-btn.active, .filter-btn:hover { border-color: var(--border2); color: var(--gold); background: rgba(212,175,55,.07); }
+    .filter-count { color: var(--muted); font-size: .62rem; margin-left: auto; }
+
+    /* ── LOADING / EMPTY ── */
+    .loading { text-align: center; padding: 3rem; color: var(--muted); font-size: .85rem; letter-spacing: .08em; }
+    .loading::after { content: ''; display: block; width: 28px; height: 28px; border: 2px solid var(--border2); border-top-color: var(--gold); border-radius: 50%; margin: 1rem auto 0; animation: spin .9s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .empty { text-align: center; padding: 4rem 2rem; color: var(--muted); }
+    .empty-icon { font-size: 2.5rem; margin-bottom: 1rem; opacity: .5; }
+
+    /* ── REVIEW CARDS ── */
+    .cards-list { display: flex; flex-direction: column; gap: .85rem; }
+    .review-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem 1.6rem;
+      display: grid;
+      grid-template-columns: 44px 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      transition: border-color .25s, transform .2s;
+      animation: fadeUp .35s ease both;
+    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+    .review-card:hover { border-color: var(--border2); transform: translateY(-1px); }
+
+    .avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--mid));
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-d); font-size: 1.2rem; color: var(--gold);
+      flex-shrink: 0;
+    }
+    .review-body {}
+    .review-header { display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap; margin-bottom: .3rem; }
+    .review-name { font-family: var(--font-d); font-size: 1.1rem; color: var(--cream); }
+    .review-date { font-size: .67rem; color: var(--muted); letter-spacing: .06em; }
+    .review-product { font-size: .67rem; color: var(--muted); letter-spacing: .06em; font-style: italic; }
+    .stars { color: var(--gold); font-size: .9rem; margin-bottom: .5rem; letter-spacing: .05em; }
+    .review-text { font-size: .82rem; color: rgba(250,244,230,.75); line-height: 1.7; font-style: italic; }
+    .review-text::before { content: '"'; }
+    .review-text::after  { content: '"'; }
+
+    .review-actions { display: flex; flex-direction: column; gap: .5rem; flex-shrink: 0; align-items: flex-end; }
+    .status-badge {
+      display: inline-flex; align-items: center; gap: .3rem;
+      padding: .3rem .8rem; border-radius: 50px;
+      font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+    }
+    .status-badge.pending  { background: rgba(232,168,58,.1);  color: var(--amber); border: 1px solid rgba(232,168,58,.25); }
+    .status-badge.approved { background: rgba(52,194,122,.1);  color: var(--green); border: 1px solid rgba(52,194,122,.25); }
+    .status-badge.rejected { background: rgba(224,92,92,.1);   color: var(--red);   border: 1px solid rgba(224,92,92,.25); }
+
+    .action-btns { display: flex; gap: .4rem; }
+    .btn-approve, .btn-reject {
+      padding: .4rem .85rem; border-radius: 6px;
+      font-size: .65rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      cursor: pointer; border: none; transition: all .2s;
+    }
+    .btn-approve { background: rgba(52,194,122,.15); color: var(--green); border: 1px solid rgba(52,194,122,.3); }
+    .btn-approve:hover { background: rgba(52,194,122,.28); }
+    .btn-reject  { background: rgba(224,92,92,.12);  color: var(--red);   border: 1px solid rgba(224,92,92,.28); }
+    .btn-reject:hover  { background: rgba(224,92,92,.25); }
+    .btn-approve:disabled, .btn-reject:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* ── QUIZ TABLE ── */
+    .quiz-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: var(--accent); }
+    thead th {
+      padding: .85rem 1rem; text-align: left;
+      font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; white-space: nowrap;
+      border-bottom: 1px solid var(--border);
+    }
+    tbody tr { border-bottom: 1px solid rgba(212,175,55,.07); transition: background .15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(212,175,55,.03); }
+    tbody td { padding: .85rem 1rem; font-size: .78rem; color: rgba(250,244,230,.8); vertical-align: top; }
+    .td-name { font-family: var(--font-d); font-size: .95rem; color: var(--cream); }
+    .td-phone { font-family: monospace; font-size: .78rem; color: var(--gold); }
+    .wa-link {
+      display: inline-flex; align-items: center; gap: .3rem;
+      padding: .3rem .65rem; border-radius: 6px;
+      background: rgba(37,211,102,.1); color: #25d366;
+      border: 1px solid rgba(37,211,102,.25);
+      font-size: .65rem; font-weight: 600; letter-spacing: .08em;
+      text-decoration: none; transition: all .2s; white-space: nowrap;
+    }
+    .wa-link:hover { background: rgba(37,211,102,.2); }
+    .pill {
+      display: inline-block; padding: .2rem .55rem; border-radius: 50px;
+      font-size: .63rem; background: rgba(212,175,55,.08);
+      color: rgba(212,175,55,.75); border: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    .notif-yes { color: var(--green); }
+    .notif-fail { color: var(--red); }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+      padding: .85rem 1.4rem; border-radius: 10px;
+      font-size: .78rem; font-weight: 500;
+      background: var(--panel); border: 1px solid var(--border2);
+      color: var(--cream);
+      transform: translateY(80px); opacity: 0;
+      transition: all .3s cubic-bezier(.34,1.56,.64,1);
+      pointer-events: none;
+    }
+    #toast.show { transform: none; opacity: 1; }
+    #toast.success { border-color: rgba(52,194,122,.5); color: var(--green); }
+    #toast.error   { border-color: rgba(224,92,92,.5);  color: var(--red); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .topbar { padding: .75rem 1rem; }
+      .main { padding: 1.25rem 1rem 3rem; }
+      .review-card { grid-template-columns: 36px 1fr; }
+      .review-actions { grid-column: 2; flex-direction: row; flex-wrap: wrap; }
+      thead th { font-size: .58rem; padding: .65rem .7rem; }
+      tbody td { padding: .65rem .7rem; font-size: .73rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN SCREEN ── -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="brand">Vedrithm</div>
+    <div class="sub">Admin Dashboard</div>
+    <input type="password" id="passInput" placeholder="Enter admin password" autocomplete="current-password" />
+    <button onclick="attemptLogin()">Enter Dashboard</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div id="app">
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar-brand">
+      <span class="leaf">🌿</span>
+      <span class="name">Vedrithm</span>
+      <span class="badge">Admin</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn-sm btn-refresh" onclick="loadAll()">⟳ Refresh</button>
+      <button class="btn-sm btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-val gold" id="s-total">—</div><div class="stat-lbl">Total Reviews</div></div>
+      <div class="stat-card"><div class="stat-val green" id="s-approved">—</div><div class="stat-lbl">Approved</div></div>
+      <div class="stat-card"><div class="stat-val amber" id="s-pending">—</div><div class="stat-lbl">Pending</div></div>
+      <div class="stat-card"><div class="stat-val cream" id="s-quiz">—</div><div class="stat-lbl">Quiz Leads</div></div>
+      <div class="stat-card"><div class="stat-val gold" id="s-rating">—</div><div class="stat-lbl">Avg Rating</div></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab active" id="tab-reviews" onclick="switchTab('reviews')">Reviews <span class="tab-badge" id="badge-reviews">0</span></button>
+      <button class="tab" id="tab-quiz" onclick="switchTab('quiz')">Quiz Leads <span class="tab-badge green-bg" id="badge-quiz">0</span></button>
+    </div>
+
+    <!-- Reviews Panel -->
+    <div id="panel-reviews">
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all"      onclick="setFilter('all',this)">All</button>
+        <button class="filter-btn"        data-filter="pending"  onclick="setFilter('pending',this)">Pending</button>
+        <button class="filter-btn"        data-filter="approved" onclick="setFilter('approved',this)">Approved</button>
+        <button class="filter-btn"        data-filter="rejected" onclick="setFilter('rejected',this)">Rejected</button>
+        <span class="filter-count" id="filter-count"></span>
+      </div>
+      <div id="reviews-list"><div class="loading">Loading reviews</div></div>
+    </div>
+
+    <!-- Quiz Panel -->
+    <div id="panel-quiz" style="display:none">
+      <div class="quiz-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Mobile</th>
+              <th>Hair Type</th>
+              <th>Scalp</th>
+              <th>Concerns</th>
+              <th>Recommended Product</th>
+              <th>Notif</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="quiz-tbody"><tr><td colspan="10"><div class="loading">Loading leads</div></td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+  // ── CONFIG ──────────────────────────────────────────────────────────────
+  // Replace with your actual deployed Google Apps Script URL
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBD4qAumQOYFqQnfh2wgxh2AK24I4law4MFo1GlHj2rirPvlZu1Ia68kFU1Lrx3uE79w/exec';
+  const ADMIN_PASSWORD = 'AchuMoolya986'; // Change this!
+
+  // ── AUTH ────────────────────────────────────────────────────────────────
+  let authed = false;
+
+  function attemptLogin() {
+    const pw = document.getElementById('passInput').value;
+    if (pw === ADMIN_PASSWORD) {
+      authed = true;
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('app').style.display = 'block';
+      loadAll();
+    } else {
+      document.getElementById('loginError').textContent = 'Incorrect password. Please try again.';
+      document.getElementById('passInput').value = '';
+    }
+  }
+  document.getElementById('passInput').addEventListener('keydown', e => { if (e.key === 'Enter') attemptLogin(); });
+
+  function logout() {
+    authed = false;
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('app').style.display = 'none';
+    document.getElementById('passInput').value = '';
+  }
+
+  // ── STATE ───────────────────────────────────────────────────────────────
+  let allReviews = [];
+  let quizLeads  = [];
+  let currentFilter = 'all';
+  let currentTab = 'reviews';
+
+  // ── LOAD ALL ────────────────────────────────────────────────────────────
+  async function loadAll() {
+    await Promise.all([loadReviews(), loadQuiz()]);
+  }
+
+  async function loadReviews() {
+    try {
+      document.getElementById('reviews-list').innerHTML = '<div class="loading">Loading reviews</div>';
+      const res = await fetch(`${SCRIPT_URL}?action=getAllReviews&t=${Date.now()}`);
+      const data = await res.json();
+      allReviews = Array.isArray(data) ? data : [];
+      renderReviews();
+      updateStats();
+    } catch (e) {
+      document.getElementById('reviews-list').innerHTML = '<div class="empty"><div class="empty-icon">⚠️</div>Could not load reviews. Check your script URL.</div>';
+    }
+  }
+
+  async function loadQuiz() {
+    try {
+      const res = await fetch(`${SCRIPT_URL}?action=getQuizLeads&t=${Date.now()}`);
+      const data = await res.json();
+      quizLeads = Array.isArray(data) ? data : [];
+      renderQuiz();
+      updateStats();
+    } catch (e) {
+      quizLeads = [];
+      renderQuiz();
+    }
+  }
+
+  // ── STATS ───────────────────────────────────────────────────────────────
+  function updateStats() {
+    const approved = allReviews.filter(r => r.status === 'Approved').length;
+    const pending  = allReviews.filter(r => r.status === 'Pending').length;
+    const avgRating = allReviews.length
+      ? (allReviews.reduce((s,r) => s + Number(r.rating), 0) / allReviews.length).toFixed(1)
+      : '—';
+
+    document.getElementById('s-total').textContent    = allReviews.length;
+    document.getElementById('s-approved').textContent = approved;
+    document.getElementById('s-pending').textContent  = pending;
+    document.getElementById('s-quiz').textContent     = quizLeads.length;
+    document.getElementById('s-rating').textContent   = avgRating + (allReviews.length ? ' ★' : '');
+
+    document.getElementById('badge-reviews').textContent = allReviews.length;
+    document.getElementById('badge-quiz').textContent    = quizLeads.length;
+  }
+
+  // ── REVIEWS RENDER ──────────────────────────────────────────────────────
+  function setFilter(f, el) {
+    currentFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+    renderReviews();
+  }
+
+  function renderReviews() {
+    const filtered = currentFilter === 'all'
+      ? allReviews
+      : allReviews.filter(r => r.status?.toLowerCase() === currentFilter);
+
+    document.getElementById('filter-count').textContent =
+      `${filtered.length} of ${allReviews.length}`;
+
+    if (!filtered.length) {
+      document.getElementById('reviews-list').innerHTML =
+        '<div class="empty"><div class="empty-icon">📭</div>No reviews in this category.</div>';
+      return;
+    }
+
+    const html = filtered.map((r, i) => `
+      <div class="review-card" id="card-${r.id}" style="animation-delay:${i*0.04}s">
+        <div class="avatar">${(r.name || '?')[0].toUpperCase()}</div>
+        <div class="review-body">
+          <div class="review-header">
+            <span class="review-name">${escHtml(r.name)}</span>
+            <span class="review-date">${escHtml(r.date)}</span>
+            <span class="review-product">${escHtml(r.productUsed || '')}</span>
+          </div>
+          <div class="stars">${'★'.repeat(Number(r.rating))}${'☆'.repeat(5-Number(r.rating))}</div>
+          <div class="review-text">${escHtml(r.text)}</div>
+        </div>
+        <div class="review-actions">
+          <span class="status-badge ${r.status?.toLowerCase()}">${r.status || 'Pending'}</span>
+          <div class="action-btns">
+            <button class="btn-approve" onclick="updateReview('${r.id}','Approved',this)"
+              ${r.status === 'Approved' ? 'disabled' : ''}>✓ Approve</button>
+            <button class="btn-reject" onclick="updateReview('${r.id}','Rejected',this)"
+              ${r.status === 'Rejected' ? 'disabled' : ''}>✕ Reject</button>
+          </div>
+        </div>
+      </div>`).join('');
+
+    document.getElementById('reviews-list').innerHTML = `<div class="cards-list">${html}</div>`;
+  }
+
+  // ── UPDATE REVIEW STATUS ─────────────────────────────────────────────────
+  async function updateReview(id, newStatus, btn) {
+    const card = document.getElementById(`card-${id}`);
+    card.querySelectorAll('button').forEach(b => b.disabled = true);
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ action: 'updateReviewStatus', id, status: newStatus })
+      });
+      const data = await res.json();
+      if (data.success) {
+        const rev = allReviews.find(r => r.id === id);
+        if (rev) rev.status = newStatus;
+        toast(`Review ${newStatus.toLowerCase()} successfully`, 'success');
+        renderReviews();
+        updateStats();
+      } else {
+        toast(data.error || 'Update failed', 'error');
+        card.querySelectorAll('button').forEach(b => b.disabled = false);
+      }
+    } catch (e) {
+      toast('Network error — check script URL', 'error');
+      card.querySelectorAll('button').forEach(b => b.disabled = false);
+    }
+  }
+
+  // ── QUIZ RENDER ──────────────────────────────────────────────────────────
+  function renderQuiz() {
+    if (!quizLeads.length) {
+      document.getElementById('quiz-tbody').innerHTML =
+        '<tr><td colspan="10"><div class="empty"><div class="empty-icon">📋</div>No quiz submissions yet.</div></td></tr>';
+      return;
+    }
+    const html = quizLeads.map((q, i) => `
+      <tr>
+        <td style="color:var(--muted)">${i+1}</td>
+        <td>${escHtml(q.date || '')}</td>
+        <td class="td-name">${escHtml(q.name || '')}</td>
+        <td class="td-phone">${escHtml(q.mobileNumber || '')}</td>
+        <td><span class="pill">${escHtml(q.hairType || '—')}</span></td>
+        <td><span class="pill">${escHtml(q.scalpType || '—')}</span></td>
+        <td style="max-width:160px;color:var(--muted)">${escHtml(q.concerns || '—')}</td>
+        <td style="max-width:200px">${escHtml(q.recommendedProduct || '—')}</td>
+        <td class="${q.waSent === 'Yes ✅' ? 'notif-yes' : 'notif-fail'}">${q.waSent || '—'}</td>
+        <td>
+          <a class="wa-link" href="https://wa.me/91${q.mobileNumber}?text=${encodeURIComponent(
+            `Hi ${q.name}! 🌿 Your recommended Vedrithm blend is *${q.recommendedProduct}*. Would you like to place an order?`
+          )}" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+        </td>
+      </tr>`).join('');
+    document.getElementById('quiz-tbody').innerHTML = html;
+  }
+
+  // ── TAB SWITCH ───────────────────────────────────────────────────────────
+  function switchTab(tab) {
+    currentTab = tab;
+    ['reviews','quiz'].forEach(t => {
+      document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+      document.getElementById(`panel-${t}`).style.display = t === tab ? 'block' : 'none';
+    });
+  }
+
+  // ── HELPERS ──────────────────────────────────────────────────────────────
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  let toastTimer;
+  function toast(msg, type = 'success') {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = `show ${type}`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { el.className = ''; }, 3200);
+  }
+</script>
+</body>
+</html>
