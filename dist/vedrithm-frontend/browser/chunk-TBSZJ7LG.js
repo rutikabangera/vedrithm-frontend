@@ -1,10 +1,10 @@
 import {
   IngredientService
-} from "./chunk-NLWRHQNA.js";
+} from "./chunk-FVJBLSTL.js";
 import {
   RouterLink,
   SiteConfigService
-} from "./chunk-SYUN4H56.js";
+} from "./chunk-XNDDVEJV.js";
 import {
   CommonModule,
   NgForOf,
@@ -32,7 +32,7 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵtextInterpolate1
-} from "./chunk-O7KYMSXY.js";
+} from "./chunk-BVF5ZBVN.js";
 
 // src/app/pages/ingredients/ingredients.component.ts
 var _c0 = () => [1, 2, 3, 4, 5];
@@ -235,7 +235,7 @@ var IngredientsComponent = class _IngredientsComponent {
     this.allTags = [];
     this.whatsappUrl = "";
     this.heroStats = [
-      { num: "12", label: "Sacred Herbs" },
+      { num: "15", label: "Sacred Herbs" },
       { num: "100%", label: "Cold-Pressed" },
       { num: "0", label: "Chemicals" }
     ];
@@ -247,6 +247,7 @@ var IngredientsComponent = class _IngredientsComponent {
     ];
   }
   ngOnInit() {
+    window.scrollTo({ top: 0, behavior: "instant" });
     const num = this.configService.snapshot.whatsappNumber;
     this.whatsappUrl = `https://wa.me/${num}?text=Hi%2C%20I%20want%20to%20order%20Vedrithm%20Herbal%20Hair%20Oil`;
     this.ingredientService.getAll().subscribe((data) => {
@@ -880,4 +881,4 @@ var IngredientsComponent = class _IngredientsComponent {
 export {
   IngredientsComponent
 };
-//# sourceMappingURL=chunk-RU3WWOMD.js.map
+//# sourceMappingURL=chunk-TBSZJ7LG.js.map

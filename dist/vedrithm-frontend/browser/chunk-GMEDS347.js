@@ -4,7 +4,6 @@ import {
   ElementRef,
   EventEmitter,
   Host,
-  HttpClient,
   Inject,
   Injectable,
   InjectionToken,
@@ -22,7 +21,6 @@ import {
   __spreadProps,
   __spreadValues,
   booleanAttribute,
-  catchError,
   forkJoin,
   forwardRef,
   from,
@@ -31,7 +29,6 @@ import {
   isPromise,
   isSubscribable,
   map,
-  of,
   setClassMetadata,
   ɵɵInheritDefinitionFeature,
   ɵɵNgOnChangesFeature,
@@ -44,9 +41,8 @@ import {
   ɵɵdefineNgModule,
   ɵɵdirectiveInject,
   ɵɵgetInheritedFactory,
-  ɵɵinject,
   ɵɵlistener
-} from "./chunk-O7KYMSXY.js";
+} from "./chunk-BVF5ZBVN.js";
 
 // node_modules/@angular/forms/fesm2022/forms.mjs
 var BaseControlValueAccessor = class _BaseControlValueAccessor {
@@ -6162,156 +6158,12 @@ var ReactiveFormsModule = class _ReactiveFormsModule {
   }], null, null);
 })();
 
-// src/app/services/quiz.service.ts
-var RULES = {
-  hair_fall: {
-    baseOil: "Bhringraj & Castor Base",
-    booster: "Fenugreek Booster",
-    tagline: "Rooted deeply, falling less.",
-    template: `{name}, your {hairType} hair on a {scalpType} scalp with {concern} calls for a strengthening ritual. The Bhringraj & Castor Base deeply nourishes follicles and reduces breakage, while our Fenugreek Booster stimulates growth and anchors each strand from root to tip.`,
-    usageTip: "Warm a few drops between palms and massage into roots for 5 minutes, 2\u20133 times per week. Leave on for at least 1 hour before washing."
-  },
-  slow_growth: {
-    baseOil: "Amla & Sesame Base",
-    booster: "Rosemary Growth Booster",
-    tagline: "Unlock your hair's true potential.",
-    template: `{name}, your {hairType} hair with {concern} needs a growth-activating formula. Our Amla & Sesame Base is rich in Vitamin C to rebuild structure, paired with the Rosemary Booster proven to stimulate circulation and awaken dormant follicles.`,
-    usageTip: "Apply to scalp and strand lengths every 2 days. Gently comb through and wrap hair for 30 minutes before rinsing for maximum absorption."
-  },
-  frizz: {
-    baseOil: "Coconut & Hibiscus Base",
-    booster: "Aloe Moisture Booster",
-    tagline: "Sealed in softness, free of frizz.",
-    template: `{name}, your {hairType} hair with {concern} craves deep hydration and cuticle sealing. The Coconut & Hibiscus Base melts into each strand, while our Aloe Moisture Booster locks in smoothness and eliminates static frizz throughout the day.`,
-    usageTip: "Apply generously through mid-lengths and ends on slightly damp hair. Can be used daily as a light serum or weekly as an overnight mask."
-  },
-  greying: {
-    baseOil: "Curry Leaf & Indian Nard Base",
-    booster: "Nigella Seed Booster",
-    tagline: "Preserve your colour, naturally.",
-    template: `{name}, your {hairType} hair experiencing {concern} benefits from melanin-supporting herbs. Curry Leaf & Indian Nard preserve pigmentation naturally, while Nigella Seeds \u2014 celebrated in ancient texts \u2014 help slow premature greying from the inside out.`,
-    usageTip: "Massage into scalp root by root, 3 times a week. For best results, leave on overnight wrapped in a warm towel."
-  },
-  dandruff: {
-    baseOil: "Neem & Cinnamon Base",
-    booster: "Clove Purifying Booster",
-    tagline: "Calm the scalp. Clear the flake.",
-    template: `{name}, your {scalpType} scalp with {concern} needs antibacterial, antifungal support. Our Neem & Cinnamon Base deeply cleanses the scalp environment, while Cloves \u2014 a potent antimicrobial \u2014 restore scalp balance and eliminate the root cause of flaking.`,
-    usageTip: "Apply directly to scalp, section by section. Leave for 45 minutes minimum. Use twice a week consistently for visible results in 3\u20134 weeks."
-  },
-  dull: {
-    baseOil: "Sesame & Hibiscus Base",
-    booster: "Amla Shine Booster",
-    tagline: "Dull hair is a thing of the past.",
-    template: `{name}, your {hairType} hair suffering from {concern} needs a radiance revival. Our Sesame & Hibiscus Base deeply conditions and adds a natural lustre, while Amla \u2014 the queen of Ayurvedic hair herbs \u2014 rebuilds protein bonds for mirror-like shine.`,
-    usageTip: "Warm the oil slightly and apply from roots to tips. Leave for 1 hour or overnight. Follow with a mild shampoo for glossy, bouncy results."
-  },
-  healthy_hair: {
-    baseOil: "Coconut & Bhringraj Base",
-    booster: "Rosemary & Amla Booster",
-    tagline: "Healthy today. Thriving tomorrow.",
-    template: `{name}, you're already on the right path! Your {hairType} hair on a {scalpType} scalp simply needs a balanced maintenance ritual. Our Coconut & Bhringraj Base nourishes and protects, while the Rosemary & Amla Booster fortifies for long-term vitality.`,
-    usageTip: "Use once or twice a week as a pre-wash treatment. Apply from root to tip, leave for 1 hour, then shampoo gently."
-  },
-  default: {
-    baseOil: "Coconut & Bhringraj Base",
-    booster: "Amla Booster",
-    tagline: "Your personalised Ayurvedic formula.",
-    template: `{name}, based on your {hairType} hair and {scalpType} scalp, we've curated a balancing blend. Our Coconut & Bhringraj Base provides foundational nourishment, and the Amla Booster adds strength and vitality to every strand.`,
-    usageTip: "Apply 2\u20133 times per week, leaving on for at least 1 hour before washing. Consistency is key for lasting results."
-  }
-};
-function formatLabel(val) {
-  if (!val)
-    return "";
-  return val.split("_").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
-}
-function formatConcern(concern) {
-  const map2 = {
-    hair_fall: "excessive hair fall",
-    dandruff: "scalp flaking and dandruff",
-    frizz: "dryness and frizz",
-    greying: "premature greying",
-    dull: "dull and lifeless hair",
-    slow_growth: "slower-than-normal hair growth",
-    healthy_hair: "overall hair nourishment"
-  };
-  return map2[concern] || formatLabel(concern);
-}
-var QuizService = class _QuizService {
-  constructor(http) {
-    this.http = http;
-    this.APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec";
-  }
-  getRecommendation(request) {
-    const concern = request.concerns?.[0] || "default";
-    const rule = RULES[concern] || RULES["default"];
-    const rec = rule.template.replace("{name}", request.name).replace("{hairType}", formatLabel(request.hairType)).replace("{scalpType}", formatLabel(request.scalpType)).replace("{lifestyle}", formatLabel(request.lifestyle)).replace("{concern}", formatConcern(concern));
-    const response = {
-      productName: rule.baseOil + " + " + rule.booster,
-      tagline: rule.tagline,
-      recommendation: rec,
-      keyIngredients: [],
-      usageTip: rule.usageTip
-    };
-    this.saveToSheets(request, response.productName).subscribe();
-    return of(response);
-  }
-  saveToSheets(request, recommendedProduct) {
-    if (!this.APPS_SCRIPT_URL || this.APPS_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec") {
-      return of(null);
-    }
-    const payload = {
-      action: "saveQuiz",
-      name: request.name,
-      mobileNumber: request.mobileNumber,
-      hairType: request.hairType,
-      scalpType: request.scalpType,
-      concerns: request.concerns.join(", "),
-      lifestyle: request.lifestyle,
-      recommendedProduct,
-      submittedAt: (/* @__PURE__ */ new Date()).toISOString()
-    };
-    return this.http.post(this.APPS_SCRIPT_URL, payload, {
-      headers: { "Content-Type": "text/plain" }
-    }).pipe(catchError((err) => {
-      console.error("Sheet save failed:", err);
-      return of(null);
-    }));
-  }
-  saveReview(review) {
-    if (this.APPS_SCRIPT_URL === "https://script.google.com/macros/s/AKfycbzgaMrD2mCvKxk7dvQf1BA3PXnXK1msCD2WdqBhWAz8Z0a6nc9Luxh7ghsRIgIOSWBJSw/exec") {
-      return of({ success: true });
-    }
-    const payload = __spreadProps(__spreadValues({
-      action: "saveReview"
-    }, review), {
-      submittedAt: (/* @__PURE__ */ new Date()).toISOString()
-    });
-    return this.http.post(this.APPS_SCRIPT_URL, payload, {
-      headers: { "Content-Type": "text/plain" }
-    }).pipe(catchError((err) => {
-      console.error("Review save failed:", err);
-      return of({ success: true });
-    }));
-  }
-  static {
-    this.\u0275fac = function QuizService_Factory(t) {
-      return new (t || _QuizService)(\u0275\u0275inject(HttpClient));
-    };
-  }
-  static {
-    this.\u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _QuizService, factory: _QuizService.\u0275fac, providedIn: "root" });
-  }
-};
-
 export {
   DefaultValueAccessor,
   NgControlStatus,
   NgModel,
   MaxLengthValidator,
-  FormsModule,
-  QuizService
+  FormsModule
 };
 /*! Bundled license information:
 
@@ -6322,4 +6174,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-55IE2KJL.js.map
+//# sourceMappingURL=chunk-GMEDS347.js.map

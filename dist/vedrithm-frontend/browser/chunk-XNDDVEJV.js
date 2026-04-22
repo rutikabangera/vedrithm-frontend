@@ -147,7 +147,7 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵsanitizeUrlOrResourceUrl
-} from "./chunk-O7KYMSXY.js";
+} from "./chunk-BVF5ZBVN.js";
 
 // node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs
 var GenericBrowserDomAdapter = class extends DomAdapter {
@@ -6912,6 +6912,19 @@ var ROUTER_IS_PROVIDED = new InjectionToken("", {
   providedIn: "root",
   factory: () => false
 });
+function withInMemoryScrolling(options = {}) {
+  const providers = [{
+    provide: ROUTER_SCROLLER,
+    useFactory: () => {
+      const viewportScroller = inject(ViewportScroller);
+      const zone = inject(NgZone);
+      const transitions = inject(NavigationTransitions);
+      const urlSerializer = inject(UrlSerializer);
+      return new RouterScroller(urlSerializer, transitions, viewportScroller, zone, options);
+    }
+  }];
+  return routerFeature(4, providers);
+}
 function getBootstrapListener() {
   const injector = inject(Injector);
   return (bootstrappedComponentRef) => {
@@ -7250,6 +7263,7 @@ export {
   RouterLink,
   RouterLinkActive,
   provideRouter,
+  withInMemoryScrolling,
   SiteConfigService
 };
 /*! Bundled license information:
@@ -7268,4 +7282,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-SYUN4H56.js.map
+//# sourceMappingURL=chunk-XNDDVEJV.js.map

@@ -27598,6 +27598,7 @@ export {
   ɵɵsanitizeUrl,
   ɵɵsanitizeUrlOrResourceUrl,
   ɵɵresolveWindow,
+  ɵɵresolveDocument,
   RendererStyleFlags2,
   ɵɵadvance,
   ɵɵdirectiveInject,
@@ -27763,4 +27764,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-O7KYMSXY.js.map
+//# sourceMappingURL=chunk-BVF5ZBVN.js.map

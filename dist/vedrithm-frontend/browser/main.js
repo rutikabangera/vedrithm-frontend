@@ -6,8 +6,9 @@ import {
   RouterOutlet,
   SiteConfigService,
   bootstrapApplication,
-  provideRouter
-} from "./chunk-SYUN4H56.js";
+  provideRouter,
+  withInMemoryScrolling
+} from "./chunk-XNDDVEJV.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionScheduler,
@@ -17,6 +18,7 @@ import {
   Injectable,
   NgModule,
   NgZone,
+  Renderer2,
   RendererFactory2,
   RuntimeError,
   ViewEncapsulation$1,
@@ -48,7 +50,7 @@ import {
   ɵɵresolveWindow,
   ɵɵsanitizeUrl,
   ɵɵtext
-} from "./chunk-O7KYMSXY.js";
+} from "./chunk-BVF5ZBVN.js";
 
 // src/app/components/navbar/navbar.component.ts
 var _c0 = () => ({ exact: true });
@@ -56,7 +58,7 @@ var NavbarComponent = class _NavbarComponent {
   constructor() {
     this.scrolled = false;
     this.menuOpen = false;
-    this.whatsappUrl = "https://wa.me/919867368847?text=" + encodeURIComponent("Hi! I'd like to order Vedhrithm hair oil. Can you share more details?");
+    this.whatsappUrl = "https://wa.me/919867368847?text=" + encodeURIComponent("Hi! I'd like to order Vedrithm hair oil. Can you share more details?");
   }
   onScroll() {
     this.scrolled = window.scrollY > 50;
@@ -76,71 +78,85 @@ var NavbarComponent = class _NavbarComponent {
           return ctx.onScroll();
         }, false, \u0275\u0275resolveWindow);
       }
-    }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 23, vars: 10, consts: [[1, "navbar"], [1, "nav-container"], ["routerLink", "/", 1, "nav-logo"], ["src", "assets/images/logo.jpg", "alt", "Vedhrithm", 1, "logo-img"], [1, "logo-text"], [1, "nav-links"], ["routerLink", "/", "routerLinkActive", "active", 3, "click", "routerLinkActiveOptions"], ["routerLink", "/ingredients", "routerLinkActive", "active", 3, "click"], ["routerLink", "/quiz", "routerLinkActive", "active", 3, "click"], ["routerLink", "/reviews", "routerLinkActive", "active", 3, "click"], ["target", "_blank", 1, "nav-whatsapp", 3, "click", "href"], ["viewBox", "0 0 24 24", "fill", "currentColor", "width", "16"], ["d", "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"], [1, "hamburger", 3, "click"]], template: function NavbarComponent_Template(rf, ctx) {
+    }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 30, vars: 16, consts: [[1, "mobile-topbar"], ["routerLink", "/quiz", 1, "topbar-quiz-cta"], [1, "topbar-arrow"], [1, "navbar"], [1, "nav-container"], ["routerLink", "/", 1, "nav-logo"], ["src", "assets/images/logo.jpg", "alt", "Vedrithm", 1, "logo-img"], [1, "logo-text"], [1, "nav-links"], ["routerLink", "/", "routerLinkActive", "active", 3, "click", "routerLinkActiveOptions"], ["routerLink", "/ingredients", "routerLinkActive", "active", 3, "click"], ["routerLink", "/reviews", "routerLinkActive", "active", 3, "click"], ["routerLink", "/quiz", "routerLinkActive", "active", 1, "nav-quiz-btn", 3, "click"], ["target", "_blank", 1, "nav-whatsapp", 3, "click", "href"], ["viewBox", "0 0 24 24", "fill", "currentColor", "width", "16"], ["d", "M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"], [1, "hamburger", 3, "click"]], template: function NavbarComponent_Template(rf, ctx) {
       if (rf & 1) {
-        \u0275\u0275elementStart(0, "nav", 0)(1, "div", 1)(2, "a", 2);
-        \u0275\u0275element(3, "img", 3);
-        \u0275\u0275elementStart(4, "span", 4);
-        \u0275\u0275text(5, "Vedhrithm");
+        \u0275\u0275elementStart(0, "div", 0)(1, "a", 1)(2, "span");
+        \u0275\u0275text(3, "\u{1F33F}");
+        \u0275\u0275elementEnd();
+        \u0275\u0275text(4, " Take Your Free Hair Quiz ");
+        \u0275\u0275elementStart(5, "span", 2);
+        \u0275\u0275text(6, "\u2192");
+        \u0275\u0275elementEnd()()();
+        \u0275\u0275elementStart(7, "nav", 3)(8, "div", 4)(9, "a", 5);
+        \u0275\u0275element(10, "img", 6);
+        \u0275\u0275elementStart(11, "span", 7);
+        \u0275\u0275text(12, "Vedrithm");
         \u0275\u0275elementEnd()();
-        \u0275\u0275elementStart(6, "div", 5)(7, "a", 6);
-        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_7_listener() {
+        \u0275\u0275elementStart(13, "div", 8)(14, "a", 9);
+        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_14_listener() {
           return ctx.closeMenu();
         });
-        \u0275\u0275text(8, "Home");
+        \u0275\u0275text(15, "Home");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(9, "a", 7);
-        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_9_listener() {
+        \u0275\u0275elementStart(16, "a", 10);
+        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_16_listener() {
           return ctx.closeMenu();
         });
-        \u0275\u0275text(10, "Ingredients");
+        \u0275\u0275text(17, "Ingredients");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(11, "a", 8);
-        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_11_listener() {
+        \u0275\u0275elementStart(18, "a", 11);
+        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_18_listener() {
           return ctx.closeMenu();
         });
-        \u0275\u0275text(12, "Hair Quiz");
+        \u0275\u0275text(19, "Reviews");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(13, "a", 9);
-        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_13_listener() {
+        \u0275\u0275elementStart(20, "a", 12);
+        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_20_listener() {
           return ctx.closeMenu();
         });
-        \u0275\u0275text(14, "Reviews");
+        \u0275\u0275text(21, " \u{1F33F} Hair Quiz ");
         \u0275\u0275elementEnd();
-        \u0275\u0275elementStart(15, "a", 10);
-        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_15_listener() {
+        \u0275\u0275elementStart(22, "a", 13);
+        \u0275\u0275listener("click", function NavbarComponent_Template_a_click_22_listener() {
           return ctx.closeMenu();
         });
         \u0275\u0275namespaceSVG();
-        \u0275\u0275elementStart(16, "svg", 11);
-        \u0275\u0275element(17, "path", 12);
+        \u0275\u0275elementStart(23, "svg", 14);
+        \u0275\u0275element(24, "path", 15);
         \u0275\u0275elementEnd();
-        \u0275\u0275text(18, " Order ");
+        \u0275\u0275text(25, " Order ");
         \u0275\u0275elementEnd()();
         \u0275\u0275namespaceHTML();
-        \u0275\u0275elementStart(19, "button", 13);
-        \u0275\u0275listener("click", function NavbarComponent_Template_button_click_19_listener() {
+        \u0275\u0275elementStart(26, "button", 16);
+        \u0275\u0275listener("click", function NavbarComponent_Template_button_click_26_listener() {
           return ctx.menuOpen = !ctx.menuOpen;
         });
-        \u0275\u0275element(20, "span")(21, "span")(22, "span");
+        \u0275\u0275element(27, "span")(28, "span")(29, "span");
         \u0275\u0275elementEnd()()();
       }
       if (rf & 2) {
+        \u0275\u0275advance(7);
         \u0275\u0275classProp("scrolled", ctx.scrolled)("menu-open", ctx.menuOpen);
         \u0275\u0275advance(6);
         \u0275\u0275classProp("open", ctx.menuOpen);
         \u0275\u0275advance();
-        \u0275\u0275property("routerLinkActiveOptions", \u0275\u0275pureFunction0(9, _c0));
+        \u0275\u0275property("routerLinkActiveOptions", \u0275\u0275pureFunction0(15, _c0));
         \u0275\u0275advance(8);
         \u0275\u0275property("href", ctx.whatsappUrl, \u0275\u0275sanitizeUrl);
         \u0275\u0275advance(4);
         \u0275\u0275attribute("aria-label", ctx.menuOpen ? "Close menu" : "Open menu");
+        \u0275\u0275advance();
+        \u0275\u0275classProp("r1", ctx.menuOpen);
+        \u0275\u0275advance();
+        \u0275\u0275classProp("r2", ctx.menuOpen);
+        \u0275\u0275advance();
+        \u0275\u0275classProp("r3", ctx.menuOpen);
       }
-    }, dependencies: [RouterLink, RouterLinkActive, CommonModule], styles: ["\n\n.navbar[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: 1000;\n  padding: 1.25rem 0;\n  transition: all 0.4s ease;\n}\n.navbar.scrolled[_ngcontent-%COMP%] {\n  background: rgba(10, 28, 16, 0.95);\n  -webkit-backdrop-filter: blur(20px);\n  backdrop-filter: blur(20px);\n  padding: 0.85rem 0;\n  border-bottom: 1px solid var(--border-gold);\n}\n.nav-container[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem;\n  display: flex;\n  align-items: center;\n  gap: 2rem;\n}\n.nav-logo[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  text-decoration: none;\n}\n.logo-img[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  object-fit: cover;\n  border: 1px solid var(--border-gold);\n}\n.logo-text[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.4rem;\n  color: var(--cream);\n  letter-spacing: 0.05em;\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 2.5rem;\n  margin-left: auto;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  letter-spacing: 0.15em;\n  text-transform: uppercase;\n  color: rgba(250, 244, 230, 0.65);\n  transition: color 0.3s ease;\n  text-decoration: none;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover, .nav-links[_ngcontent-%COMP%]   a.active[_ngcontent-%COMP%] {\n  color: var(--cream);\n}\n.nav-whatsapp[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.25rem;\n  border: 1px solid rgba(37, 211, 102, 0.4);\n  border-radius: 50px;\n  color: rgba(37, 211, 102, 0.9) !important;\n  transition: all 0.3s ease !important;\n}\n.nav-whatsapp[_ngcontent-%COMP%]:hover {\n  background: rgba(37, 211, 102, 0.12);\n  border-color: rgba(37, 211, 102, 0.7);\n  color: #25d366 !important;\n}\n.hamburger[_ngcontent-%COMP%] {\n  display: none;\n  flex-direction: column;\n  gap: 5px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  padding: 4px;\n}\n.hamburger[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n  width: 22px;\n  height: 1.5px;\n  background: var(--cream);\n  transition: all 0.3s ease;\n}\n@media (max-width:768px) {\n  .hamburger[_ngcontent-%COMP%] {\n    display: flex;\n    margin-left: auto;\n  }\n  .nav-links[_ngcontent-%COMP%] {\n    position: fixed;\n    top: 0;\n    right: -100%;\n    width: 75%;\n    max-width: 300px;\n    height: 100vh;\n    background: var(--deep-forest);\n    border-left: 1px solid var(--border-gold);\n    flex-direction: column;\n    align-items: flex-start;\n    padding: 5rem 2rem 2rem;\n    gap: 1.5rem;\n    transition: right 0.4s ease;\n  }\n  .nav-links.open[_ngcontent-%COMP%] {\n    right: 0;\n  }\n  .nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n    font-size: 0.9rem;\n  }\n}\n/*# sourceMappingURL=navbar.component.css.map */"] });
+    }, dependencies: [RouterLink, RouterLinkActive, CommonModule], styles: ["\n\n.mobile-topbar[_ngcontent-%COMP%] {\n  display: none;\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: 1100;\n  background:\n    linear-gradient(\n      90deg,\n      var(--forest-mid) 0%,\n      var(--forest-accent) 50%,\n      var(--forest-mid) 100%);\n  border-bottom: 1px solid rgba(212, 175, 55, 0.35);\n}\n.topbar-quiz-cta[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  gap: 0.5rem;\n  width: 100%;\n  padding: 0.6rem 1rem;\n  font-size: 0.8rem;\n  font-family: var(--font-body);\n  font-weight: 700;\n  letter-spacing: 0.1em;\n  color: var(--gold-light) !important;\n  text-decoration: none;\n  text-transform: uppercase;\n}\n.topbar-arrow[_ngcontent-%COMP%] {\n  transition: transform 0.2s ease;\n}\n.topbar-quiz-cta[_ngcontent-%COMP%]:hover   .topbar-arrow[_ngcontent-%COMP%] {\n  transform: translateX(4px);\n}\n.navbar[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: 1000;\n  padding: 1.25rem 0;\n  transition: all 0.4s ease;\n}\n.navbar.scrolled[_ngcontent-%COMP%] {\n  background: rgba(10, 28, 16, 0.95);\n  -webkit-backdrop-filter: blur(20px);\n  backdrop-filter: blur(20px);\n  padding: 0.85rem 0;\n  border-bottom: 1px solid var(--border-gold);\n}\n.nav-container[_ngcontent-%COMP%] {\n  max-width: 1200px;\n  margin: 0 auto;\n  padding: 0 2rem;\n  display: flex;\n  align-items: center;\n  gap: 2rem;\n}\n.nav-logo[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.75rem;\n  text-decoration: none;\n}\n.logo-img[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  object-fit: cover;\n  border: 1px solid var(--border-gold);\n}\n.logo-text[_ngcontent-%COMP%] {\n  font-family: var(--font-display);\n  font-size: 1.4rem;\n  color: var(--cream);\n  letter-spacing: 0.05em;\n}\n.nav-links[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 2.5rem;\n  margin-left: auto;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  font-size: 0.78rem;\n  letter-spacing: 0.15em;\n  text-transform: uppercase;\n  color: rgba(250, 244, 230, 0.65);\n  transition: color 0.3s ease;\n  text-decoration: none;\n}\n.nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover, .nav-links[_ngcontent-%COMP%]   a.active[_ngcontent-%COMP%] {\n  color: var(--cream);\n}\n.nav-quiz-btn[_ngcontent-%COMP%] {\n  display: flex !important;\n  align-items: center;\n  gap: 0.4rem;\n  padding: 0.5rem 1.1rem !important;\n  background: rgba(212, 175, 55, 0.1) !important;\n  border: 1px solid rgba(212, 175, 55, 0.5) !important;\n  border-radius: 50px;\n  color: var(--gold) !important;\n  font-weight: 600;\n  transition: all 0.3s ease !important;\n}\n.nav-quiz-btn[_ngcontent-%COMP%]:hover {\n  background: rgba(212, 175, 55, 0.2) !important;\n  border-color: var(--gold) !important;\n  color: var(--gold-light) !important;\n  transform: translateY(-1px);\n}\n.nav-quiz-btn.active[_ngcontent-%COMP%] {\n  background: rgba(212, 175, 55, 0.18) !important;\n  color: var(--gold-light) !important;\n}\n.nav-whatsapp[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n  padding: 0.55rem 1.25rem;\n  border: 1px solid rgba(37, 211, 102, 0.4);\n  border-radius: 50px;\n  color: rgba(37, 211, 102, 0.9) !important;\n  transition: all 0.3s ease !important;\n}\n.nav-whatsapp[_ngcontent-%COMP%]:hover {\n  background: rgba(37, 211, 102, 0.12);\n  border-color: rgba(37, 211, 102, 0.7);\n  color: #25d366 !important;\n}\n.hamburger[_ngcontent-%COMP%] {\n  display: none;\n  flex-direction: column;\n  gap: 5px;\n  background: none;\n  border: none;\n  cursor: pointer;\n  padding: 4px;\n}\n.hamburger[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: block;\n  width: 22px;\n  height: 1.5px;\n  background: var(--cream);\n  transition: all 0.35s ease;\n  transform-origin: center;\n}\n.hamburger[_ngcontent-%COMP%]   span.r1[_ngcontent-%COMP%] {\n  transform: translateY(6.5px) rotate(45deg);\n}\n.hamburger[_ngcontent-%COMP%]   span.r2[_ngcontent-%COMP%] {\n  opacity: 0;\n  transform: scaleX(0);\n}\n.hamburger[_ngcontent-%COMP%]   span.r3[_ngcontent-%COMP%] {\n  transform: translateY(-6.5px) rotate(-45deg);\n}\n@media (max-width:768px) {\n  .mobile-topbar[_ngcontent-%COMP%] {\n    display: flex;\n  }\n  .navbar[_ngcontent-%COMP%] {\n    top: 33px;\n  }\n  .hamburger[_ngcontent-%COMP%] {\n    display: flex;\n    margin-left: auto;\n  }\n  .nav-links[_ngcontent-%COMP%] {\n    position: fixed;\n    top: 33px;\n    right: -100%;\n    width: 80%;\n    max-width: 300px;\n    height: calc(100vh - 33px);\n    background: var(--deep-forest);\n    border-left: 1px solid var(--border-gold);\n    flex-direction: column;\n    align-items: flex-start;\n    padding: 5rem 2rem 2rem;\n    gap: 1.5rem;\n    transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);\n    overflow-y: auto;\n  }\n  .nav-links.open[_ngcontent-%COMP%] {\n    right: 0;\n    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);\n  }\n  .nav-links[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n    font-size: 0.9rem;\n  }\n  .nav-quiz-btn[_ngcontent-%COMP%] {\n    width: 100%;\n    justify-content: center;\n    font-size: 0.85rem !important;\n    padding: 0.65rem 1.4rem !important;\n  }\n}\n@media (min-width:769px) {\n  .mobile-topbar[_ngcontent-%COMP%] {\n    display: none;\n  }\n}\n/*# sourceMappingURL=navbar.component.css.map */"] });
   }
 };
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(NavbarComponent, { className: "NavbarComponent", filePath: "src\\app\\components\\navbar\\navbar.component.ts", lineNumber: 56 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(NavbarComponent, { className: "NavbarComponent", filePath: "src\\app\\components\\navbar\\navbar.component.ts", lineNumber: 132 });
 })();
 
 // src/app/components/footer/footer.component.ts
@@ -273,13 +289,61 @@ var WhatsappButtonComponent = class _WhatsappButtonComponent {
 
 // src/app/app.component.ts
 var AppComponent = class _AppComponent {
+  constructor(renderer, document2) {
+    this.renderer = renderer;
+    this.document = document2;
+    this.sparkleThrottle = 0;
+  }
+  ngOnInit() {
+    this.initScrollReveal();
+  }
+  onMouseMove(e) {
+    const now = Date.now();
+    if (now - this.sparkleThrottle < 80)
+      return;
+    this.sparkleThrottle = now;
+    const el = this.renderer.createElement("div");
+    this.renderer.addClass(el, "cursor-sparkle");
+    this.renderer.setStyle(el, "left", e.clientX + "px");
+    this.renderer.setStyle(el, "top", e.clientY + "px");
+    const hue = 40 + Math.random() * 20;
+    this.renderer.setStyle(el, "background", `hsl(${hue}, 80%, 60%)`);
+    this.renderer.setStyle(el, "width", 4 + Math.random() * 4 + "px");
+    this.renderer.setStyle(el, "height", 4 + Math.random() * 4 + "px");
+    this.renderer.appendChild(this.document.body, el);
+    setTimeout(() => el.remove(), 700);
+  }
+  initScrollReveal() {
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          this.observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    setTimeout(() => this.observeRevealElements(), 300);
+  }
+  observeRevealElements() {
+    const targets = this.document.querySelectorAll(".benefit-card, .ingr-preview-card, .kb-item, .pillar, .teaser-card, .review-card, .ingredient-card, .prov-pillar");
+    targets.forEach((el) => {
+      el.classList.add("reveal");
+      this.observer.observe(el);
+    });
+  }
   static {
     this.\u0275fac = function AppComponent_Factory(t) {
-      return new (t || _AppComponent)();
+      return new (t || _AppComponent)(\u0275\u0275directiveInject(Renderer2), \u0275\u0275directiveInject(DOCUMENT));
     };
   }
   static {
-    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AppComponent, selectors: [["app-root"]], standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 5, vars: 0, template: function AppComponent_Template(rf, ctx) {
+    this.\u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AppComponent, selectors: [["app-root"]], hostBindings: function AppComponent_HostBindings(rf, ctx) {
+      if (rf & 1) {
+        \u0275\u0275listener("mousemove", function AppComponent_mousemove_HostBindingHandler($event) {
+          return ctx.onMouseMove($event);
+        });
+      }
+    }, standalone: true, features: [\u0275\u0275StandaloneFeature], decls: 5, vars: 0, template: function AppComponent_Template(rf, ctx) {
       if (rf & 1) {
         \u0275\u0275element(0, "app-navbar");
         \u0275\u0275elementStart(1, "main");
@@ -291,7 +355,7 @@ var AppComponent = class _AppComponent {
   }
 };
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent", filePath: "src\\app\\app.component.ts", lineNumber: 19 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AppComponent, { className: "AppComponent", filePath: "src\\app\\app.component.ts", lineNumber: 20 });
 })();
 
 // node_modules/@angular/animations/fesm2022/animations.mjs
@@ -4829,20 +4893,24 @@ var NoopAnimationsModule = class _NoopAnimationsModule {
 var routes = [
   {
     path: "",
-    loadComponent: () => import("./chunk-BOEAN3EA.js").then((m) => m.HomeComponent)
+    loadComponent: () => import("./chunk-MLRF6LEP.js").then((m) => m.HomeComponent)
   },
   {
     path: "ingredients",
-    loadComponent: () => import("./chunk-RU3WWOMD.js").then((m) => m.IngredientsComponent)
+    loadComponent: () => import("./chunk-TBSZJ7LG.js").then((m) => m.IngredientsComponent)
   },
   {
     path: "quiz",
-    loadComponent: () => import("./chunk-3LBHJEYJ.js").then((m) => m.QuizComponent)
+    loadComponent: () => import("./chunk-BQRGM5EF.js").then((m) => m.QuizComponent)
   },
   {
     path: "reviews",
-    loadComponent: () => import("./chunk-P5SKTKHN.js").then((m) => m.ReviewsComponent)
+    loadComponent: () => import("./chunk-CDDXXXHA.js").then((m) => m.ReviewsComponent)
   },
+  /*{
+    path: 'admin',
+    loadComponent: () => import('./pages/admin/admin.component').then(m => m.AdminComponent)
+  },*/
   {
     path: "**",
     redirectTo: ""
@@ -4852,7 +4920,7 @@ var routes = [
 // src/app/app.config.ts
 var appConfig = {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: "top", anchorScrolling: "enabled" })),
     provideHttpClient(),
     provideAnimations()
   ]

@@ -1,7 +1,7 @@
 import {
   of,
   ɵɵdefineInjectable
-} from "./chunk-O7KYMSXY.js";
+} from "./chunk-BVF5ZBVN.js";
 
 // src/app/services/ingredient.service.ts
 var INGREDIENTS = [
@@ -148,6 +148,42 @@ var INGREDIENTS = [
     originPlace: "Madhya Pradesh",
     displayOrder: 12,
     benefits: ["Inhibits DHT naturally", "Calms inflamed scalp", "Antioxidant-rich", "Supports melanin production"]
+  },
+  {
+    id: 13,
+    name: "Cinnamon",
+    sanskritName: "Cinnamomum Verum",
+    emoji: "\u{1F342}",
+    imageSlug: "cinnamon",
+    tag: "Scalp Stimulation",
+    description: "Ceylon Cinnamon is a warming circulatory stimulant that dilates blood vessels in the scalp, dramatically increasing nutrient delivery to hair follicles. Its antimicrobial properties also fight scalp fungus and bacteria.",
+    originPlace: "Kerala & Sri Lanka Border",
+    displayOrder: 13,
+    benefits: ["Boosts scalp blood flow", "Antimicrobial action", "Stimulates follicle activity", "Warms and revives dull scalp"]
+  },
+  {
+    id: 14,
+    name: "Cloves",
+    sanskritName: "Syzygium Aromaticum",
+    emoji: "\u{1F33F}",
+    imageSlug: "cloves",
+    tag: "Purifying & Strengthening",
+    description: "Cloves are rich in eugenol \u2014 a powerful antioxidant and antiseptic that purifies the scalp, combats free radical damage to hair fibres, and strengthens the cortex of each strand from within.",
+    originPlace: "Tamil Nadu & Kerala",
+    displayOrder: 14,
+    benefits: ["Eugenol-rich antioxidant", "Deep scalp antiseptic", "Combats free radical damage", "Fortifies hair cortex"]
+  },
+  {
+    id: 15,
+    name: "Indian Nard",
+    sanskritName: "Nardostachys Jatamansi",
+    emoji: "\u{1F338}",
+    imageSlug: "indian-nard",
+    tag: "Rare Ayurvedic Herb",
+    description: "Jatamansi is one of the rarest and most revered herbs in Ayurvedic medicine, used since Vedic times for its profound ability to calm the mind-scalp connection, enhance pigmentation, and awaken dormant follicles.",
+    originPlace: "Himalayas, Uttarakhand",
+    displayOrder: 15,
+    benefits: ["Awakens dormant follicles", "Enhances hair pigmentation", "Rare Himalayan sourcing", "Calms mind-scalp stress axis"]
   }
 ];
 var IngredientService = class _IngredientService {
@@ -167,4 +203,4 @@ var IngredientService = class _IngredientService {
 export {
   IngredientService
 };
-//# sourceMappingURL=chunk-NLWRHQNA.js.map
+//# sourceMappingURL=chunk-FVJBLSTL.js.map
