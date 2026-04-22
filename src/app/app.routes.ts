@@ -17,10 +17,10 @@ export const routes: Routes = [
     path: 'reviews',
     loadComponent: () => import('./pages/reviews/reviews.component').then(m => m.ReviewsComponent)
   },
-  {
+  /*{
     path: 'admin',
     loadComponent: () => import('./pages/admin/admin.component').then(m => m.AdminComponent)
-  },
+  },*/
   {
     path: '**',
     redirectTo: ''
